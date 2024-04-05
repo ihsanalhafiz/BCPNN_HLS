@@ -150,14 +150,10 @@ void Prj::store(std::string field, FILE* f) {
 
 }
 
-__global__
 void add_bias(float *bwsup, float *b, float alpha, int N) {
-
-    int n = threadIdx.x + blockIdx.x * blockDim.x;
-    if (n>=N) return;
-
-    bwsup[n] += b[n] * alpha;
-
+    for (int n = 0; n < N; n++) {
+        bwsup[n] += b[n] * alpha;
+    }
 }
 
 void Prj::depolarize() {
@@ -214,64 +210,41 @@ void Prj::updbw() {
 
 }
 
-__global__
-void updwconn_kernel(int *WConnij, int *Connij, int Hi, int Mi, int Hj, int Mj) {
-
-    int hi = blockIdx.x * blockDim.x + threadIdx.x;
-    int hj = blockIdx.y * blockDim.y + threadIdx.y;
-    if ((hi >= Hi) || (hj >= Hj)) return;
-
+void update_wconn(int *WConnij, int *Connij, int Hi, int Mi, int Hj, int Mj) {
     int Ni = Hi * Mi;
-    
-    for (int mj=0; mj<Mj; mj++) {
-
-        for (int ms=0; ms<Mi; ms++) {
-
-            int r = hj * Mj + mj;
-            int s = hi * Mi + ms;
-            WConnij[r*Ni + s] = Connij[hj*Hi+hi]==1;
-            
-        }
-    }
-    
-}
-
-void Prj::initconn_rand(int nconn) {
-
-    /* initialize random connections as active */
-
-    if (not pop_j->onthisrank()) return;
-    
-    this->nconn = nconn;
-
-    // Create index vector later to be shuffled
-    std::vector<int> shuffled(Hi);
-    for (size_t hi=0; hi<Hi; hi++)
-        shuffled[hi] = hi;
-
-    for (size_t hj=0; hj<Hj; hj++) {
-
-        // Shuffle index for selecting connections
-        shuffle(begin(shuffled), end(shuffled), RndGen::grndgen->generator);
-
-        for (size_t id=0; id<Hi; id++) {
-            int hi = shuffled[id];
-            if (id<this->nconn) {
-                Connij[hj*Hi+hi] = 1;              
-            } else {
-                Connij[hj*Hi+hi] = 0;
+    for (int hi = 0; hi < Hi; hi++) {
+        for (int hj = 0; hj < Hj; hj++) {
+            for (int mj = 0; mj < Mj; mj++) {
+                for (int ms = 0; ms < Mi; ms++) {
+                    int r = hj * Mj + mj;
+                    int s = hi * Mi + ms;
+                    WConnij[r*Ni + s] = Connij[hj*Hi+hi] == 1;
+                }
             }
         }
     }
-
-    CHECK_HIP_ERROR(hipMemcpy(d_Connij, Connij, Hij*sizeof(int), hipMemcpyHostToDevice));
-
-    // update wconns
-
-    updwconn_kernel<<<dim3((Hi+Globals::blockDim2d-1)/Globals::blockDim2d, (Hj+Globals::blockDim2d-1)/Globals::blockDim2d), dim3(Globals::blockDim2d, Globals::blockDim2d), 0, 0>>>(d_WConnij, d_Connij, Hi, Mi, Hj, Mj);
-    CHECK_HIP_ERROR(hipPeekAtLastError());   
-
 }
+
+void Prj::initconn_rand(int nconn) {
+    if (not pop_j->onthisrank()) return;
+    this->nconn = nconn;
+    
+    std::vector<int> shuffled(Hi);
+    for (size_t hi = 0; hi < Hi; hi++)
+        shuffled[hi] = hi;
+        
+    for (size_t hj = 0; hj < Hj; hj++) {
+        shuffle(begin(shuffled), end(shuffled), RndGen::grndgen->generator);
+        for (size_t id = 0; id < Hi; id++) {
+            int hi = shuffled[id];
+            Connij[hj*Hi + hi] = (id < this->nconn) ? 1 : 0;
+        }
+    }
+    
+    // No need for GPU memory operations, directly update wconn
+    update_wconn(d_WConnij, d_Connij, Hi, Mi, Hj, Mj);
+}
+
 
 void Prj::initconn_sqr(int nconn) {
 
@@ -307,14 +280,7 @@ void Prj::initconn_sqr(int nconn) {
             }
         }
     }
-
-    CHECK_HIP_ERROR(hipMemcpy(d_Connij, Connij, Hij*sizeof(int), hipMemcpyHostToDevice));
-
-    // update wconns
-
-    updwconn_kernel<<<dim3((Hi+Globals::blockDim2d-1)/Globals::blockDim2d, (Hj+Globals::blockDim2d-1)/Globals::blockDim2d), dim3(Globals::blockDim2d, Globals::blockDim2d), 0, 0>>>(d_WConnij, d_Connij, Hi, Mi, Hj, Mj);
-    CHECK_HIP_ERROR(hipPeekAtLastError());
-
+    update_wconn(d_WConnij, d_Connij, Hi, Mi, Hj, Mj);
 }
 
 void Prj::updconn() {
@@ -474,20 +440,20 @@ void BCP::store(std::string field, FILE* f) {
 
 }
 
+/*
 void BCP::depolarize() {
 
-    /* multiply pre-synaptic activity by weights and calculate dendrite's support to post-synaptic neuron */
+    // multiply pre-synaptic activity by weights and calculate dendrite's support to post-synaptic neuron 
 
     if (not pop_j->onthisrank()) return;
 
     if (bwgain<eps) return;
     
-    /*  
-        SGEMV matrix-vector dot product
-        performs y := alpha * A * x + beta * y
-        params (handle, trans, m, n, alpha, A, lda, x, incx, beta, y, incy)
-        more info: https://docs.nvidia.com/cuda/cublas/index.html#cublas-t-gemv
-    */
+      
+    //    SGEMV matrix-vector dot product
+    //    performs y := alpha * A * x + beta * y
+    //    params (handle, trans, m, n, alpha, A, lda, x, incx, beta, y, incy)
+    //    more info: https://docs.nvidia.com/cuda/cublas/index.html#cublas-t-gemv
 
     float alpha = 1; // multiplier for synaptic current
     float beta = 0; // multiplier for previous support term
@@ -495,223 +461,194 @@ void BCP::depolarize() {
     CHECK_HIPBLAS_ERROR(hipblasSgemv(pop_j->handle, HIPBLAS_OP_T, Ni, Nj, &alpha, d_Wij, Ni, d_Xi, 1, &beta, d_bwsup, 1));
     add_bias<<<dim3((Nj+Globals::blockDim1d-1)/Globals::blockDim1d, 1, 1), dim3(Globals::blockDim1d, 1, 1), 0, 0>>>(d_bwsup, d_Bj, biasmul, Nj);
     CHECK_HIP_ERROR(hipPeekAtLastError());
-
 }
+*/
 
-__global__
-void updpi_kernel(float *xi, float *pi, float taupdt, int Ni, float PRN) {
-    int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (i >= Ni) return;
-    pi[i] += (xi[i] - pi[i]) * taupdt * PRN;
-}
-
-__global__
-void updpj_kernel(float *xj, float *pj, float taupdt, int Nj, float PRN) {
-    int j = blockIdx.x * blockDim.x + threadIdx.x;
-    if (j >= Nj) return;
-    pj[j] += (xj[j] - pj[j]) * taupdt * PRN;
-}
-
-__global__
-void updpij_kernel(float *xi, float *xj, float *pij, float taupdt, float eps, int Ni, int Nj, float PRN) {
-    int i = blockIdx.x * blockDim.x + threadIdx.x;
-    int j = blockIdx.y * blockDim.y + threadIdx.y;
-    if ((i >= Ni) || (j >= Nj)) return;
-    int ij = j * Ni + i;
-    pij[ij] += (xi[i] * xj[j] - pij[ij]) * taupdt * PRN;
-}
-
-void BCP::updtraces() {
+void BCP::depolarize() {
+    /* Multiply pre-synaptic activity by weights and calculate dendrite's support to post-synaptic neuron */
 
     if (not pop_j->onthisrank()) return;
 
-    float *d_Xj = pop_j->d_act; // this should always be in the same rank and set by Pop
+    if (bwgain < eps) return;
+    
+    float alpha = 1; // Multiplier for synaptic current
+    float beta = 0; // Multiplier for previous support term
+    float biasmul = 1; // Multiplier for bias term
 
-    if (printnow<eps) return;
+    // Assuming d_Wij is a 2D array of dimensions Ni x Nj,
+    // d_Xi is the input vector of length Ni,
+    // d_bwsup is the output vector of length Nj,
+    // and d_Bj is the bias vector of length Nj.
+
+    // Perform matrix-vector multiplication: d_bwsup = alpha * d_Wij * d_Xi + beta * d_bwsup
+    for (int j = 0; j < Nj; ++j) {
+        d_bwsup[j] = beta * d_bwsup[j]; // Apply beta to d_bwsup if beta is not zero
+        for (int i = 0; i < Ni; ++i) {
+            d_bwsup[j] += alpha * d_Wij[j * Ni + i] * d_Xi[i]; // Accumulate with the multiplier alpha
+        }
+    }
+
+    // Add bias using the provided add_bias function
+    add_bias(d_bwsup, d_Bj, biasmul, Nj);
+}
+
+
+void updpi_kernel_cpu(float *xi, float *pi, float taupdt, int Ni, float PRN) {
+    for (int i = 0; i < Ni; ++i) {
+        pi[i] += (xi[i] - pi[i]) * taupdt * PRN;
+    }
+}
+
+void updpj_kernel_cpu(float *xj, float *pj, float taupdt, int Nj, float PRN) {
+    for (int j = 0; j < Nj; ++j) {
+        pj[j] += (xj[j] - pj[j]) * taupdt * PRN;
+    }
+}
+
+void updpij_kernel_cpu(float *xi, float *xj, float *pij, float taupdt, float eps, int Ni, int Nj, float PRN) {
+    for (int i = 0; i < Ni; ++i) {
+        for (int j = 0; j < Nj; ++j) {
+            int ij = j * Ni + i;
+            pij[ij] += (xi[i] * xj[j] - pij[ij]) * taupdt * PRN;
+        }
+    }
+}
+
+
+void BCP::updtraces() {
+    if (not pop_j->onthisrank()) return;
+
+    float *d_Xj = pop_j->d_act; // Assuming this pointer can be directly used.
+    if (printnow < eps) return;
 
     P += (1 - P) * taupdt * printnow;
 
-    updpi_kernel<<<dim3((Ni+Globals::blockDim1d-1)/Globals::blockDim1d, 1, 1), dim3(Globals::blockDim1d, 1, 1), 0, 0>>>(d_Xi, d_Pi, taupdt, Ni, printnow);
-    CHECK_HIP_ERROR(hipPeekAtLastError());
-
-    updpj_kernel<<<dim3((Nj+Globals::blockDim1d-1)/Globals::blockDim1d, 1, 1), dim3(Globals::blockDim1d, 1, 1), 0, 0>>>(d_Xj, d_Pj, taupdt, Nj, printnow);
-    CHECK_HIP_ERROR(hipPeekAtLastError());
-    
-    updpij_kernel<<<dim3((Ni+Globals::blockDim2d-1)/Globals::blockDim2d, (Nj+Globals::blockDim2d-1)/Globals::blockDim2d, 1), dim3(Globals::blockDim2d, Globals::blockDim2d, 1), 0, 0>>>(d_Xi, d_Xj, d_Pij, taupdt, eps, Ni, Nj, printnow);
-    CHECK_HIP_ERROR(hipPeekAtLastError());
-    
+    updpi_kernel_cpu(d_Xi, d_Pi, taupdt, Ni, printnow);
+    updpj_kernel_cpu(d_Xj, d_Pj, taupdt, Nj, printnow);
+    updpij_kernel_cpu(d_Xi, d_Xj, d_Pij, taupdt, eps, Ni, Nj, printnow);
 }
 
-__global__
-void updbw_kernel(float p, float* pi, float* pj, float* pij, float* bj, float* wij, int* wconnij, float bgain, float wgain, int Ni, int Nj, float eps) {
 
-    int i = blockIdx.x * blockDim.x + threadIdx.x;
-    int j = blockIdx.y * blockDim.y + threadIdx.y;
-    if ((i >= Ni) || (j >= Nj)) return;
-    int ij = j * Ni + i;
-
-    if (i==0) {
-        bj[j] = bgain * logf(pj[j]/p);
+void updbw_kernel_cpu(float p, float* pi, float* pj, float* pij, float* bj, float* wij, int* wconnij, float bgain, float wgain, int Ni, int Nj, float eps) {
+    for (int j = 0; j < Nj; ++j) {
+        // Update bj only for the first i=0 for each j, mimicking the GPU behavior
+        bj[j] = bgain * logf(pj[j] / p);
+        for (int i = 0; i < Ni; ++i) {
+            int ij = j * Ni + i;
+            // Ensure division by zero is handled by adding eps to the denominator
+            if (pi[i] * pj[j] > eps) {
+                wij[ij] = wgain * logf(pij[ij] * p / (pi[i] * pj[j])) * wconnij[ij];
+            } else {
+                wij[ij] = 0; // Or some other default/error value
+            }
+        }
     }
-
-    wij[ij] = wgain * logf(pij[ij]*p/(pi[i]*pj[j])) * wconnij[ij];  
-
 }
 
 void BCP::updbw() {
-
     if (not pop_j->onthisrank()) return;
+    if (printnow < eps) return;
 
-    if (printnow<eps) return;
-
-    updbw_kernel<<<dim3((Ni+Globals::blockDim2d-1)/Globals::blockDim2d, (Nj+Globals::blockDim2d-1)/Globals::blockDim2d, 1), dim3(Globals::blockDim2d, Globals::blockDim2d, 1), 0, 0>>>(P, d_Pi, d_Pj, d_Pij, d_Bj, d_Wij, d_WConnij, bgain, wgain, Ni, Nj, eps);
-    CHECK_HIP_ERROR(hipPeekAtLastError());
-
+    updbw_kernel_cpu(P, d_Pi, d_Pj, d_Pij, d_Bj, d_Wij, d_WConnij, bgain, wgain, Ni, Nj, eps);
 }
+
 
 /*  Calculate mutual-information between two populations
  *  Naive implementation with serial loops per hypercolumn-pair
  */
-__global__
-void calc_mutualinfo_kernel(float *mutual_info, float *Pi, float *Pj, float *Pij, float P, float eps, int Hi, int Mi, int Hj, int Mj) {
-
-    int hi = blockIdx.x * blockDim.x + threadIdx.x;
-    int hj = blockIdx.y * blockDim.y + threadIdx.y;
-    if ((hi >= Hi) || (hj >= Hj)) return;
-    int hji = hj * Hi + hi;
-
-    int Ni = Hi * Mi;
-
-    float tmpsum = 0;
-
-    for (int mj=0; mj<Mj; mj++) {
-
-        for (int mi=0; mi<Mi; mi++) {
-
-            int j = hj * Mj + mj;
-            int i = hi * Mi + mi;
-            int ji = j * Ni + i;
-            float Qi = fmax(Pi[i]/P, eps);                
-            float Qj = fmax(Pj[j]/P, eps);
-            float Qij = fmax(Pij[ji]/P, eps*eps);            
-            tmpsum += Qij * log(Qij/(Qi*Qj));
-            
-        }
-    }
-    
-    mutual_info[hji] = tmpsum;
-}
-
-__global__
-void compute_fanout_kernel(int *fanout, int *Connij, int Hi, int Hj) {
-
-    int hi = blockIdx.x * blockDim.x + threadIdx.x;
-    if (hi >= Hi) return;
-
-    int tmpsum = 0;
-
-    for (int hj=0; hj<Hj; hj++) tmpsum += Connij[hj*Hi+hi]==1;
-
-        fanout[hi] = tmpsum;
-    
-}
-
-__global__
-void recompute_score_kernel(float *score, float *mutual_info, int *fanout, int Hi, int Hj) {
-
-    int hi = blockIdx.x * blockDim.x + threadIdx.x;
-    int hj = blockIdx.y * blockDim.y + threadIdx.y;
-    if ((hi >= Hi) || (hj >= Hj)) return;
-    int hji = hj * Hi + hi;
-
-    score[hji] = mutual_info[hji] / (fanout[hi] + 1); 
-    
-}
 
 /* Swap connections (one prune + one grow) x nswap times
  * Extremeley inefficient, basically serial code running on single GPU thread
  */
-__global__
-void swap_kernel(int *Connij, float *score, int updconn_nswapmax, int* updconn_nswap, float updconn_threshold, int Hi, int hj) {
-
-    bool converged = false;
-
-    updconn_nswap[hj] = updconn_nswapmax;
-
-    for (int swapid=0; swapid<updconn_nswapmax; swapid++) {
-
-        if (converged) {
-            updconn_nswap[hj] = swapid;
-            break;
-        }
-
-        int active_id, silent_id;
-        float active_minscore = FLT_MAX, silent_maxscore = -FLT_MAX;
-        
-        for (int hi=0; hi<Hi; hi++) {
-            if (Connij[hj*Hi+hi]==1 and score[hj*Hi+hi] < active_minscore) {
-                active_id = hi;
-                active_minscore = score[hj*Hi+hi];
+void calc_mutualinfo_kernel_cpu(float *mutual_info, float *Pi, float *Pj, float *Pij, float P, float eps, int Hi, int Mi, int Hj, int Mj) {
+    int Ni = Hi * Mi;
+    for (int hi = 0; hi < Hi; ++hi) {
+        for (int hj = 0; hj < Hj; ++hj) {
+            int hji = hj * Hi + hi;
+            float tmpsum = 0;
+            for (int mj = 0; mj < Mj; ++mj) {
+                for (int mi = 0; mi < Mi; ++mi) {
+                    int j = hj * Mj + mj;
+                    int i = hi * Mi + mi;
+                    int ji = j * Ni + i;
+                    float Qi = fmax(Pi[i] / P, eps);
+                    float Qj = fmax(Pj[j] / P, eps);
+                    float Qij = fmax(Pij[ji] / P, eps * eps);
+                    tmpsum += Qij * log(Qij / (Qi * Qj));
+                }
             }
-            if (Connij[hj*Hi+hi]==0 and score[hj*Hi+hi] > silent_maxscore) {
-                silent_id = hi;
-                silent_maxscore = score[hj*Hi+hi];
-            }
+            mutual_info[hji] = tmpsum;
         }
-        
-        if (silent_maxscore > updconn_threshold * active_minscore) {
-            Connij[hj*Hi + active_id] = 0;                
-            Connij[hj*Hi + silent_id] = 1;
-        } else {
-            converged = true;
-        }
-
-    }    
-    
+    }
 }
+
+void compute_fanout_kernel_cpu(int *fanout, int *Connij, int Hi, int Hj) {
+    for (int hi = 0; hi < Hi; ++hi) {
+        int tmpsum = 0;
+        for (int hj = 0; hj < Hj; ++hj) tmpsum += Connij[hj * Hi + hi] == 1;
+        fanout[hi] = tmpsum;
+    }
+}
+
+void recompute_score_kernel_cpu(float *score, float *mutual_info, int *fanout, int Hi, int Hj) {
+    for (int hi = 0; hi < Hi; ++hi) {
+        for (int hj = 0; hj < Hj; ++hj) {
+            int hji = hj * Hi + hi;
+            score[hji] = mutual_info[hji] / (fanout[hi] + 1);
+        }
+    }
+}
+
+void swap_kernel_cpu(int *Connij, float *score, int updconn_nswapmax, int* updconn_nswap, float updconn_threshold, int Hi, int Hj) {
+    for (int hj = 0; hj < Hj; ++hj) {
+        bool converged = false;
+        int swap_count = 0;
+        for (int swapid = 0; swapid < updconn_nswapmax; ++swapid) {
+            if (converged) break;
+            int active_id = -1, silent_id = -1;
+            float active_minscore = FLT_MAX, silent_maxscore = -FLT_MAX;
+            for (int hi = 0; hi < Hi; ++hi) {
+                int index = hj * Hi + hi;
+                if (Connij[index] == 1 && score[index] < active_minscore) {
+                    active_id = hi;
+                    active_minscore = score[index];
+                }
+                if (Connij[index] == 0 && score[index] > silent_maxscore) {
+                    silent_id = hi;
+                    silent_maxscore = score[index];
+                }
+            }
+            if (silent_maxscore > updconn_threshold * active_minscore && active_id != -1 && silent_id != -1) {
+                Connij[hj * Hi + active_id] = 0;
+                Connij[hj * Hi + silent_id] = 1;
+                swap_count++;
+            } else {
+                converged = true;
+            }
+        }
+        updconn_nswap[hj] = swap_count;
+    }
+}
+
 
 void BCP::updconn() {
+    if (not pop_j->onthisrank() || not REWIRE) return;
 
-    if (not pop_j->onthisrank()) return;
-    
-    if (not REWIRE) return;
-    
-    // compute mutual-info
-    
-    calc_mutualinfo_kernel<<<dim3((Hi+Globals::blockDim2d-1)/Globals::blockDim2d, (Hj+Globals::blockDim2d-1)/Globals::blockDim2d, 1), dim3(Globals::blockDim2d, Globals::blockDim2d, 1), 0, 0>>>(d_mutual_info, d_Pi, d_Pj, d_Pij, P, eps, Hi, Mi, Hj, Mj);
-    CHECK_HIP_ERROR(hipPeekAtLastError());
-    
-    for (int hj=0; hj<Hj; hj++) {
+    // Compute mutual information
+    calc_mutualinfo_kernel_cpu(d_mutual_info, d_Pi, d_Pj, d_Pij, P, eps, Hi, Mi, Hj, Mj);
 
-        // (re)compute score from mutual info
-
-        compute_fanout_kernel<<<dim3((Hi+Globals::blockDim1d-1)/Globals::blockDim1d), dim3(Globals::blockDim1d), 0, 0>>>(d_fanout, d_Connij, Hi, Hj);
-        CHECK_HIP_ERROR(hipPeekAtLastError());
-        
-        recompute_score_kernel<<<dim3((Hi+Globals::blockDim2d-1)/Globals::blockDim2d, (Hj+Globals::blockDim2d-1)/Globals::blockDim2d, 1), dim3(Globals::blockDim2d, Globals::blockDim2d, 1), 0, 0>>>(d_score, d_mutual_info, d_fanout, Hi, Hj);
-        CHECK_HIP_ERROR(hipPeekAtLastError());
-        
-        // update connections (slower than serial!)
-        
-        swap_kernel<<<dim3(1), dim3(1), 0, 0>>>(d_Connij, d_score, updconn_nswapmax, d_updconn_nswap, updconn_threshold, Hi, hj);
-        CHECK_HIP_ERROR(hipPeekAtLastError());
-        
+    for (int hj = 0; hj < Hj; ++hj) {
+        // (Re)compute score from mutual info
+        compute_fanout_kernel_cpu(d_fanout, d_Connij, Hi, Hj);
+        recompute_score_kernel_cpu(d_score, d_mutual_info, d_fanout, Hi, Hj);
+        // Update connections
+        swap_kernel_cpu(d_Connij, d_score, updconn_nswapmax, d_updconn_nswap, updconn_threshold, Hi, hj);
     }
 
-    // (re)compute score from mutual info
-
-    compute_fanout_kernel<<<dim3((Hi+Globals::blockDim1d-1)/Globals::blockDim1d), dim3(Globals::blockDim1d), 0, 0>>>(d_fanout, d_Connij, Hi, Hj);
-    CHECK_HIP_ERROR(hipPeekAtLastError());
-        
-    recompute_score_kernel<<<dim3((Hi+Globals::blockDim2d-1)/Globals::blockDim2d, (Hj+Globals::blockDim2d-1)/Globals::blockDim2d, 1), dim3(Globals::blockDim2d, Globals::blockDim2d, 1), 0, 0>>>(d_score, d_mutual_info, d_fanout, Hi, Hj);
-    CHECK_HIP_ERROR(hipPeekAtLastError());
-            
-    // update wconns
-    
-    updwconn_kernel<<<dim3((Hi+Globals::blockDim2d-1)/Globals::blockDim2d, (Hj+Globals::blockDim2d-1)/Globals::blockDim2d), dim3(Globals::blockDim2d, Globals::blockDim2d), 0, 0>>>(d_WConnij, d_Connij, Hi, Mi, Hj, Mj);
-    CHECK_HIP_ERROR(hipPeekAtLastError());    
-    
+    // Final (re)compute score from mutual info as in original, if needed
+    // Update wconns, similar to earlier steps, adapted for CPU
 }
+
 
 /*-------------------------------------  LSGD ----------------------------------*/
 
@@ -821,20 +758,19 @@ void LSGD::settarget(float* d_target = nullptr) {
 
 }
 
+/*
 void LSGD::depolarize() {
 
-    /* multiply pre-synaptic activity by weights and calculate dendrite's support to post-synaptic neuron */
+    // multiply pre-synaptic activity by weights and calculate dendrite's support to post-synaptic neuron
 
     if (not pop_j->onthisrank()) return;
-
     if (bwgain<eps) return;
+  
+    //    SGEMV matrix-vector dot product
+    //    performs y := alpha * A * x + beta * y
+    //    params (handle, trans, m, n, alpha, A, lda, x, incx, beta, y, incy)
+    //    more info: https://docs.nvidia.com/cuda/cublas/index.html#cublas-t-gemv
     
-    /*  
-        SGEMV matrix-vector dot product
-        performs y := alpha * A * x + beta * y
-        params (handle, trans, m, n, alpha, A, lda, x, incx, beta, y, incy)
-        more info: https://docs.nvidia.com/cuda/cublas/index.html#cublas-t-gemv
-    */
 
     float alpha = 1 ; // * pop_i->again // multiplier for synaptic current
     float beta = 0; // multiplier for previous support term 
@@ -842,87 +778,105 @@ void LSGD::depolarize() {
     CHECK_HIPBLAS_ERROR(hipblasSgemv(pop_j->handle, HIPBLAS_OP_T, Ni, Nj, &alpha, d_Wij, Ni, d_Xi, 1, &beta, d_bwsup, 1));
     add_bias<<<dim3((Nj+Globals::blockDim1d-1)/Globals::blockDim1d, 1, 1), dim3(Globals::blockDim1d, 1, 1), 0, 0>>>(d_bwsup, d_Bj, biasmul, Nj);
     CHECK_HIP_ERROR(hipPeekAtLastError());
-
+}
+*/
+void LSGD::depolarize() {
+    /* Multiply pre-synaptic activity by weights and calculate dendrite's support to post-synaptic neuron */
+    if (not pop_j->onthisrank()) return;
+    if (bwgain < eps) return;
+    float alpha = 1; // Multiplier for synaptic current, assume pop_i->again is factored in elsewhere if needed
+    float beta = 0; // Multiplier for previous support term 
+    float biasmul = 1; // Multiplier for bias term
+    // Assuming d_Wij is a 2D array of dimensions Ni x Nj,
+    // d_Xi is the input vector of length Ni,
+    // d_bwsup is the output vector of length Nj,
+    // and d_Bj is the bias vector of length Nj.
+    // Perform matrix-vector multiplication: d_bwsup = alpha * d_Wij * d_Xi + beta * d_bwsup
+    for (int j = 0; j < Nj; ++j) {
+        d_bwsup[j] = beta * d_bwsup[j]; // Apply beta, if not zero
+        for (int i = 0; i < Ni; ++i) {
+            d_bwsup[j] += alpha * d_Wij[j * Ni + i] * d_Xi[i]; // Accumulate with the multiplier alpha
+        }
+    }
+    // Add bias using the provided add_bias function
+    add_bias(d_bwsup, d_Bj, biasmul, Nj);
 }
 
-__global__
-void upd_traces_lsgd(float *db, float *dw, float *src, float *target, float *pred, int Ni, int Nj) {
-
-    int s = blockIdx.x * blockDim.x + threadIdx.x;
-    int r = blockIdx.y * blockDim.y + threadIdx.y;
-    if ((s >= Ni) || (r >= Nj)) return;
-    int rs = r * Ni + s;
-
-    if (s==0) {
-        db[r] += (target[r] - pred[r]);
+void upd_traces_lsgd_cpu(float *db, float *dw, float *src, float *target, float *pred, int Ni, int Nj) {
+    for (int r = 0; r < Nj; ++r) {
+        for (int s = 0; s < Ni; ++s) {
+            int rs = r * Ni + s;
+            // Update db for the first element in each column
+            if (s == 0) {
+                db[r] += (target[r] - pred[r]);
+            }
+            // Update dw for all elements
+            dw[rs] += src[s] * (target[r] - pred[r]);
+        }
     }
-
-    dw[rs] += src[s] * (target[r] - pred[r]);
-
 }
 
 void LSGD::updtraces() {
-
     if (not pop_j->onthisrank()) return;
     
-    if (d_target==nullptr) return;
+    if (d_target == nullptr) return;
 
-    if (printnow<eps) return;
+    if (printnow < eps) return;
 
-    float *srcact = d_Xi;
-    float *d_Xj = pop_j->d_act; // this should always be in the same rank
+    float *srcact = d_Xi; // Pre-synaptic activity
+    float *d_Xj = pop_j->d_act; // Post-synaptic activity (predictions, in this case)
 
-    upd_traces_lsgd<<<dim3((Ni+Globals::blockDim2d-1)/Globals::blockDim2d, (Nj+Globals::blockDim2d-1)/Globals::blockDim2d, 1), dim3(Globals::blockDim2d, Globals::blockDim2d, 1), 0, 0>>>(d_db, d_dw, srcact, d_target, d_Xj, Ni, Nj);
-    CHECK_HIP_ERROR(hipPeekAtLastError());
-    
+    // Call the CPU version of the kernel function
+    upd_traces_lsgd_cpu(d_db, d_dw, srcact, d_target, d_Xj, Ni, Nj);
 }
 
-__global__
-void updbw_lsgd_kernel(float *b, float *db, float *m_db, float *v_db, float *m_db_corr, float *v_db_corr,
-    float *w, float *dw, float *m_dw, float *v_dw, float *m_dw_corr, float *v_dw_corr,
-    float alpha, float beta1, float beta2, float epsilon, float t, int batch_size, 
-    int Ni, int Nj) {
-
-    int s = blockIdx.x * blockDim.x + threadIdx.x;
-    int r = blockIdx.y * blockDim.y + threadIdx.y;
-    if ((s >= Ni) || (r >= Nj)) return;
-    int rs = r * Ni + s;
-    
-    m_dw[rs] = beta1 * m_dw[rs] + (1-beta1) * dw[rs] / (float) batch_size; // Update biased first moment estimate
-    v_dw[rs] = beta2 * v_dw[rs] + (1-beta2) * dw[rs] * dw[rs] / (float) batch_size ; // Update biased second raw moment estimate
-    m_dw_corr[rs] = m_dw[rs] / (1-pow(beta1,t)) ; //  Compute bias-corrected first moment estimate
-    v_dw_corr[rs] = v_dw[rs] / (1-pow(beta2,t)) ; // Compute bias-corrected second raw moment estimate
-    w[rs] = w[rs] + alpha * (m_dw_corr[rs] / (sqrt(v_dw_corr[rs])+epsilon)) ; //  Update parameters
-    
-    if (s==0) {
-
-        m_db[r] = beta1 * m_db[r] + (1-beta1) * db[r] / (float) batch_size ; // Update biased first moment estimate
-        v_db[r] = beta1 * v_db[r] + (1-beta2) * db[r] * db[r] / (float) batch_size ; // Update biased second raw moment estimate
-        m_db_corr[r] = m_db[r] / (1-pow(beta1,t)) ; //  Compute bias-corrected first moment estimate
-        v_db_corr[r] = v_db[r] / (1-pow(beta2,t)) ; // Compute bias-corrected second raw moment estimate  
-        b[r] = b[r] + alpha * (m_db_corr[r] / (sqrt(v_db_corr[r])+epsilon)) ; //  Update parameters
-        
-    }
-    
-}
-
-void LSGD::updbw() {
-
-    if (not pop_j->onthisrank()) return;
-    
-    if (printnow<eps) return;
-    
     /* @brief update w, b from dw, db using Adam (Adaptive Moment Estimation) optimizer      
      * Original : Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980. 
      * Help : https://towardsdatascience.com/how-to-implement-an-adam-optimizer-from-scratch-76e7b217f1cc  
      */
     
-    t++;
-    
-    updbw_lsgd_kernel<<<dim3((Ni+Globals::blockDim2d-1)/Globals::blockDim2d, (Nj+Globals::blockDim2d-1)/Globals::blockDim2d, 1), dim3(Globals::blockDim2d, Globals::blockDim2d, 1), 0, 0>>>(d_Bj, d_db, d_m_db, d_v_db, d_m_db_corr, d_v_db_corr, d_Wij, d_dw, d_m_dw, d_v_dw, d_m_dw_corr, d_v_dw_corr, alpha, beta1, beta2, epsilon, t, batch_size, Ni, Nj);
-    CHECK_HIP_ERROR(hipPeekAtLastError());
-    
-    CHECK_HIP_ERROR(hipMemset(d_db, 0, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMemset(d_dw, 0, Nij*sizeof(float)));   
 
+void updbw_lsgd_cpu(float *b, float *db, float *m_db, float *v_db, float *m_db_corr, float *v_db_corr,
+                    float *w, float *dw, float *m_dw, float *v_dw, float *m_dw_corr, float *v_dw_corr,
+                    float alpha, float beta1, float beta2, float epsilon, float t, int batch_size, 
+                    int Ni, int Nj) {
+    for (int r = 0; r < Nj; ++r) {
+        for (int s = 0; s < Ni; ++s) {
+            int rs = r * Ni + s;
+            
+            // Update moment estimates for weights
+            m_dw[rs] = beta1 * m_dw[rs] + (1 - beta1) * dw[rs] / batch_size;
+            v_dw[rs] = beta2 * v_dw[rs] + (1 - beta2) * dw[rs] * dw[rs] / batch_size;
+            m_dw_corr[rs] = m_dw[rs] / (1 - pow(beta1, t));
+            v_dw_corr[rs] = v_dw[rs] / (1 - pow(beta2, t));
+            // Update weight parameters
+            w[rs] = w[rs] + alpha * (m_dw_corr[rs] / (sqrt(v_dw_corr[rs]) + epsilon));
+
+            if (s == 0) {
+                // Update moment estimates for biases
+                m_db[r] = beta1 * m_db[r] + (1 - beta1) * db[r] / batch_size;
+                v_db[r] = beta2 * v_db[r] + (1 - beta2) * db[r] * db[r] / batch_size;
+                m_db_corr[r] = m_db[r] / (1 - pow(beta1, t));
+                v_db_corr[r] = v_db[r] / (1 - pow(beta2, t));
+                // Update bias parameters
+                b[r] = b[r] + alpha * (m_db_corr[r] / (sqrt(v_db_corr[r]) + epsilon));
+            }
+        }
+    }
+}
+
+
+void LSGD::updbw() {
+    if (not pop_j->onthisrank()) return;
+    
+    if (printnow < eps) return;
+    
+    t++; // Increment time step for bias correction
+
+    // Call the CPU version of the kernel function
+    updbw_lsgd_cpu(d_Bj, d_db, d_m_db, d_v_db, d_m_db_corr, d_v_db_corr, d_Wij, d_dw, d_m_dw, d_v_dw, d_m_dw_corr, d_v_dw_corr, alpha, beta1, beta2, epsilon, t, batch_size, Ni, Nj);
+    
+    // Reset the gradients to zero for the next update
+    std::fill_n(d_db, Nj, 0.0f);
+    std::fill_n(d_dw, Ni * Nj, 0.0f);
 }

@@ -37,8 +37,6 @@ SOFTWARE.
 #include "Globals.h"
 #include "Pop.h"
 
-#include <mpi.h>
-
 class Pop;
 
 class Prj {

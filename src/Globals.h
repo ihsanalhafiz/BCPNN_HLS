@@ -30,7 +30,7 @@ SOFTWARE.
 #include <vector>
 #include <string>
 #include <random>
-
+#include <cstring>
 
 namespace Globals {
 

@@ -47,11 +47,9 @@ Logger::Logger(Pop *pop, string field, string filename, int logstep, int logstep
     ison = true;
     idx = loggers.size();
     loggers.push_back(this);
-    if (pop->onthisrank()) {
-        remove(filename.c_str());
-        if (filename!="") logfp = fopen(filename.c_str(),"a"); else logfp = NULL;
-    }
-    
+
+    remove(filename.c_str());
+    if (filename!="") logfp = fopen(filename.c_str(),"a"); else logfp = NULL;
 }
 
 Logger::Logger(Prj *prj,string field,string filename,int logstep,int logstepoffs) {
@@ -65,11 +63,9 @@ Logger::Logger(Prj *prj,string field,string filename,int logstep,int logstepoffs
     ison = true;
     idx = loggers.size();
     loggers.push_back(this);
-    if (prj->pop_j->onthisrank()) {
-        remove(filename.c_str());
-        if (filename!="") logfp = fopen(filename.c_str(),"a"); else logfp = NULL;
-    }
     
+    remove(filename.c_str());
+    if (filename!="") logfp = fopen(filename.c_str(),"a"); else logfp = NULL;
 }
 
 void Logger::reset() { ison = true; }

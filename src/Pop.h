@@ -53,11 +53,10 @@ public:
     int ncorrect = 0;
     float tracc, teacc;
 
-    Pop(int H, int M, std::string = "softWTA", float again = 1);
+    Pop(int H, int M, std::string = "softWTA", float again = 1, int rank = 0);
     ~Pop();
     void allocate_memory();
     void store(std::string field, FILE*);
-    void print_comm_summary();
     float* getact();
     void resetsup();
     void setinput(float*);

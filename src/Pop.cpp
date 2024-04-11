@@ -30,6 +30,7 @@ SOFTWARE.
 #include <iostream>
 #include <algorithm> // For std::max
 #include <cmath>     // For exp and other math functions
+#include <cstring>
 
 #include "Globals.h"
 #include "Pop.h"
@@ -84,16 +85,6 @@ void Pop::allocate_memory() {
     for (int i=0; i<N; i++) cumsum[i] = 0;
 }
 
-void Pop::print_comm_summary() {
-    if (not onthisrank()) return;
-    double avgSendDur = 0, avgRecvDur = 0;
-    if (sendNum!=0) avgSendDur = 1000000. * sendDur / sendNum;
-    if (recvNum!=0) avgRecvDur = 1000000. * recvDur / recvNum;
-    printf("\nPop rank = %d recvs num = %10d dur = %10.3f avgDur = %10.3fus sends num = %10d dur = %10.3fs avgDur = %10.3fus \n",
-           rank, recvNum, recvDur, avgRecvDur, sendNum, sendDur, avgSendDur);
-    fflush(stdout);
-}
-
 void Pop::store(std::string field, FILE* f) {
     if (field == "act") {        
         fwrite(act, sizeof(float), N, f);        
@@ -109,7 +100,7 @@ void Pop::store(std::string field, FILE* f) {
 }
 
 float* Pop::getact() {
-    return d_act;
+    return act;
 }
 
 void Pop::resetsup() {
@@ -131,9 +122,9 @@ void setinput_kernel_cpu(float* lgi, float* inp, float eps, int N) {
 
 void Pop::setinput(float *d_inp = nullptr) {
     if (d_inp == nullptr) {
-        setinput_to_zero_kernel_cpu(d_lgi, eps, N);
+        setinput_to_zero_kernel_cpu(lgi, eps, N);
     } else {
-        setinput_kernel_cpu(d_lgi, d_inp, eps, N);
+        setinput_kernel_cpu(lgi, d_inp, eps, N);
     }
 }
 
@@ -151,14 +142,14 @@ void calcsup_kernel_cpu(float *sup, float *supinf, int N) {
 
 void Pop::integrate() {
     /* Integrate all dendrite prj's support into pop's support */
-    addtosupinf_kernel_cpu(d_supinf, d_lgi, N);
+    addtosupinf_kernel_cpu(supinf, lgi, N);
     for (int did = 0; did < dends.size(); did++) {
         Prj *dend = dends[did];
         if (dend->bwgain < eps) continue;
-        addtosupinf_kernel_cpu(d_supinf, dend->d_bwsup, N);
+        addtosupinf_kernel_cpu(supinf, dend->d_bwsup, N);
         // No need to check for errors as in CUDA version
     }
-    calcsup_kernel_cpu(d_sup, d_supinf, N);
+    calcsup_kernel_cpu(sup, supinf, N);
 }
 
 
@@ -174,7 +165,7 @@ void Pop::inject_noise(float nampl) {
     std::random_device rd; // Use to seed the random number engine
     std::mt19937 rng(rd()); // Standard mersenne_twister_engine seeded with rd()
     // Call the CPU version of the kernel function
-    inject_noise_kernel_cpu(rng, d_sup, nampl, N);
+    inject_noise_kernel_cpu(rng, sup, nampl, N);
 }
 
 void softmax_kernel_cpu(float* sup, float* act, float again, int H, int M) {
@@ -192,7 +183,7 @@ void softmax_kernel_cpu(float* sup, float* act, float again, int H, int M) {
 
 void Pop::updact() {
     if (actfn == "softmax") {
-        softmax_kernel_cpu(d_sup, d_act, again, H, M);
+        softmax_kernel_cpu(sup, act, again, H, M);
     } else {
         std::cerr << "Pop::updact - Unknown actfn" << std::endl;
     }
@@ -203,7 +194,7 @@ void Pop::resetncorrect() {
 }
 
 void Pop::compute_accuracy(float *target) {
-    float *pred = this->d_act;
+    float *pred = this->act;
     // Increment ncorrect if the argmax (index of max value) of the target matches the pred.
     ncorrect += argmax(target, 0, N) == argmax(pred, 0, N);
 }

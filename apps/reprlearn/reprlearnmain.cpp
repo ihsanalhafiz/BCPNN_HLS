@@ -31,7 +31,7 @@ SOFTWARE.
 #include <time.h>
 #include <sys/time.h>
 
-#include "Globals.cpp"
+#include "Globals.h"
 #include "Parseparam.h"
 #include "Pats.h"
 #include "Pop.h"
@@ -211,7 +211,6 @@ void learn() {
     if (storeweights) {
         for (auto prj: prjs) {
             if (prj==nullptr) continue;
-            if (not prj->pop_j->onthisrank()) continue;
             learn_loggers.push_back( new Logger(prj, "conn", "learn.cij.l"+to_string(prj->pop_j->id)+".bin") );
         }
     }
@@ -353,16 +352,17 @@ void predict_test() {
 void summary() {
     /* Summarize by printing accuracy */
     for (auto pop : lsgdclf_pops) {
-        if (pop->onthisrank()) {
-            int layer = pop->id;
-            printf("\nLSGD Layer %-4d Accuracy (train) = %.2f %% Accuracy (test) = %.2f %%", layer, pop->tracc, pop->teacc);
-            fflush(stdout);
-        }
+        int layer = pop->id;
+        printf("\nLSGD Layer %-4d Accuracy (train) = %.2f %% Accuracy (test) = %.2f %%", layer, pop->tracc, pop->teacc);
+        fflush(stdout);
     }
 }
 
 int main(int argc, char **args) {
+    printf("Start BCPNN Single CPU run \n\n");
     for (int i = 0; i < argc; i++) parfile = args[i];
+
+    printf("Parfile: %s \n\n", parfile.c_str());
     // Removed initialize_comm();
     // Removed initialize_gpu();
     parseparam();
@@ -375,5 +375,5 @@ int main(int argc, char **args) {
     predict_test();
     summary();
     // Removed finalize_comm();
-    printf("\nFin.\n"); fflush(stdout);
+    printf("\nFinish run\n"); fflush(stdout);
 }

@@ -30,6 +30,7 @@ SOFTWARE.
 #include <iostream>
 #include "Globals.h"
 #include "Prj.h"
+#include <cstring>
 
 using namespace std;
 using namespace Globals;
@@ -364,7 +365,7 @@ void updpij_kernel_cpu(float *xi, float *xj, float *pij, float taupdt, float eps
 }
 
 void BCP::updtraces() {
-    float *d_Xj = pop_j->d_act; // Assuming this pointer can be directly used.
+    float *d_Xj = pop_j->act; // Assuming this pointer can be directly used.
     if (printnow < eps) return;
     P += (1 - P) * taupdt * printnow;
     updpi_kernel_cpu(d_Xi, d_Pi, taupdt, Ni, printnow);
@@ -573,7 +574,7 @@ void LSGD::updtraces() {
     if (d_target == nullptr) return;
     if (printnow < eps) return;
     float *srcact = d_Xi; // Pre-synaptic activity
-    float *d_Xj = pop_j->d_act; // Post-synaptic activity (predictions, in this case)
+    float *d_Xj = pop_j->act; // Post-synaptic activity (predictions, in this case)
     // Call the CPU version of the kernel function
     upd_traces_lsgd_cpu(d_db, d_dw, srcact, d_target, d_Xj, Ni, Nj);
 }

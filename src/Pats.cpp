@@ -122,13 +122,13 @@ void Pats::clearpats() {
 
 float* Pats::getpat(int p) {
     if (filename!="" and (pbegin>p or p>=pend)) { fprintf(stderr, "Warning! Data %d range not loaded!",p); }
-    return &(d_pats[(p-pbegin) * N]);
+    return &(pats[(p-pbegin) * N]);
 }
 
 
 float* Pats::getdispat(int p) {
     if (filename!="" and (pbegin>p or p>=pend)) { fprintf(stderr, "Warning! Data %d range not loaded!",p); }
-    return &(d_dispats[(p-pbegin) * N]);
+    return &(dispats[(p-pbegin) * N]);
 }
 
 

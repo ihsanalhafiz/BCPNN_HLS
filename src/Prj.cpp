@@ -37,7 +37,6 @@ using namespace Globals;
 int Prj::nprj = 0;
 
 Prj::Prj(Pop *pop_i, Pop *pop_j, string lrule) {
-
     id = nprj++;
     this->pop_i = pop_i;
     this->pop_j = pop_j;
@@ -52,52 +51,23 @@ Prj::Prj(Pop *pop_i, Pop *pop_j, string lrule) {
     this->lrule = lrule;
     ncorrect = 0; // if this is a classifier
 
-    if (pop_i->onthisrank() or pop_j->onthisrank()) {
-        pop_i->axons.push_back(this);                
-        pop_j->dends.push_back(this);
-    }
-
-    if (pop_j->onthisrank()) {
-        printf("\nNew Prj id = %-5d rank=%d mpi = %d/%d gpu = %d/%d Pop[%d]->Pop[%d] lrule=%s Nji = %-10ld", pop_j->id, Globals::mpi_world_rank, Globals::mpi_world_rank, Globals::mpi_world_size, Globals::gpu_local_rank, Globals::gpu_local_size, pop_i->id, pop_j->id, lrule.c_str(), Nij);
-        fflush(stdout);
-    }
-
+    printf("\nNew Prj id = %d Pop[%d]->Pop[%d] lrule=%s", id, pop_i->id, pop_j->id, lrule.c_str());
+    fflush(stdout);
 }
 
 Prj::~Prj() {
-
 }
 
-void Prj::set_eps(float paramval) {
-
-    eps = paramval;
-
-}
-
-void Prj::set_bgain(float paramval) {
-
-    bgain = paramval;
-
-}
-
-void Prj::set_wgain(float paramval) {
-
-    wgain = paramval;
-
-}
-
+void Prj::set_eps(float paramval) { eps = paramval; }
+void Prj::set_bgain(float paramval) { bgain = paramval; }
+void Prj::set_wgain(float paramval) { wgain = paramval; }
 void Prj::allocate_memory() {
-
-    if (not pop_j->onthisrank()) return;
-
     if (true) { // rewire = true
-
         updconn_nswap = (int*)malloc(Hj*sizeof(int));
         mutual_info = (float*)malloc(Hij*sizeof(float));
         score = (float*)malloc(Hij*sizeof(float));
         Connij = (int*)malloc(Hij*sizeof(int));
         WConnij = (int*)malloc(Nij*sizeof(int));
-
         for (int hji=0; hji<Hij; hji++) 
             mutual_info[hji] = 0;
         for (int hji=0; hji<Hij; hji++) 
@@ -107,47 +77,23 @@ void Prj::allocate_memory() {
         for (int ji=0; ji<Nij; ji++) 
             WConnij[ji] = 1;
 
-        CHECK_HIP_ERROR(hipMalloc(&d_updconn_nswap, Hj*sizeof(int)));
-        CHECK_HIP_ERROR(hipMalloc(&d_mutual_info, Hij*sizeof(float)));
-        CHECK_HIP_ERROR(hipMalloc(&d_score, Hij*sizeof(float)));
-        CHECK_HIP_ERROR(hipMalloc(&d_Connij, Hij*sizeof(int)));
-        CHECK_HIP_ERROR(hipMalloc(&d_WConnij, Nij*sizeof(int)));
-        CHECK_HIP_ERROR(hipMalloc(&d_fanout, Hi*sizeof(int)));
-
-        CHECK_HIP_ERROR(hipMemcpyAsync(d_mutual_info, mutual_info, Hij*sizeof(float), hipMemcpyHostToDevice));
-        CHECK_HIP_ERROR(hipMemcpyAsync(d_score, score, Hij*sizeof(float), hipMemcpyHostToDevice));
-        CHECK_HIP_ERROR(hipMemcpyAsync(d_Connij, Connij, Hij*sizeof(int), hipMemcpyHostToDevice));
-        CHECK_HIP_ERROR(hipMemcpyAsync(d_WConnij, WConnij, Nij*sizeof(int), hipMemcpyHostToDevice));
-
     }
-
-    CHECK_HIP_ERROR(hipDeviceSynchronize());
-
 }
 
 void Prj::store(std::string field, FILE* f) {
-
-    if (not pop_j->onthisrank()) return;
-
     if (field == "bwsup") {
-        CHECK_HIP_ERROR(hipMemcpy(bwsup, d_bwsup, Nj*sizeof(float), hipMemcpyDeviceToHost));        
         fwrite(bwsup, sizeof(float), Nj, f);    
     } else if (field == "wij") {
-        CHECK_HIP_ERROR(hipMemcpy(Wij, d_Wij, Nij*sizeof(float), hipMemcpyDeviceToHost));
         fwrite(Wij, sizeof(float), Nij, f);    
     } else if (field == "bj") {
-        CHECK_HIP_ERROR(hipMemcpy(Bj, d_Bj, Nj*sizeof(float), hipMemcpyDeviceToHost));        
         fwrite(Bj, sizeof(float), Nj, f);    
     } else if (field == "conn") {
-        CHECK_HIP_ERROR(hipMemcpy(Connij, d_Connij, Hij*sizeof(int), hipMemcpyDeviceToHost));       
         fwrite(Connij, sizeof(int), Hij, f);
     } else if (field == "wconn") {
-        CHECK_HIP_ERROR(hipMemcpy(WConnij, d_WConnij, Nij*sizeof(int), hipMemcpyDeviceToHost));       
         fwrite(WConnij, sizeof(int), Nij, f);   
     } else {
         printf("\nPrj::store Invalid field!");
     }
-
 }
 
 void add_bias(float *bwsup, float *b, float alpha, int N) {
@@ -157,15 +103,9 @@ void add_bias(float *bwsup, float *b, float alpha, int N) {
 }
 
 void Prj::depolarize() {
-
     /* multiply pre-synaptic activity by weights and calculate dendrite's support to post-synaptic neuron */
-
-    if (not pop_j->onthisrank()) return;
-
     if (bwgain<eps) return;
-
     /* just an empty shell */
-    
     if (lrule=="BCP") {
         printf("\nWARNING! Prj::depolarize trying to implement BCP function");
     } else if (lrule=="LSGD") {
@@ -173,15 +113,10 @@ void Prj::depolarize() {
     } else {
         printf("\nWARNING! Prj::updtraces lrule not valid!");
     }
-
 }
 
 void Prj::updtraces() {
-
-    if (not pop_j->onthisrank()) return;
-
     /* just an empty shell */
-
     if (lrule=="BCP") {
         printf("\nWARNING! Prj::updtraces trying to implement BCP function!");
     } else if (lrule=="LSGD") {
@@ -189,17 +124,11 @@ void Prj::updtraces() {
     } else {
         printf("\nWARNING! Prj::updtraces lrule not valid!");
     }
-
 }
 
 void Prj::updbw() {
-
-    if (not pop_j->onthisrank()) return;
-
     if (printnow<eps) return;
-
     /* just an empty shell */
-
     if (lrule=="BCP") {
         printf("\nWARNING! Prj::updbw trying to implement BCP function!");
     } else if (lrule=="LSGD") {
@@ -207,7 +136,6 @@ void Prj::updbw() {
     } else {
         printf("\nWARNING! Prj::updbw lrule not valid!");   
     } 
-
 }
 
 void update_wconn(int *WConnij, int *Connij, int Hi, int Mi, int Hj, int Mj) {
@@ -226,7 +154,6 @@ void update_wconn(int *WConnij, int *Connij, int Hi, int Mi, int Hj, int Mj) {
 }
 
 void Prj::initconn_rand(int nconn) {
-    if (not pop_j->onthisrank()) return;
     this->nconn = nconn;
     
     std::vector<int> shuffled(Hi);
@@ -240,18 +167,12 @@ void Prj::initconn_rand(int nconn) {
             Connij[hj*Hi + hi] = (id < this->nconn) ? 1 : 0;
         }
     }
-    
     // No need for GPU memory operations, directly update wconn
     update_wconn(d_WConnij, d_Connij, Hi, Mi, Hj, Mj);
 }
 
-
 void Prj::initconn_sqr(int nconn) {
-
     /* initialize square receptive fields connections as active */
-
-    if (not pop_j->onthisrank()) return;
-
     this->nconn = nconn;
 
     int Wj = int(sqrt(Hj)); // width & height of output layer
@@ -284,40 +205,29 @@ void Prj::initconn_sqr(int nconn) {
 }
 
 void Prj::updconn() {
-
-    if (not pop_j->onthisrank()) return;
-
     if (not REWIRE) return;
 
     /* just an empty shell */
-
     if (lrule=="BCP") {
         printf("\nWARNING! Prj::updconn trying to implement BCP function!");
     } else if (lrule=="LSGD") {
         printf("\nWARNING! Prj::updconn trying to implement LSGD function!");
     } else {
         printf("\nWARNING! Prj::updconn lrule not valid!");   
-    } 
-
+    }
 }
 
 /*-------------------------------------  BCP  ----------------------------------*/
 
 BCP::BCP(Pop* pop_i, Pop* pop_j, std::string lrule) : Prj(pop_i, pop_j, lrule) {
-
 }
 
 void BCP::set_taup(float paramval) {
-
     taup = paramval;
     taupdt = Globals::timestep / paramval;
-
 }
 
 void BCP::allocate_memory() {
-
-    if (not pop_j->onthisrank()) return;
-
     Prj::allocate_memory();
 
     Xi = (float*)malloc(Ni*sizeof(float));
@@ -393,92 +303,32 @@ void BCP::allocate_memory() {
         }
     }
     P = taupdt;
-
-    CHECK_HIP_ERROR(hipMalloc(&d_Xi, Ni*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_Bj, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_Wij, Nij*sizeof(float)));    
-    CHECK_HIP_ERROR(hipMalloc(&d_bwsup, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_Pi, Ni*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_Pj, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_Pij, Nij*sizeof(float)));
-
-    CHECK_HIP_ERROR(hipMemcpyAsync(d_Xi, Xi, Ni*sizeof(float), hipMemcpyHostToDevice));
-    CHECK_HIP_ERROR(hipMemcpyAsync(d_Bj, Bj, Nj*sizeof(float), hipMemcpyHostToDevice));
-    CHECK_HIP_ERROR(hipMemcpyAsync(d_Wij, Wij, Nij*sizeof(float), hipMemcpyHostToDevice));
-    CHECK_HIP_ERROR(hipMemcpyAsync(d_bwsup, bwsup, Nj*sizeof(float), hipMemcpyHostToDevice));
-    CHECK_HIP_ERROR(hipMemcpyAsync(d_Pi, Pi, Ni*sizeof(float), hipMemcpyHostToDevice));
-    CHECK_HIP_ERROR(hipMemcpyAsync(d_Pj, Pj, Nj*sizeof(float), hipMemcpyHostToDevice));
-    CHECK_HIP_ERROR(hipMemcpyAsync(d_Pij, Pij, Nij*sizeof(float), hipMemcpyHostToDevice));
-
 }
 
 void BCP::store(std::string field, FILE* f) {
-
-    if (not pop_j->onthisrank()) return;
-
     if (field == "pij") {
-        CHECK_HIP_ERROR(hipMemcpy(Pij, d_Pij, Nij*sizeof(float), hipMemcpyDeviceToHost));       
         fwrite(Pij, sizeof(float), Nij, f);
     } else if (field == "pi") {
-        CHECK_HIP_ERROR(hipMemcpy(Pi, d_Pi, Ni*sizeof(float), hipMemcpyDeviceToHost));
         fwrite(Pi, sizeof(float), Ni, f);
     } else if (field == "pj") {
-        CHECK_HIP_ERROR(hipMemcpy(Pj, d_Pj, Nj*sizeof(float), hipMemcpyDeviceToHost));
         fwrite(Pj, sizeof(float), Nj, f);
     } else if (field == "mi") {        
-        CHECK_HIP_ERROR(hipMemcpy(mutual_info, d_mutual_info, Hij*sizeof(float), hipMemcpyDeviceToHost));        
         fwrite(mutual_info, sizeof(float), Hij, f);  
     } else if (field == "nmi") {
-        CHECK_HIP_ERROR(hipMemcpy(score, d_score, Hij*sizeof(float), hipMemcpyDeviceToHost)); 
         fwrite(score, sizeof(float), Hij, f);   
     } else if (field == "updconn_nswap") {
-        CHECK_HIP_ERROR(hipMemcpy(updconn_nswap, d_updconn_nswap, Hj*sizeof(int), hipMemcpyDeviceToHost));  
         fwrite(updconn_nswap, sizeof(int), Hj, f);   
     } else {
         Prj::store(field, f);
     }
-
 }
-
-/*
-void BCP::depolarize() {
-
-    // multiply pre-synaptic activity by weights and calculate dendrite's support to post-synaptic neuron 
-
-    if (not pop_j->onthisrank()) return;
-
-    if (bwgain<eps) return;
-    
-      
-    //    SGEMV matrix-vector dot product
-    //    performs y := alpha * A * x + beta * y
-    //    params (handle, trans, m, n, alpha, A, lda, x, incx, beta, y, incy)
-    //    more info: https://docs.nvidia.com/cuda/cublas/index.html#cublas-t-gemv
-
-    float alpha = 1; // multiplier for synaptic current
-    float beta = 0; // multiplier for previous support term
-    float biasmul = 1; // multiplier for bias term
-    CHECK_HIPBLAS_ERROR(hipblasSgemv(pop_j->handle, HIPBLAS_OP_T, Ni, Nj, &alpha, d_Wij, Ni, d_Xi, 1, &beta, d_bwsup, 1));
-    add_bias<<<dim3((Nj+Globals::blockDim1d-1)/Globals::blockDim1d, 1, 1), dim3(Globals::blockDim1d, 1, 1), 0, 0>>>(d_bwsup, d_Bj, biasmul, Nj);
-    CHECK_HIP_ERROR(hipPeekAtLastError());
-}
-*/
 
 void BCP::depolarize() {
     /* Multiply pre-synaptic activity by weights and calculate dendrite's support to post-synaptic neuron */
-
-    if (not pop_j->onthisrank()) return;
-
-    if (bwgain < eps) return;
-    
+    if (bwgain < eps) return;  
     float alpha = 1; // Multiplier for synaptic current
     float beta = 0; // Multiplier for previous support term
     float biasmul = 1; // Multiplier for bias term
-
-    // Assuming d_Wij is a 2D array of dimensions Ni x Nj,
-    // d_Xi is the input vector of length Ni,
-    // d_bwsup is the output vector of length Nj,
-    // and d_Bj is the bias vector of length Nj.
 
     // Perform matrix-vector multiplication: d_bwsup = alpha * d_Wij * d_Xi + beta * d_bwsup
     for (int j = 0; j < Nj; ++j) {
@@ -487,7 +337,6 @@ void BCP::depolarize() {
             d_bwsup[j] += alpha * d_Wij[j * Ni + i] * d_Xi[i]; // Accumulate with the multiplier alpha
         }
     }
-
     // Add bias using the provided add_bias function
     add_bias(d_bwsup, d_Bj, biasmul, Nj);
 }
@@ -514,20 +363,14 @@ void updpij_kernel_cpu(float *xi, float *xj, float *pij, float taupdt, float eps
     }
 }
 
-
 void BCP::updtraces() {
-    if (not pop_j->onthisrank()) return;
-
     float *d_Xj = pop_j->d_act; // Assuming this pointer can be directly used.
     if (printnow < eps) return;
-
     P += (1 - P) * taupdt * printnow;
-
     updpi_kernel_cpu(d_Xi, d_Pi, taupdt, Ni, printnow);
     updpj_kernel_cpu(d_Xj, d_Pj, taupdt, Nj, printnow);
     updpij_kernel_cpu(d_Xi, d_Xj, d_Pij, taupdt, eps, Ni, Nj, printnow);
 }
-
 
 void updbw_kernel_cpu(float p, float* pi, float* pj, float* pij, float* bj, float* wij, int* wconnij, float bgain, float wgain, int Ni, int Nj, float eps) {
     for (int j = 0; j < Nj; ++j) {
@@ -546,20 +389,10 @@ void updbw_kernel_cpu(float p, float* pi, float* pj, float* pij, float* bj, floa
 }
 
 void BCP::updbw() {
-    if (not pop_j->onthisrank()) return;
     if (printnow < eps) return;
-
     updbw_kernel_cpu(P, d_Pi, d_Pj, d_Pij, d_Bj, d_Wij, d_WConnij, bgain, wgain, Ni, Nj, eps);
 }
 
-
-/*  Calculate mutual-information between two populations
- *  Naive implementation with serial loops per hypercolumn-pair
- */
-
-/* Swap connections (one prune + one grow) x nswap times
- * Extremeley inefficient, basically serial code running on single GPU thread
- */
 void calc_mutualinfo_kernel_cpu(float *mutual_info, float *Pi, float *Pj, float *Pij, float P, float eps, int Hi, int Mi, int Hj, int Mj) {
     int Ni = Hi * Mi;
     for (int hi = 0; hi < Hi; ++hi) {
@@ -630,10 +463,7 @@ void swap_kernel_cpu(int *Connij, float *score, int updconn_nswapmax, int* updco
     }
 }
 
-
 void BCP::updconn() {
-    if (not pop_j->onthisrank() || not REWIRE) return;
-
     // Compute mutual information
     calc_mutualinfo_kernel_cpu(d_mutual_info, d_Pi, d_Pj, d_Pij, P, eps, Hi, Mi, Hj, Mj);
 
@@ -644,33 +474,21 @@ void BCP::updconn() {
         // Update connections
         swap_kernel_cpu(d_Connij, d_score, updconn_nswapmax, d_updconn_nswap, updconn_threshold, Hi, hj);
     }
-
-    // Final (re)compute score from mutual info as in original, if needed
-    // Update wconns, similar to earlier steps, adapted for CPU
 }
 
-
 /*-------------------------------------  LSGD ----------------------------------*/
-
 LSGD::LSGD(Pop* pop_i, Pop* pop_j, std::string lrule) : Prj(pop_i, pop_j, lrule) {
-
     d_target = nullptr;
-
     batch_size = 100;
     t = 0;
-
     // From Kingma & Ba, 2014
     beta1 = 0.9;
     beta2 = 0.999;
     epsilon = 1e-7f;
     alpha = 0.001;
-
 }
 
 void LSGD::allocate_memory() {
-
-    if (not pop_j->onthisrank()) return;
-    
     Prj::allocate_memory();
     
     Xi = (float*)malloc(Ni*sizeof(float));
@@ -710,88 +528,23 @@ void LSGD::allocate_memory() {
     for (int ji=0; ji<Nij; ji++) 
         Wij[ji] = gnextfloat() * 0.05;
 
-    CHECK_HIP_ERROR(hipMalloc(&d_Xi, Ni*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_Bj, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_Wij, Nij*sizeof(float)));    
-    CHECK_HIP_ERROR(hipMalloc(&d_bwsup, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_db, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_m_db, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_v_db, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_m_db_corr, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_v_db_corr, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_dw, Ni*Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_m_dw, Ni*Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_v_dw, Ni*Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_m_dw_corr, Ni*Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMalloc(&d_v_dw_corr, Ni*Nj*sizeof(float)));   
-
-    CHECK_HIP_ERROR(hipMemcpyAsync(d_Xi, Xi, Ni*sizeof(float), hipMemcpyHostToDevice));
-    CHECK_HIP_ERROR(hipMemcpyAsync(d_Bj, Bj, Nj*sizeof(float), hipMemcpyHostToDevice));
-    CHECK_HIP_ERROR(hipMemcpyAsync(d_Wij, Wij, Nij*sizeof(float), hipMemcpyHostToDevice));
-    CHECK_HIP_ERROR(hipMemcpyAsync(d_bwsup, bwsup, Nj*sizeof(float), hipMemcpyHostToDevice));
-    CHECK_HIP_ERROR(hipMemset(d_db, 0, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMemset(d_m_db, 0, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMemset(d_v_db, 0, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMemset(d_m_db_corr, 0, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMemset(d_v_db_corr, 0, Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMemset(d_dw, 0, Ni*Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMemset(d_m_dw, 0, Ni*Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMemset(d_v_dw, 0, Ni*Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMemset(d_m_dw_corr, 0, Ni*Nj*sizeof(float)));
-    CHECK_HIP_ERROR(hipMemset(d_v_dw_corr, 0, Ni*Nj*sizeof(float)));    
-
 }
 
 void LSGD::store(std::string field, FILE* f) {
-
-    // Prj::store(std::string field, FILE* f);
-
 }
 
 void LSGD::settarget(float* d_target = nullptr) {
-
-    if (not pop_j->onthisrank()) return;
-
     if (d_target!=nullptr) {
         this->d_target = d_target;
     }
-
 }
 
-/*
-void LSGD::depolarize() {
-
-    // multiply pre-synaptic activity by weights and calculate dendrite's support to post-synaptic neuron
-
-    if (not pop_j->onthisrank()) return;
-    if (bwgain<eps) return;
-  
-    //    SGEMV matrix-vector dot product
-    //    performs y := alpha * A * x + beta * y
-    //    params (handle, trans, m, n, alpha, A, lda, x, incx, beta, y, incy)
-    //    more info: https://docs.nvidia.com/cuda/cublas/index.html#cublas-t-gemv
-    
-
-    float alpha = 1 ; // * pop_i->again // multiplier for synaptic current
-    float beta = 0; // multiplier for previous support term 
-    float biasmul = 1; // multiplier for bias term
-    CHECK_HIPBLAS_ERROR(hipblasSgemv(pop_j->handle, HIPBLAS_OP_T, Ni, Nj, &alpha, d_Wij, Ni, d_Xi, 1, &beta, d_bwsup, 1));
-    add_bias<<<dim3((Nj+Globals::blockDim1d-1)/Globals::blockDim1d, 1, 1), dim3(Globals::blockDim1d, 1, 1), 0, 0>>>(d_bwsup, d_Bj, biasmul, Nj);
-    CHECK_HIP_ERROR(hipPeekAtLastError());
-}
-*/
 void LSGD::depolarize() {
     /* Multiply pre-synaptic activity by weights and calculate dendrite's support to post-synaptic neuron */
-    if (not pop_j->onthisrank()) return;
     if (bwgain < eps) return;
     float alpha = 1; // Multiplier for synaptic current, assume pop_i->again is factored in elsewhere if needed
     float beta = 0; // Multiplier for previous support term 
     float biasmul = 1; // Multiplier for bias term
-    // Assuming d_Wij is a 2D array of dimensions Ni x Nj,
-    // d_Xi is the input vector of length Ni,
-    // d_bwsup is the output vector of length Nj,
-    // and d_Bj is the bias vector of length Nj.
-    // Perform matrix-vector multiplication: d_bwsup = alpha * d_Wij * d_Xi + beta * d_bwsup
     for (int j = 0; j < Nj; ++j) {
         d_bwsup[j] = beta * d_bwsup[j]; // Apply beta, if not zero
         for (int i = 0; i < Ni; ++i) {
@@ -817,24 +570,13 @@ void upd_traces_lsgd_cpu(float *db, float *dw, float *src, float *target, float 
 }
 
 void LSGD::updtraces() {
-    if (not pop_j->onthisrank()) return;
-    
     if (d_target == nullptr) return;
-
     if (printnow < eps) return;
-
     float *srcact = d_Xi; // Pre-synaptic activity
     float *d_Xj = pop_j->d_act; // Post-synaptic activity (predictions, in this case)
-
     // Call the CPU version of the kernel function
     upd_traces_lsgd_cpu(d_db, d_dw, srcact, d_target, d_Xj, Ni, Nj);
 }
-
-    /* @brief update w, b from dw, db using Adam (Adaptive Moment Estimation) optimizer      
-     * Original : Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization. arXiv preprint arXiv:1412.6980. 
-     * Help : https://towardsdatascience.com/how-to-implement-an-adam-optimizer-from-scratch-76e7b217f1cc  
-     */
-    
 
 void updbw_lsgd_cpu(float *b, float *db, float *m_db, float *v_db, float *m_db_corr, float *v_db_corr,
                     float *w, float *dw, float *m_dw, float *v_dw, float *m_dw_corr, float *v_dw_corr,
@@ -843,7 +585,6 @@ void updbw_lsgd_cpu(float *b, float *db, float *m_db, float *v_db, float *m_db_c
     for (int r = 0; r < Nj; ++r) {
         for (int s = 0; s < Ni; ++s) {
             int rs = r * Ni + s;
-            
             // Update moment estimates for weights
             m_dw[rs] = beta1 * m_dw[rs] + (1 - beta1) * dw[rs] / batch_size;
             v_dw[rs] = beta2 * v_dw[rs] + (1 - beta2) * dw[rs] * dw[rs] / batch_size;
@@ -851,7 +592,6 @@ void updbw_lsgd_cpu(float *b, float *db, float *m_db, float *v_db, float *m_db_c
             v_dw_corr[rs] = v_dw[rs] / (1 - pow(beta2, t));
             // Update weight parameters
             w[rs] = w[rs] + alpha * (m_dw_corr[rs] / (sqrt(v_dw_corr[rs]) + epsilon));
-
             if (s == 0) {
                 // Update moment estimates for biases
                 m_db[r] = beta1 * m_db[r] + (1 - beta1) * db[r] / batch_size;
@@ -865,17 +605,11 @@ void updbw_lsgd_cpu(float *b, float *db, float *m_db, float *v_db, float *m_db_c
     }
 }
 
-
 void LSGD::updbw() {
-    if (not pop_j->onthisrank()) return;
-    
     if (printnow < eps) return;
-    
     t++; // Increment time step for bias correction
-
     // Call the CPU version of the kernel function
     updbw_lsgd_cpu(d_Bj, d_db, d_m_db, d_v_db, d_m_db_corr, d_v_db_corr, d_Wij, d_dw, d_m_dw, d_v_dw, d_m_dw_corr, d_v_dw_corr, alpha, beta1, beta2, epsilon, t, batch_size, Ni, Nj);
-    
     // Reset the gradients to zero for the next update
     std::fill_n(d_db, Nj, 0.0f);
     std::fill_n(d_dw, Ni * Nj, 0.0f);

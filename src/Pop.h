@@ -24,34 +24,53 @@ SOFTWARE.
 
 */
 
-#ifndef __Pats_included
-#define __Pats_included
+#ifndef __Pop_included
+#define __Pop_included
 
 #include <vector>
 #include <string>
 #include <random>
+#include <cfloat>
+#include <list>
 
-class Pats {
+#include "Globals.h"
+#include "Prj.h"
 
- public:
+class Prj;
 
-    std::string patype, dir, filename;
-    int H, M, N;
-    int pbegin=0, pend=-1, npat=-1;
-    bool binarize;
-    float *pats,*dispats;
-    float *d_pats,*d_dispats;
+class Pop {
+    
+public:
+    
+    static int npop;
+    int id, rank, H, M, N;
+    std::vector<Prj*> dends, axons;
+    std::string actfn;
+    float eps, again = -1; 
+    float *lgi, *sup, *supinf, *act, *noise;
+    float *cumsum;
+    int *spkidx;
+    int ncorrect = 0;
+    float tracc, teacc;
 
- public:
-
-    Pats(int H, int M, std::string dir = "", std::string filename = "", bool binarize = false, std::string patype = "rand");
-    void mkbinpats(int npat);
-    void distortpats(std::string distype = "nflip",int disarg = 1);
-    void loadpats(int, int);
-    void clearpats();
-    float* getpat(int);
-    float* getdispat(int);
+    Pop(int H, int M, std::string = "softWTA", float again = 1);
+    ~Pop();
+    void allocate_memory();
+    void store(std::string field, FILE*);
+    void print_comm_summary();
+    float* getact();
+    void resetsup();
+    void setinput(float*);
+    void integrate();
+    void inject_noise(float nampl);
+    void updact();
+    void resetncorrect();
+    void compute_accuracy(float*);
+    void settracc(int);
+    void setteacc(int);
+    
+private:
 
 } ;
 
-#endif // __Pats_included
+#endif // __Pop_included

@@ -141,13 +141,30 @@ void Prj::updbw() {
 
 void update_wconn(int *WConnij, int *Connij, int Hi, int Mi, int Hj, int Mj) {
     int Ni = Hi * Mi;
+    // print value of Hi, Mi, Hj, Mj
+    printf("Hi: %d, Mi: %d, Hj: %d, Mj: %d\n", Hi, Mi, Hj, Mj);
     for (int hi = 0; hi < Hi; hi++) {
+        // print value of hi
+        printf("hi: %d\n", hi);
         for (int hj = 0; hj < Hj; hj++) {
+            // print value of hj
+            printf("hj: %d\n", hj);
             for (int mj = 0; mj < Mj; mj++) {
+                // print value of mj
+                printf("mj: %d\n", mj);
                 for (int ms = 0; ms < Mi; ms++) {
+                    // print value of ms
+                    printf("ms: %d\n", ms);
                     int r = hj * Mj + mj;
+                    printf("r: %d\n", r);
                     int s = hi * Mi + ms;
-                    WConnij[r*Ni + s] = Connij[hj*Hi+hi] == 1;
+                    printf("s: %d\n", s);
+                    printf("Ni: %d\n", Ni);
+                    int i = r*Ni + s;
+                    printf("i: %d\n", i);
+                    WConnij[i] = Connij[hj*Hi+hi] == 1;
+                    // print value r, s, i, WConnij[i]
+                    printf("r: %d, s: %d, i: %d, WConnij[i]: %d\n", r, s, i, WConnij[i]);
                 }
             }
         }
@@ -158,9 +175,10 @@ void Prj::initconn_rand(int nconn) {
     this->nconn = nconn;
     
     std::vector<int> shuffled(Hi);
+    printf("debug 9\n");
     for (size_t hi = 0; hi < Hi; hi++)
         shuffled[hi] = hi;
-        
+    printf("debug 10\n");    
     for (size_t hj = 0; hj < Hj; hj++) {
         shuffle(begin(shuffled), end(shuffled), RndGen::grndgen->generator);
         for (size_t id = 0; id < Hi; id++) {
@@ -168,8 +186,12 @@ void Prj::initconn_rand(int nconn) {
             Connij[hj*Hi + hi] = (id < this->nconn) ? 1 : 0;
         }
     }
+    // print size of Connij
+    printf("Size of Connij: %lu\n", sizeof(Connij));
+    
+    printf("debug 11\n");
     // No need for GPU memory operations, directly update wconn
-    update_wconn(d_WConnij, d_Connij, Hi, Mi, Hj, Mj);
+    update_wconn(WConnij, Connij, Hi, Mi, Hj, Mj);
 }
 
 void Prj::initconn_sqr(int nconn) {
@@ -202,7 +224,7 @@ void Prj::initconn_sqr(int nconn) {
             }
         }
     }
-    update_wconn(d_WConnij, d_Connij, Hi, Mi, Hj, Mj);
+    update_wconn(WConnij, Connij, Hi, Mi, Hj, Mj);
 }
 
 void Prj::updconn() {
@@ -333,13 +355,13 @@ void BCP::depolarize() {
 
     // Perform matrix-vector multiplication: d_bwsup = alpha * d_Wij * d_Xi + beta * d_bwsup
     for (int j = 0; j < Nj; ++j) {
-        d_bwsup[j] = beta * d_bwsup[j]; // Apply beta to d_bwsup if beta is not zero
+        bwsup[j] = beta * bwsup[j]; // Apply beta to d_bwsup if beta is not zero
         for (int i = 0; i < Ni; ++i) {
-            d_bwsup[j] += alpha * d_Wij[j * Ni + i] * d_Xi[i]; // Accumulate with the multiplier alpha
+            bwsup[j] += alpha * Wij[j * Ni + i] * Xi[i]; // Accumulate with the multiplier alpha
         }
     }
     // Add bias using the provided add_bias function
-    add_bias(d_bwsup, d_Bj, biasmul, Nj);
+    add_bias(bwsup, Bj, biasmul, Nj);
 }
 
 
@@ -365,12 +387,12 @@ void updpij_kernel_cpu(float *xi, float *xj, float *pij, float taupdt, float eps
 }
 
 void BCP::updtraces() {
-    float *d_Xj = pop_j->act; // Assuming this pointer can be directly used.
+    float *Xj = pop_j->act; // Assuming this pointer can be directly used.
     if (printnow < eps) return;
     P += (1 - P) * taupdt * printnow;
-    updpi_kernel_cpu(d_Xi, d_Pi, taupdt, Ni, printnow);
-    updpj_kernel_cpu(d_Xj, d_Pj, taupdt, Nj, printnow);
-    updpij_kernel_cpu(d_Xi, d_Xj, d_Pij, taupdt, eps, Ni, Nj, printnow);
+    updpi_kernel_cpu(Xi, Pi, taupdt, Ni, printnow);
+    updpj_kernel_cpu(Xj, Pj, taupdt, Nj, printnow);
+    updpij_kernel_cpu(Xi, Xj, Pij, taupdt, eps, Ni, Nj, printnow);
 }
 
 void updbw_kernel_cpu(float p, float* pi, float* pj, float* pij, float* bj, float* wij, int* wconnij, float bgain, float wgain, int Ni, int Nj, float eps) {
@@ -391,7 +413,7 @@ void updbw_kernel_cpu(float p, float* pi, float* pj, float* pij, float* bj, floa
 
 void BCP::updbw() {
     if (printnow < eps) return;
-    updbw_kernel_cpu(P, d_Pi, d_Pj, d_Pij, d_Bj, d_Wij, d_WConnij, bgain, wgain, Ni, Nj, eps);
+    updbw_kernel_cpu(P, Pi, Pj, Pij, Bj, Wij, WConnij, bgain, wgain, Ni, Nj, eps);
 }
 
 void calc_mutualinfo_kernel_cpu(float *mutual_info, float *Pi, float *Pj, float *Pij, float P, float eps, int Hi, int Mi, int Hj, int Mj) {
@@ -466,11 +488,11 @@ void swap_kernel_cpu(int *Connij, float *score, int updconn_nswapmax, int* updco
 
 void BCP::updconn() {
     // Compute mutual information
-    calc_mutualinfo_kernel_cpu(d_mutual_info, d_Pi, d_Pj, d_Pij, P, eps, Hi, Mi, Hj, Mj);
+    calc_mutualinfo_kernel_cpu(mutual_info, Pi, Pj, Pij, P, eps, Hi, Mi, Hj, Mj);
 
     for (int hj = 0; hj < Hj; ++hj) {
         // (Re)compute score from mutual info
-        compute_fanout_kernel_cpu(d_fanout, d_Connij, Hi, Hj);
+        compute_fanout_kernel_cpu(fanout, d_Connij, Hi, Hj);
         recompute_score_kernel_cpu(d_score, d_mutual_info, d_fanout, Hi, Hj);
         // Update connections
         swap_kernel_cpu(d_Connij, d_score, updconn_nswapmax, d_updconn_nswap, updconn_threshold, Hi, hj);

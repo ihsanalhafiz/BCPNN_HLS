@@ -58,7 +58,6 @@ public:
   std::string lrule;
   float wgain=1, bgain=1;
   float *bwsup, *Xi, *Wij, *Bj;
-  float *d_bwsup, *d_Xi, *d_Wij, *d_Bj;
   int ncorrect;
   float invmu;
 
@@ -68,9 +67,7 @@ public:
   float updconn_threshold;
   int *WConnij, *Connij;
   float *mutual_info, *score;
-  int *d_WConnij, *d_Connij;
-  float *d_mutual_info, *d_score;
-  int *d_fanout, *updconn_nswap, *d_updconn_nswap;
+  int *fanout, *updconn_nswap;
   
   Prj(Pop *pop_i, Pop *pop_j, std::string lrule = "BCPNN");
   ~Prj();
@@ -96,7 +93,6 @@ public:
   float P;
   float taup, taupdt;
   float *Pi, *Pj, *Pij;
-  float *d_Pi, *d_Pj, *d_Pij;
 
   BCP(Pop*, Pop*, std::string);
   void set_taup(float);

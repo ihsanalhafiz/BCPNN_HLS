@@ -165,30 +165,21 @@ void buildnet() {
     Pop *o_pop = new Pop(Hout, Mout, actfn, pops[1]->rank);
     LSGD *ho_prj = new LSGD(pops[1], o_pop, "LSGD");
     printf("\n");
-    printf("debug 1\n");
     pops.push_back(o_pop);
-    printf("debug 2\n");
     prjs.push_back(ho_prj);
-    printf("debug 3\n");
     lsgdclf_pops.push_back(o_pop);
-    printf("debug 4\n");
     lsgdclf_prjs.push_back(ho_prj);
-    printf("debug 5\n");
     for (auto prj: prjs) {
         prj->set_eps(eps);
         prj->set_bgain(bgain);
         prj->set_wgain(wgain);
     }
-    printf("debug 6\n");
     
     for (auto pop: pops)
         pop->allocate_memory();
     for (auto prj: prjs)
         prj->allocate_memory();
-    printf("debug 7\n");
-    printf("nconnih: %d\n", nconnih);
     prjs[0]->initconn_rand(nconnih);
-    printf("debug 8\n");
     if (verbosity) {
         printf("\n%-50s %10d steps %10.2f ms", "Building net done.", simstep, getDiffTime(start_time));
         fflush(stdout);
@@ -206,6 +197,7 @@ void run() {
     for (auto prj : prjs) prj->updtraces();
     for (auto prj : prjs) prj->updbw();    
     for (auto prj : prjs) prj->updconn();
+    printf("debug run 9\n");
     Logger::dologall();
     advance();
 }
@@ -245,9 +237,9 @@ void learn() {
                     prj->bwgain = 0;
                     prj->printnow = 0;
                     prj->REWIRE = false;
-                }     
+                }
                 pops[0]->setinput(trimg->getpat(p));
-                for (auto pop : lsgdclf_pops) pop->setinput(NULL);        
+                for (auto pop : lsgdclf_pops) pop->setinput(NULL);  
                 run();
             }
         }   

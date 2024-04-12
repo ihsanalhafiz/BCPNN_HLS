@@ -114,8 +114,6 @@ public:
   float *db, *m_db, *v_db, *m_db_corr, *v_db_corr;
   float *dw, *m_dw, *v_dw, *m_dw_corr, *v_dw_corr;
   int *d_ncorrect, *d_argpred, *d_argtarget;
-  float *d_db, *d_m_db, *d_v_db, *d_m_db_corr, *d_v_db_corr;
-  float *d_dw, *d_m_dw, *d_v_dw, *d_m_dw_corr, *d_v_dw_corr;
 
   float *d_target;
 

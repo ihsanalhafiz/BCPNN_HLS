@@ -140,45 +140,29 @@ void Prj::updbw() {
 }
 
 void update_wconn(int *WConnij, int *Connij, int Hi, int Mi, int Hj, int Mj) {
+    printf("start update_wconn\n");
     int Ni = Hi * Mi;
-    // print value of Hi, Mi, Hj, Mj
-    printf("Hi: %d, Mi: %d, Hj: %d, Mj: %d\n", Hi, Mi, Hj, Mj);
     for (int hi = 0; hi < Hi; hi++) {
-        // print value of hi
-        printf("hi: %d\n", hi);
         for (int hj = 0; hj < Hj; hj++) {
-            // print value of hj
-            printf("hj: %d\n", hj);
             for (int mj = 0; mj < Mj; mj++) {
-                // print value of mj
-                printf("mj: %d\n", mj);
                 for (int ms = 0; ms < Mi; ms++) {
-                    // print value of ms
-                    printf("ms: %d\n", ms);
                     int r = hj * Mj + mj;
-                    printf("r: %d\n", r);
                     int s = hi * Mi + ms;
-                    printf("s: %d\n", s);
-                    printf("Ni: %d\n", Ni);
                     int i = r*Ni + s;
-                    printf("i: %d\n", i);
                     WConnij[i] = Connij[hj*Hi+hi] == 1;
-                    // print value r, s, i, WConnij[i]
-                    printf("r: %d, s: %d, i: %d, WConnij[i]: %d\n", r, s, i, WConnij[i]);
                 }
             }
         }
     }
+    printf("end update_wconn\n");
 }
 
 void Prj::initconn_rand(int nconn) {
     this->nconn = nconn;
     
     std::vector<int> shuffled(Hi);
-    printf("debug 9\n");
     for (size_t hi = 0; hi < Hi; hi++)
         shuffled[hi] = hi;
-    printf("debug 10\n");    
     for (size_t hj = 0; hj < Hj; hj++) {
         shuffle(begin(shuffled), end(shuffled), RndGen::grndgen->generator);
         for (size_t id = 0; id < Hi; id++) {
@@ -186,10 +170,6 @@ void Prj::initconn_rand(int nconn) {
             Connij[hj*Hi + hi] = (id < this->nconn) ? 1 : 0;
         }
     }
-    // print size of Connij
-    printf("Size of Connij: %lu\n", sizeof(Connij));
-    
-    printf("debug 11\n");
     // No need for GPU memory operations, directly update wconn
     update_wconn(WConnij, Connij, Hi, Mi, Hj, Mj);
 }
@@ -228,6 +208,7 @@ void Prj::initconn_sqr(int nconn) {
 }
 
 void Prj::updconn() {
+    printf("\nPrj::updconn\n");
     if (not REWIRE) return;
 
     /* just an empty shell */
@@ -439,9 +420,13 @@ void calc_mutualinfo_kernel_cpu(float *mutual_info, float *Pi, float *Pj, float 
 }
 
 void compute_fanout_kernel_cpu(int *fanout, int *Connij, int Hi, int Hj) {
+    printf("compute_fanout_kernel_cpu\n");
     for (int hi = 0; hi < Hi; ++hi) {
         int tmpsum = 0;
-        for (int hj = 0; hj < Hj; ++hj) tmpsum += Connij[hj * Hi + hi] == 1;
+        for (int hj = 0; hj < Hj; ++hj){
+            printf("hj %d * Hi + hi %d = %d\n", hj, (hj * Hi + hi), hi);
+            tmpsum += Connij[hj * Hi + hi] == 1;
+        } 
         fanout[hi] = tmpsum;
     }
 }
@@ -487,15 +472,21 @@ void swap_kernel_cpu(int *Connij, float *score, int updconn_nswapmax, int* updco
 }
 
 void BCP::updconn() {
+    printf("\nBCP::updconn\n");
     // Compute mutual information
     calc_mutualinfo_kernel_cpu(mutual_info, Pi, Pj, Pij, P, eps, Hi, Mi, Hj, Mj);
-
+    printf("mutual_info calculated\n");
     for (int hj = 0; hj < Hj; ++hj) {
+        printf("hj = %d\n", hj);
         // (Re)compute score from mutual info
-        compute_fanout_kernel_cpu(fanout, d_Connij, Hi, Hj);
-        recompute_score_kernel_cpu(d_score, d_mutual_info, d_fanout, Hi, Hj);
+        printf("Hi %ld Hj %ld \n", Hi, Hj);
+        compute_fanout_kernel_cpu(fanout, Connij, Hi, Hj);
+        printf("fanout calculated\n");
+        recompute_score_kernel_cpu(score, mutual_info, fanout, Hi, Hj);
+        printf("score calculated\n");
         // Update connections
-        swap_kernel_cpu(d_Connij, d_score, updconn_nswapmax, d_updconn_nswap, updconn_threshold, Hi, hj);
+        swap_kernel_cpu(Connij, score, updconn_nswapmax, updconn_nswap, updconn_threshold, Hi, hj);
+        printf("swap done\n");
     }
 }
 
@@ -569,13 +560,13 @@ void LSGD::depolarize() {
     float beta = 0; // Multiplier for previous support term 
     float biasmul = 1; // Multiplier for bias term
     for (int j = 0; j < Nj; ++j) {
-        d_bwsup[j] = beta * d_bwsup[j]; // Apply beta, if not zero
+        bwsup[j] = beta * bwsup[j]; // Apply beta, if not zero
         for (int i = 0; i < Ni; ++i) {
-            d_bwsup[j] += alpha * d_Wij[j * Ni + i] * d_Xi[i]; // Accumulate with the multiplier alpha
+            bwsup[j] += alpha * Wij[j * Ni + i] * Xi[i]; // Accumulate with the multiplier alpha
         }
     }
     // Add bias using the provided add_bias function
-    add_bias(d_bwsup, d_Bj, biasmul, Nj);
+    add_bias(bwsup, Bj, biasmul, Nj);
 }
 
 void upd_traces_lsgd_cpu(float *db, float *dw, float *src, float *target, float *pred, int Ni, int Nj) {
@@ -595,10 +586,10 @@ void upd_traces_lsgd_cpu(float *db, float *dw, float *src, float *target, float 
 void LSGD::updtraces() {
     if (d_target == nullptr) return;
     if (printnow < eps) return;
-    float *srcact = d_Xi; // Pre-synaptic activity
-    float *d_Xj = pop_j->act; // Post-synaptic activity (predictions, in this case)
+    float *srcact = Xi; // Pre-synaptic activity
+    float *Xj = pop_j->act; // Post-synaptic activity (predictions, in this case)
     // Call the CPU version of the kernel function
-    upd_traces_lsgd_cpu(d_db, d_dw, srcact, d_target, d_Xj, Ni, Nj);
+    upd_traces_lsgd_cpu(db, dw, srcact, d_target, Xj, Ni, Nj);
 }
 
 void updbw_lsgd_cpu(float *b, float *db, float *m_db, float *v_db, float *m_db_corr, float *v_db_corr,
@@ -632,8 +623,8 @@ void LSGD::updbw() {
     if (printnow < eps) return;
     t++; // Increment time step for bias correction
     // Call the CPU version of the kernel function
-    updbw_lsgd_cpu(d_Bj, d_db, d_m_db, d_v_db, d_m_db_corr, d_v_db_corr, d_Wij, d_dw, d_m_dw, d_v_dw, d_m_dw_corr, d_v_dw_corr, alpha, beta1, beta2, epsilon, t, batch_size, Ni, Nj);
+    updbw_lsgd_cpu(Bj, db, m_db, v_db, m_db_corr, v_db_corr, Wij, dw, m_dw, v_dw, m_dw_corr, v_dw_corr, alpha, beta1, beta2, epsilon, t, batch_size, Ni, Nj);
     // Reset the gradients to zero for the next update
-    std::fill_n(d_db, Nj, 0.0f);
-    std::fill_n(d_dw, Ni * Nj, 0.0f);
+    std::fill_n(db, Nj, 0.0f);
+    std::fill_n(dw, Ni * Nj, 0.0f);
 }

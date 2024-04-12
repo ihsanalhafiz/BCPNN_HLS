@@ -146,7 +146,7 @@ void Pop::integrate() {
     for (int did = 0; did < dends.size(); did++) {
         Prj *dend = dends[did];
         if (dend->bwgain < eps) continue;
-        addtosupinf_kernel_cpu(supinf, dend->d_bwsup, N);
+        addtosupinf_kernel_cpu(supinf, dend->bwsup, N);
         // No need to check for errors as in CUDA version
     }
     calcsup_kernel_cpu(sup, supinf, N);

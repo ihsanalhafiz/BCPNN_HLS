@@ -16,9 +16,9 @@ FLAGS		= -O3
 reprlearn: $(APP_DIR)/reprlearn/reprlearnmain.o $(OBJS)
 	$(CXX) -o $(APP_DIR)/reprlearn/reprlearnmain $^ $(INCLUDE) $(FLAGS)
 
-all: reprlearn
+all: clean reprlearn
 
-.PHONY: clean
+.PHONY: clean reprlearn all
 clean : 
 	rm -f *.o *.bin *.log *.png *.gif *.out out.txt err.txt *~ core reprlearnmain
 	rm -f $(SRC_DIR)/*.o $(SRC_DIR)/*.bin $(SRC_DIR)/*~

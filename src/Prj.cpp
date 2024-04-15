@@ -336,16 +336,12 @@ void BCP::depolarize() {
     // perform gemv operation: bwsup = alpha * Wij * Xi + beta * bwsup
     // with Ni = number of rows, Nj = number of columns
 
-    // transpose matrix Wij into Wij_transposed
-    for (int i = 0; i < Ni; i++) {
-        for (int j = 0; j < Nj; j++) {
-            Wij_transposed[i * Nj + j] = Wij[j * Ni + i];
-        }
+    for (int i = 0; i < Nj; i++) {
+        bwsup[i] *= beta;
     }
-    for(int i = 0; i < Ni; i++) {
-        bwsup[i] = beta * bwsup[i];
-        for(int j = 0; j < Nj; j++) {
-            bwsup[j] += alpha * Wij_transposed[i * Ni + j] * Xi[j];
+    for (int i = 0; i < Nj; i++) {
+        for (int j = 0; j < Ni; j++) {
+            bwsup[i] += alpha * Wij[j * Nj + i] * Xi[j];  // Accessing the transpose of Wij
         }
     }
 
@@ -516,6 +512,7 @@ void LSGD::allocate_memory() {
     Xi = (float*)malloc(Ni*sizeof(float));
     Bj = (float*)malloc(Nj*sizeof(float));
     Wij = (float*)malloc(Nij*sizeof(float));
+    Wij_transposed = (float*)malloc(Nij*sizeof(float));
     bwsup = (float*)malloc(Nj*sizeof(float));
     db = (float*)malloc(Nj*sizeof(float));
     m_db = (float*)malloc(Nj*sizeof(float));
@@ -571,16 +568,12 @@ void LSGD::depolarize() {
     // perform gemv operation: bwsup = alpha * Wij * Xi + beta * bwsup
     // with Ni = number of rows, Nj = number of columns
 
-    // transpose matrix Wij into Wij_transposed
-    for (int i = 0; i < Ni; i++) {
-        for (int j = 0; j < Nj; j++) {
-            Wij_transposed[i * Nj + j] = Wij[j * Ni + i];
-        }
+    for (int i = 0; i < Nj; i++) {
+        bwsup[i] *= beta;
     }
-    for(int i = 0; i < Ni; i++) {
-        bwsup[i] = beta * bwsup[i];
-        for(int j = 0; j < Nj; j++) {
-            bwsup[j] += alpha * Wij_transposed[i * Ni + j] * Xi[j];
+    for (int i = 0; i < Nj; i++) {
+        for (int j = 0; j < Ni; j++) {
+            bwsup[i] += alpha * Wij[j * Nj + i] * Xi[j];  // Accessing the transpose of Wij
         }
     }
     // Add bias using the provided add_bias function

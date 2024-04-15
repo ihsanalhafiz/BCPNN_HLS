@@ -267,8 +267,9 @@ void learn_clfs() {
                     prj->REWIRE = false;
                 }
                 pops[0]->setinput(trimg->getpat(p));
-                for (auto prj : lsgdclf_prjs)
+                for (auto prj : lsgdclf_prjs){
                     prj->settarget(trlbl->getpat(p)); // clamp targets for lsgd learning
+                }
                 run();
             }
         }
@@ -277,7 +278,7 @@ void learn_clfs() {
     if (verbosity) { printf("\n%-50s %10d steps %10.2f ms", "Classifier learning done.", simstep, getDiffTime(start_time)); fflush(stdout); }
 }
 
-void predict_train() {
+void predict_train() { //set
     /* Predict labels on train dataset */
     if (verbosity) { printf("\nPredicting from train samples "); fflush(stdout); }
     gettimeofday(&start_time, 0);

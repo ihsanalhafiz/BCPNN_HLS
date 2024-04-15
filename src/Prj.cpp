@@ -140,8 +140,7 @@ void Prj::updbw() {
     } 
 }
 
-void update_wconn(int *WConnij, int *Connij, int Hi, int Mi, int Hj, int Mj) {
-    printf("start update_wconn\n");
+void updwconn_kernel_cpu(int *WConnij, int *Connij, int Hi, int Mi, int Hj, int Mj) {
     int Ni = Hi * Mi;
     for (int hi = 0; hi < Hi; hi++) {
         for (int hj = 0; hj < Hj; hj++) {
@@ -155,7 +154,6 @@ void update_wconn(int *WConnij, int *Connij, int Hi, int Mi, int Hj, int Mj) {
             }
         }
     }
-    printf("end update_wconn\n");
 }
 
 void Prj::initconn_rand(int nconn) {
@@ -172,7 +170,7 @@ void Prj::initconn_rand(int nconn) {
         }
     }
     // No need for GPU memory operations, directly update wconn
-    update_wconn(WConnij, Connij, Hi, Mi, Hj, Mj);
+    updwconn_kernel_cpu(WConnij, Connij, Hi, Mi, Hj, Mj);
 }
 
 void Prj::initconn_sqr(int nconn) {
@@ -205,7 +203,7 @@ void Prj::initconn_sqr(int nconn) {
             }
         }
     }
-    update_wconn(WConnij, Connij, Hi, Mi, Hj, Mj);
+    updwconn_kernel_cpu(WConnij, Connij, Hi, Mi, Hj, Mj);
 }
 
 void Prj::updconn() {
@@ -237,6 +235,7 @@ void BCP::allocate_memory() {
     Xi = (float*)malloc(Ni*sizeof(float));
     Bj = (float*)malloc(Nj*sizeof(float));
     Wij = (float*)malloc(Nij*sizeof(float));
+    Wij_transposed = (float*)malloc(Nij*sizeof(float));
     bwsup = (float*)malloc(Nj*sizeof(float));
     P = eps;    
     Pi = (float*)malloc(Ni*sizeof(float));
@@ -334,33 +333,42 @@ void BCP::depolarize() {
     float beta = 0; // Multiplier for previous support term
     float biasmul = 1; // Multiplier for bias term
 
-    // Perform matrix-vector multiplication: d_bwsup = alpha * d_Wij * d_Xi + beta * d_bwsup
-    for (int j = 0; j < Nj; ++j) {
-        bwsup[j] = beta * bwsup[j]; // Apply beta to d_bwsup if beta is not zero
-        for (int i = 0; i < Ni; ++i) {
-            bwsup[j] += alpha * Wij[j * Ni + i] * Xi[i]; // Accumulate with the multiplier alpha
+    // perform gemv operation: bwsup = alpha * Wij * Xi + beta * bwsup
+    // with Ni = number of rows, Nj = number of columns
+
+    // transpose matrix Wij into Wij_transposed
+    for (int i = 0; i < Ni; i++) {
+        for (int j = 0; j < Nj; j++) {
+            Wij_transposed[i * Nj + j] = Wij[j * Ni + i];
         }
     }
+    for(int i = 0; i < Ni; i++) {
+        bwsup[i] = beta * bwsup[i];
+        for(int j = 0; j < Nj; j++) {
+            bwsup[j] += alpha * Wij_transposed[i * Ni + j] * Xi[j];
+        }
+    }
+
     // Add bias using the provided add_bias function
     add_bias(bwsup, Bj, biasmul, Nj);
 }
 
 
 void updpi_kernel_cpu(float *xi, float *pi, float taupdt, int Ni, float PRN) {
-    for (int i = 0; i < Ni; ++i) {
+    for (int i = 0; i < Ni; i++) {
         pi[i] += (xi[i] - pi[i]) * taupdt * PRN;
     }
 }
 
 void updpj_kernel_cpu(float *xj, float *pj, float taupdt, int Nj, float PRN) {
-    for (int j = 0; j < Nj; ++j) {
+    for (int j = 0; j < Nj; j++) {
         pj[j] += (xj[j] - pj[j]) * taupdt * PRN;
     }
 }
 
 void updpij_kernel_cpu(float *xi, float *xj, float *pij, float taupdt, float eps, int Ni, int Nj, float PRN) {
-    for (int i = 0; i < Ni; ++i) {
-        for (int j = 0; j < Nj; ++j) {
+    for (int i = 0; i < Ni; i++) {
+        for (int j = 0; j < Nj; j++) {
             int ij = j * Ni + i;
             pij[ij] += (xi[i] * xj[j] - pij[ij]) * taupdt * PRN;
         }
@@ -377,17 +385,15 @@ void BCP::updtraces() {
 }
 
 void updbw_kernel_cpu(float p, float* pi, float* pj, float* pij, float* bj, float* wij, int* wconnij, float bgain, float wgain, int Ni, int Nj, float eps) {
-    for (int j = 0; j < Nj; ++j) {
-        // Update bj only for the first i=0 for each j, mimicking the GPU behavior
-        bj[j] = bgain * logf(pj[j] / p);
-        for (int i = 0; i < Ni; ++i) {
+    for (int j = 0; j < Nj; j++) {
+        
+        for (int i = 0; i < Ni; i++) {
             int ij = j * Ni + i;
-            // Ensure division by zero is handled by adding eps to the denominator
-            if (pi[i] * pj[j] > eps) {
-                wij[ij] = wgain * logf(pij[ij] * p / (pi[i] * pj[j])) * wconnij[ij];
-            } else {
-                wij[ij] = 0; // Or some other default/error value
+            if(i == 0) {
+                // Update bj only for the first i=0 for each j, mimicking the GPU behavior
+                bj[j] = bgain * logf(pj[j] / p);
             }
+            wij[ij] = wgain * logf(pij[ij] * p / (pi[i] * pj[j])) * wconnij[ij];
         }
     }
 }
@@ -399,12 +405,12 @@ void BCP::updbw() {
 
 void calc_mutualinfo_kernel_cpu(float *mutual_info, float *Pi, float *Pj, float *Pij, float P, float eps, int Hi, int Mi, int Hj, int Mj) {
     int Ni = Hi * Mi;
-    for (int hi = 0; hi < Hi; ++hi) {
-        for (int hj = 0; hj < Hj; ++hj) {
+    for (int hi = 0; hi < Hi; hi++) {
+        for (int hj = 0; hj < Hj; hj++) {
             int hji = hj * Hi + hi;
             float tmpsum = 0;
-            for (int mj = 0; mj < Mj; ++mj) {
-                for (int mi = 0; mi < Mi; ++mi) {
+            for (int mj = 0; mj < Mj; mj++) {
+                for (int mi = 0; mi < Mi; mi++) {
                     int j = hj * Mj + mj;
                     int i = hi * Mi + mi;
                     int ji = j * Ni + i;
@@ -420,9 +426,9 @@ void calc_mutualinfo_kernel_cpu(float *mutual_info, float *Pi, float *Pj, float 
 }
 
 void compute_fanout_kernel_cpu(int *fanout, int *Connij, int Hi, int Hj) {
-    for (int hi = 0; hi < Hi; ++hi) {
+    for (int hi = 0; hi < Hi; hi++) {
         int tmpsum = 0;
-        for (int hj = 0; hj < Hj; ++hj){
+        for (int hj = 0; hj < Hj; hj++){
             tmpsum += Connij[hj * Hi + hi] == 1;
         } 
         fanout[hi] = tmpsum;
@@ -430,55 +436,66 @@ void compute_fanout_kernel_cpu(int *fanout, int *Connij, int Hi, int Hj) {
 }
 
 void recompute_score_kernel_cpu(float *score, float *mutual_info, int *fanout, int Hi, int Hj) {
-    for (int hi = 0; hi < Hi; ++hi) {
-        for (int hj = 0; hj < Hj; ++hj) {
+    for (int hi = 0; hi < Hi; hi++) {
+        for (int hj = 0; hj < Hj; hj++) {
             int hji = hj * Hi + hi;
             score[hji] = mutual_info[hji] / (fanout[hi] + 1);
         }
     }
 }
 
-void swap_kernel_cpu(int *Connij, float *score, int updconn_nswapmax, int* updconn_nswap, float updconn_threshold, int Hi, int Hj) {
-    for (int hj = 0; hj < Hj; ++hj) {
-        bool converged = false;
-        int swap_count = 0;
-        for (int swapid = 0; swapid < updconn_nswapmax; ++swapid) {
-            if (converged) break;
-            int active_id = -1, silent_id = -1;
-            float active_minscore = FLT_MAX, silent_maxscore = -FLT_MAX;
-            for (int hi = 0; hi < Hi; ++hi) {
-                int index = hj * Hi + hi;
-                if (Connij[index] == 1 && score[index] < active_minscore) {
-                    active_id = hi;
-                    active_minscore = score[index];
-                }
-                if (Connij[index] == 0 && score[index] > silent_maxscore) {
-                    silent_id = hi;
-                    silent_maxscore = score[index];
-                }
+void swap_kernel_cpu(int *Connij, float *score, int updconn_nswapmax, int* updconn_nswap, float updconn_threshold, int Hi, int hj) {
+    bool converged = false;
+
+    updconn_nswap[hj] = updconn_nswapmax;
+
+    for (int swapid=0; swapid<updconn_nswapmax; swapid++) {
+
+        if (converged) {
+            updconn_nswap[hj] = swapid;
+            break;
+        }
+
+        int active_id, silent_id;
+        float active_minscore = FLT_MAX, silent_maxscore = -FLT_MAX;
+        
+        for (int hi=0; hi<Hi; hi++) {
+            if (Connij[hj*Hi+hi]==1 and score[hj*Hi+hi] < active_minscore) {
+                active_id = hi;
+                active_minscore = score[hj*Hi+hi];
             }
-            if (silent_maxscore > updconn_threshold * active_minscore && active_id != -1 && silent_id != -1) {
-                Connij[hj * Hi + active_id] = 0;
-                Connij[hj * Hi + silent_id] = 1;
-                swap_count++;
-            } else {
-                converged = true;
+            if (Connij[hj*Hi+hi]==0 and score[hj*Hi+hi] > silent_maxscore) {
+                silent_id = hi;
+                silent_maxscore = score[hj*Hi+hi];
             }
         }
-        updconn_nswap[hj] = swap_count;
-    }
+        
+        if (silent_maxscore > updconn_threshold * active_minscore) {
+            Connij[hj*Hi + active_id] = 0;                
+            Connij[hj*Hi + silent_id] = 1;
+        } else {
+            converged = true;
+        }
+
+    }    
 }
 
 void BCP::updconn() {
+    if (not REWIRE) return;
     // Compute mutual information
     calc_mutualinfo_kernel_cpu(mutual_info, Pi, Pj, Pij, P, eps, Hi, Mi, Hj, Mj);
-    for (int hj = 0; hj < Hj; ++hj) {
+    for (int hj = 0; hj < Hj; hj++) {
         // (Re)compute score from mutual info
         compute_fanout_kernel_cpu(fanout, Connij, Hi, Hj);
         recompute_score_kernel_cpu(score, mutual_info, fanout, Hi, Hj);
         // Update connections
         swap_kernel_cpu(Connij, score, updconn_nswapmax, updconn_nswap, updconn_threshold, Hi, hj);
     }
+    // (re)compute score from mutual info
+    compute_fanout_kernel_cpu(fanout, Connij, Hi, Hj);
+    recompute_score_kernel_cpu(score, mutual_info, fanout, Hi, Hj);
+
+    updwconn_kernel_cpu(WConnij, Connij, Hi, Mi, Hj, Mj);
 }
 
 /*-------------------------------------  LSGD ----------------------------------*/
@@ -550,10 +567,20 @@ void LSGD::depolarize() {
     float alpha = 1; // Multiplier for synaptic current, assume pop_i->again is factored in elsewhere if needed
     float beta = 0; // Multiplier for previous support term 
     float biasmul = 1; // Multiplier for bias term
-    for (int j = 0; j < Nj; ++j) {
-        bwsup[j] = beta * bwsup[j]; // Apply beta, if not zero
-        for (int i = 0; i < Ni; ++i) {
-            bwsup[j] += alpha * Wij[j * Ni + i] * Xi[i]; // Accumulate with the multiplier alpha
+
+    // perform gemv operation: bwsup = alpha * Wij * Xi + beta * bwsup
+    // with Ni = number of rows, Nj = number of columns
+
+    // transpose matrix Wij into Wij_transposed
+    for (int i = 0; i < Ni; i++) {
+        for (int j = 0; j < Nj; j++) {
+            Wij_transposed[i * Nj + j] = Wij[j * Ni + i];
+        }
+    }
+    for(int i = 0; i < Ni; i++) {
+        bwsup[i] = beta * bwsup[i];
+        for(int j = 0; j < Nj; j++) {
+            bwsup[j] += alpha * Wij_transposed[i * Ni + j] * Xi[j];
         }
     }
     // Add bias using the provided add_bias function
@@ -561,8 +588,8 @@ void LSGD::depolarize() {
 }
 
 void upd_traces_lsgd_cpu(float *db, float *dw, float *src, float *target, float *pred, int Ni, int Nj) {
-    for (int r = 0; r < Nj; ++r) {
-        for (int s = 0; s < Ni; ++s) {
+    for (int r = 0; r < Nj; r++) {
+        for (int s = 0; s < Ni; s++) {
             int rs = r * Ni + s;
             // Update db for the first element in each column
             if (s == 0) {
@@ -587,20 +614,20 @@ void updbw_lsgd_cpu(float *b, float *db, float *m_db, float *v_db, float *m_db_c
                     float *w, float *dw, float *m_dw, float *v_dw, float *m_dw_corr, float *v_dw_corr,
                     float alpha, float beta1, float beta2, float epsilon, float t, int batch_size, 
                     int Ni, int Nj) {
-    for (int r = 0; r < Nj; ++r) {
-        for (int s = 0; s < Ni; ++s) {
+    for (int r = 0; r < Nj; r++) {
+        for (int s = 0; s < Ni; s++) {
             int rs = r * Ni + s;
             // Update moment estimates for weights
-            m_dw[rs] = beta1 * m_dw[rs] + (1 - beta1) * dw[rs] / batch_size;
-            v_dw[rs] = beta2 * v_dw[rs] + (1 - beta2) * dw[rs] * dw[rs] / batch_size;
+            m_dw[rs] = beta1 * m_dw[rs] + (1 - beta1) * dw[rs] / (float) batch_size;
+            v_dw[rs] = beta2 * v_dw[rs] + (1 - beta2) * dw[rs] * dw[rs] /  (float) batch_size;
             m_dw_corr[rs] = m_dw[rs] / (1 - pow(beta1, t));
             v_dw_corr[rs] = v_dw[rs] / (1 - pow(beta2, t));
             // Update weight parameters
             w[rs] = w[rs] + alpha * (m_dw_corr[rs] / (sqrt(v_dw_corr[rs]) + epsilon));
             if (s == 0) {
                 // Update moment estimates for biases
-                m_db[r] = beta1 * m_db[r] + (1 - beta1) * db[r] / batch_size;
-                v_db[r] = beta2 * v_db[r] + (1 - beta2) * db[r] * db[r] / batch_size;
+                m_db[r] = beta1 * m_db[r] + (1 - beta1) * db[r] /  (float)batch_size;
+                v_db[r] = beta2 * v_db[r] + (1 - beta2) * db[r] * db[r] /  (float)batch_size;
                 m_db_corr[r] = m_db[r] / (1 - pow(beta1, t));
                 v_db_corr[r] = v_db[r] / (1 - pow(beta2, t));
                 // Update bias parameters
@@ -616,6 +643,6 @@ void LSGD::updbw() {
     // Call the CPU version of the kernel function
     updbw_lsgd_cpu(Bj, db, m_db, v_db, m_db_corr, v_db_corr, Wij, dw, m_dw, v_dw, m_dw_corr, v_dw_corr, alpha, beta1, beta2, epsilon, t, batch_size, Ni, Nj);
     // Reset the gradients to zero for the next update
-    std::fill_n(db, Nj, 0.0f);
-    std::fill_n(dw, Ni * Nj, 0.0f);
+    memset(db, 0, Nj*sizeof(float));
+    memset(dw, 0, Nij*sizeof(float));
 }

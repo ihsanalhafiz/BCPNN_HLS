@@ -28,9 +28,9 @@ SOFTWARE.
 #include <string>
 #include <random>
 #include <iostream>
-#include <algorithm> // For std::max
-#include <cmath>     // For exp and other math functions
-#include <cstring>
+//#include <algorithm> // For std::max
+//#include <cmath>     // For exp and other math functions
+//#include <cstring>
 
 #include "Globals.h"
 #include "Pop.h"
@@ -64,10 +64,7 @@ typedef struct {
 } cpuRandState;
 
 void setup_noise_cpu(cpuRandState *state, int N) {
-    srand(time(NULL));
-    for (int n = 0; n < N; ++n) {
-        state[n].seed = rand();
-    }
+    // not applicable
 }
 
 void Pop::allocate_memory() {
@@ -109,13 +106,13 @@ void Pop::resetsup() {
 }
 
 void setinput_to_zero_kernel_cpu(float* lgi, float eps, int N) {
-    for (int n = 0; n < N; ++n) {
+    for (int n = 0; n < N; n++) {
         lgi[n] = 0; // Or logf(eps) if needed
     }
 }
 
 void setinput_kernel_cpu(float* lgi, float* inp, float eps, int N) {
-    for (int n = 0; n < N; ++n) {
+    for (int n = 0; n < N; n++) {
         lgi[n] = logf(inp[n] + eps);
     }
 }
@@ -129,13 +126,13 @@ void Pop::setinput(float *d_inp = nullptr) {
 }
 
 void addtosupinf_kernel_cpu(float *supinf, float *inc, int N) {
-    for (int n = 0; n < N; ++n) {
+    for (int n = 0; n < N; n++) {
         supinf[n] += inc[n];
     }
 }
 
 void calcsup_kernel_cpu(float *sup, float *supinf, int N) {
-    for (int n = 0; n < N; ++n) {
+    for (int n = 0; n < N; n++) {
         sup[n] += (supinf[n] - sup[n]);
     }
 }
@@ -155,29 +152,30 @@ void Pop::integrate() {
 
 void inject_noise_kernel_cpu(std::mt19937 &rng, float *sup, float nampl, int N) {
     std::uniform_real_distribution<float> dist(0.0f, 1.0f); // Uniform distribution between 0 and 1
-    for (int n = 0; n < N; ++n) {
+    for (int n = 0; n < N; n++) {
         sup[n] += nampl * dist(rng);
     }
 }
 
 void Pop::inject_noise(float nampl) {
     // Initialize a random number generator
-    std::random_device rd; // Use to seed the random number engine
-    std::mt19937 rng(rd()); // Standard mersenne_twister_engine seeded with rd()
+    // Seed value
+    unsigned seed = 1234;
+    std::mt19937 rng(1234); // Standard mersenne_twister_engine seeded with rd()
     // Call the CPU version of the kernel function
     inject_noise_kernel_cpu(rng, sup, nampl, N);
 }
 
 void softmax_kernel_cpu(float* sup, float* act, float again, int H, int M) {
-    for (int h = 0; h < H; ++h) {
+    for (int h = 0; h < H; h++) {
         float maxsup = sup[M * h];
-        for (int m = 0; m < M; ++m) maxsup = std::max(maxsup, sup[M * h + m]);
         float sumexpsup = 0;
-        for (int m = 0; m < M; ++m) {
-            act[M * h + m] = expf(sup[M * h + m] - maxsup) * again; // Apply gain here if needed
+        for (int m = 0; m < M; m++) maxsup = std::max(maxsup, sup[M * h + m]);
+        for (int m = 0; m < M; m++) {
+            act[M * h + m] = expf(sup[M * h + m] - maxsup);
             sumexpsup += act[M * h + m];
         }
-        for (int m = 0; m < M; ++m) act[M * h + m] /= sumexpsup;
+        for (int m = 0; m < M; m++) act[M * h + m] /= sumexpsup;
     }
 }
 

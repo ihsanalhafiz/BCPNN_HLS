@@ -57,7 +57,7 @@ public:
   // Synaptic plasticity parameters
   std::string lrule;
   float wgain=1, bgain=1;
-  float *bwsup, *Xi, *Wij, *Bj;
+  float *bwsup, *Xi, * Wij, *Bj, *Wij_transposed;
   int ncorrect;
   float invmu;
 

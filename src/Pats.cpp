@@ -111,13 +111,11 @@ void Pats::distortpats(string distype,int disarg) {
             }
 	} else error("Pats::distortpats","No such distype: " + distype);
     }
-    delete[] tmph;
 }
 
 void Pats::clearpats() {
     if (npat<=0) return;
     delete [] pats;
-    if (dispats != NULL) delete [] dispats;
 }
 
 float* Pats::getpat(int p) {

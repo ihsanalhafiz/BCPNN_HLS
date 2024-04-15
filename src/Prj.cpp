@@ -69,6 +69,7 @@ void Prj::allocate_memory() {
         score = (float*)malloc(Hij*sizeof(float));
         Connij = (int*)malloc(Hij*sizeof(int));
         WConnij = (int*)malloc(Nij*sizeof(int));
+        fanout = (int*)malloc(Hi*sizeof(int));
         for (int hji=0; hji<Hij; hji++) 
             mutual_info[hji] = 0;
         for (int hji=0; hji<Hij; hji++) 
@@ -208,7 +209,6 @@ void Prj::initconn_sqr(int nconn) {
 }
 
 void Prj::updconn() {
-    printf("\nPrj::updconn\n");
     if (not REWIRE) return;
 
     /* just an empty shell */
@@ -420,11 +420,9 @@ void calc_mutualinfo_kernel_cpu(float *mutual_info, float *Pi, float *Pj, float 
 }
 
 void compute_fanout_kernel_cpu(int *fanout, int *Connij, int Hi, int Hj) {
-    printf("compute_fanout_kernel_cpu\n");
     for (int hi = 0; hi < Hi; ++hi) {
         int tmpsum = 0;
         for (int hj = 0; hj < Hj; ++hj){
-            printf("hj %d * Hi + hi %d = %d\n", hj, (hj * Hi + hi), hi);
             tmpsum += Connij[hj * Hi + hi] == 1;
         } 
         fanout[hi] = tmpsum;
@@ -472,21 +470,14 @@ void swap_kernel_cpu(int *Connij, float *score, int updconn_nswapmax, int* updco
 }
 
 void BCP::updconn() {
-    printf("\nBCP::updconn\n");
     // Compute mutual information
     calc_mutualinfo_kernel_cpu(mutual_info, Pi, Pj, Pij, P, eps, Hi, Mi, Hj, Mj);
-    printf("mutual_info calculated\n");
     for (int hj = 0; hj < Hj; ++hj) {
-        printf("hj = %d\n", hj);
         // (Re)compute score from mutual info
-        printf("Hi %ld Hj %ld \n", Hi, Hj);
         compute_fanout_kernel_cpu(fanout, Connij, Hi, Hj);
-        printf("fanout calculated\n");
         recompute_score_kernel_cpu(score, mutual_info, fanout, Hi, Hj);
-        printf("score calculated\n");
         // Update connections
         swap_kernel_cpu(Connij, score, updconn_nswapmax, updconn_nswap, updconn_threshold, Hi, hj);
-        printf("swap done\n");
     }
 }
 

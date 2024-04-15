@@ -197,7 +197,6 @@ void run() {
     for (auto prj : prjs) prj->updtraces();
     for (auto prj : prjs) prj->updbw();    
     for (auto prj : prjs) prj->updconn();
-    printf("debug run 9\n");
     Logger::dologall();
     advance();
 }

@@ -21,3 +21,9 @@ src/Prj.o
 learn.cij.l1.bin
 learn.cij.l2.bin
 .vscode/settings.json
+predict.teact.l0.log
+predict.teact.l1.log
+predict.teact.l2.log
+predict.tract.l0.log
+predict.tract.l1.log
+predict.tract.l2.log

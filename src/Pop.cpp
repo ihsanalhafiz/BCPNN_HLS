@@ -28,9 +28,9 @@ SOFTWARE.
 #include <string>
 #include <random>
 #include <iostream>
-//#include <algorithm> // For std::max
-//#include <cmath>     // For exp and other math functions
-//#include <cstring>
+#include <algorithm> // For std::max
+#include <cmath>     // For exp and other math functions
+#include <cstring>
 
 #include "Globals.h"
 #include "Pop.h"
@@ -168,14 +168,11 @@ void Pop::inject_noise(float nampl) {
 
 void softmax_kernel_cpu(float* sup, float* act, float again, int H, int M) {
     for (int h = 0; h < H; h++) {
-        float maxsup = sup[M * h];
-        float sumexpsup = 0;
-        for (int m = 0; m < M; m++) maxsup = std::max(maxsup, sup[M * h + m]);
-        for (int m = 0; m < M; m++) {
-            act[M * h + m] = expf(sup[M * h + m] - maxsup);
-            sumexpsup += act[M * h + m];
-        }
-        for (int m = 0; m < M; m++) act[M * h + m] /= sumexpsup;
+        float maxsup = sup[M*h], sumexpsup = 0;  
+        for (int m=0; m<M; m++) maxsup = max(maxsup, sup[M*h+m]); 
+        for (int m=0; m<M; m++) act[M*h+m] = expf(sup[M*h+m] - maxsup);
+        for (int m=0; m<M; m++) sumexpsup += act[M*h+m];  
+        for (int m=0; m<M; m++) act[M*h+m] /= sumexpsup;
     }
 }
 

@@ -52,6 +52,9 @@ Prj::Prj(Pop *pop_i, Pop *pop_j, string lrule) {
     this->lrule = lrule;
     ncorrect = 0; // if this is a classifier
 
+    pop_i->axons.push_back(this);                
+    pop_j->dends.push_back(this);
+
     printf("\nNew Prj id = %d Pop[%d]->Pop[%d] lrule=%s", id, pop_i->id, pop_j->id, lrule.c_str());
     fflush(stdout);
 }

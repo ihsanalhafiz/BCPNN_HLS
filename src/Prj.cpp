@@ -235,7 +235,6 @@ void BCP::allocate_memory() {
     Xi = (float*)malloc(Ni*sizeof(float));
     Bj = (float*)malloc(Nj*sizeof(float));
     Wij = (float*)malloc(Nij*sizeof(float));
-    Wij_transposed = (float*)malloc(Nij*sizeof(float));
     bwsup = (float*)malloc(Nj*sizeof(float));
     P = eps;    
     Pi = (float*)malloc(Ni*sizeof(float));
@@ -338,8 +337,6 @@ void BCP::depolarize() {
 
     for (int i = 0; i < Nj; i++) {
         bwsup[i] *= beta;
-    }
-    for (int i = 0; i < Nj; i++) {
         for (int j = 0; j < Ni; j++) {
             bwsup[i] += alpha * Wij[j * Nj + i] * Xi[j];  // Accessing the transpose of Wij
         }

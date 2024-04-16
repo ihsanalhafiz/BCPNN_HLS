@@ -72,7 +72,6 @@ void Prj::allocate_memory() {
         score = (float*)malloc(Hij*sizeof(float));
         Connij = (int*)malloc(Hij*sizeof(int));
         WConnij = (int*)malloc(Nij*sizeof(int));
-        fanout = (int*)malloc(Hi*sizeof(int));
         for (int hji=0; hji<Hij; hji++) 
             mutual_info[hji] = 0;
         for (int hji=0; hji<Hij; hji++) 
@@ -82,19 +81,36 @@ void Prj::allocate_memory() {
         for (int ji=0; ji<Nij; ji++) 
             WConnij[ji] = 1;
 
+        d_updconn_nswap = (int*)malloc( Hj*sizeof(int));
+        d_mutual_info = (float*)malloc(Hij*sizeof(float));
+        d_score = (float*)malloc(Hij*sizeof(float));
+        d_Connij = (int*)malloc(Hij*sizeof(int));
+        d_WConnij = (int*)malloc(Nij*sizeof(int));
+        d_fanout = (int*)malloc(Hi*sizeof(int));
+
+        memcpy(d_mutual_info, mutual_info, Hij*sizeof(float));
+        memcpy(d_score, score, Hij*sizeof(float));
+        memcpy(d_Connij, Connij, Hij*sizeof(int));
+        memcpy(d_WConnij, WConnij, Nij*sizeof(int));
+
     }
 }
 
 void Prj::store(std::string field, FILE* f) {
     if (field == "bwsup") {
+        memcpy(bwsup, d_bwsup, Nj*sizeof(float));
         fwrite(bwsup, sizeof(float), Nj, f);    
     } else if (field == "wij") {
+        memcpy(Wij, d_Wij, Nij*sizeof(float));
         fwrite(Wij, sizeof(float), Nij, f);    
     } else if (field == "bj") {
+        memcpy(Bj, d_Bj, Nj*sizeof(float));
         fwrite(Bj, sizeof(float), Nj, f);    
     } else if (field == "conn") {
+        memcpy(Connij, d_Connij, Hij*sizeof(int));
         fwrite(Connij, sizeof(int), Hij, f);
     } else if (field == "wconn") {
+        memcpy(WConnij, d_WConnij, Nij*sizeof(int));
         fwrite(WConnij, sizeof(int), Nij, f);   
     } else {
         printf("\nPrj::store Invalid field!");
@@ -172,8 +188,9 @@ void Prj::initconn_rand(int nconn) {
             Connij[hj*Hi + hi] = (id < this->nconn) ? 1 : 0;
         }
     }
+    memcpy(d_Connij, Connij, Hij*sizeof(int));
     // No need for GPU memory operations, directly update wconn
-    updwconn_kernel_cpu(WConnij, Connij, Hi, Mi, Hj, Mj);
+    updwconn_kernel_cpu(d_WConnij, d_Connij, Hi, Mi, Hj, Mj);
 }
 
 void Prj::initconn_sqr(int nconn) {
@@ -206,7 +223,9 @@ void Prj::initconn_sqr(int nconn) {
             }
         }
     }
-    updwconn_kernel_cpu(WConnij, Connij, Hi, Mi, Hj, Mj);
+
+    memcpy(d_Connij, Connij, Hij*sizeof(int));
+    updwconn_kernel_cpu(d_WConnij, d_Connij, Hi, Mi, Hj, Mj);
 }
 
 void Prj::updconn() {
@@ -308,20 +327,42 @@ void BCP::allocate_memory() {
         }
     }
     P = taupdt;
+
+    d_Xi    = (float*)malloc(Ni*sizeof(float));
+    d_Bj    = (float*)malloc(Nj*sizeof(float));
+    d_Wij   = (float*)malloc(Nij*sizeof(float));
+    d_bwsup = (float*)malloc(Nj*sizeof(float));
+    d_Pi    = (float*)malloc(Ni*sizeof(float));
+    d_Pj    = (float*)malloc(Nj*sizeof(float));
+    d_Pij   = (float*)malloc(Nij*sizeof(float));
+
+    memcpy(d_Xi, Xi, Ni*sizeof(float));
+    memcpy(d_Bj, Bj, Nj*sizeof(float));
+    memcpy(d_Wij, Wij, Nij*sizeof(float));
+    memcpy(d_bwsup, bwsup, Nj*sizeof(float));
+    memcpy(d_Pi, Pi, Ni*sizeof(float)),
+    memcpy(d_Pj, Pj, Nj*sizeof(float));
+    memcpy(d_Pij, Pij, Nij*sizeof(float));
 }
 
 void BCP::store(std::string field, FILE* f) {
     if (field == "pij") {
+        memcpy(Pij, d_Pij, Nij*sizeof(float));
         fwrite(Pij, sizeof(float), Nij, f);
     } else if (field == "pi") {
+        memcpy(Pi, d_Pi, Ni*sizeof(float));
         fwrite(Pi, sizeof(float), Ni, f);
     } else if (field == "pj") {
+        memcpy(Pj, d_Pj, Nj*sizeof(float));
         fwrite(Pj, sizeof(float), Nj, f);
     } else if (field == "mi") {        
+        memcpy(mutual_info, d_mutual_info, Hij*sizeof(float));
         fwrite(mutual_info, sizeof(float), Hij, f);  
     } else if (field == "nmi") {
+        memcpy(score, d_score, Hij*sizeof(float));
         fwrite(score, sizeof(float), Hij, f);   
     } else if (field == "updconn_nswap") {
+        memcpy(updconn_nswap, d_updconn_nswap, Hj*sizeof(int));
         fwrite(updconn_nswap, sizeof(int), Hj, f);   
     } else {
         Prj::store(field, f);
@@ -339,14 +380,14 @@ void BCP::depolarize() {
     // with Ni = number of rows, Nj = number of columns
 
     for (int i = 0; i < Nj; i++) {
-        bwsup[i] *= beta;
+        d_bwsup[i] *= beta;
         for (int j = 0; j < Ni; j++) {
-            bwsup[i] += alpha * Wij[j * Nj + i] * Xi[j];  // Accessing the transpose of Wij
+            d_bwsup[i] += alpha * d_Wij[j * Nj + i] * d_Xi[j];  // Accessing the transpose of Wij
         }
     }
 
     // Add bias using the provided add_bias function
-    add_bias(bwsup, Bj, biasmul, Nj);
+    add_bias(d_bwsup, d_Bj, biasmul, Nj);
 }
 
 
@@ -372,18 +413,17 @@ void updpij_kernel_cpu(float *xi, float *xj, float *pij, float taupdt, float eps
 }
 
 void BCP::updtraces() {
-    float *Xj = pop_j->act; // Assuming this pointer can be directly used.
+    float *d_Xj = pop_j->d_act; // Assuming this pointer can be directly used.
     if (printnow < eps) return;
     P += (1 - P) * taupdt * printnow;
-    updpi_kernel_cpu(Xi, Pi, taupdt, Ni, printnow);
-    updpj_kernel_cpu(Xj, Pj, taupdt, Nj, printnow);
-    updpij_kernel_cpu(Xi, Xj, Pij, taupdt, eps, Ni, Nj, printnow);
+    updpi_kernel_cpu(d_Xi, d_Pi, taupdt, Ni, printnow);
+    updpj_kernel_cpu(d_Xj, d_Pj, taupdt, Nj, printnow);
+    updpij_kernel_cpu(d_Xi, d_Xj, d_Pij, taupdt, eps, Ni, Nj, printnow);
 }
 
 void updbw_kernel_cpu(float p, float* pi, float* pj, float* pij, float* bj, float* wij, int* wconnij, float bgain, float wgain, int Ni, int Nj, float eps) {
-    for (int j = 0; j < Nj; j++) {
-        
-        for (int i = 0; i < Ni; i++) {
+    for (int i = 0; i < Ni; i++) {
+        for (int j = 0; j < Nj; j++) {
             int ij = j * Ni + i;
             if(i == 0) {
                 // Update bj only for the first i=0 for each j, mimicking the GPU behavior
@@ -396,7 +436,7 @@ void updbw_kernel_cpu(float p, float* pi, float* pj, float* pij, float* bj, floa
 
 void BCP::updbw() {
     if (printnow < eps) return;
-    updbw_kernel_cpu(P, Pi, Pj, Pij, Bj, Wij, WConnij, bgain, wgain, Ni, Nj, eps);
+    updbw_kernel_cpu(P, d_Pi, d_Pj, d_Pij, d_Bj, d_Wij, d_WConnij, bgain, wgain, Ni, Nj, eps);
 }
 
 void calc_mutualinfo_kernel_cpu(float *mutual_info, float *Pi, float *Pj, float *Pij, float P, float eps, int Hi, int Mi, int Hj, int Mj) {
@@ -479,19 +519,19 @@ void swap_kernel_cpu(int *Connij, float *score, int updconn_nswapmax, int* updco
 void BCP::updconn() {
     if (not REWIRE) return;
     // Compute mutual information
-    calc_mutualinfo_kernel_cpu(mutual_info, Pi, Pj, Pij, P, eps, Hi, Mi, Hj, Mj);
+    calc_mutualinfo_kernel_cpu(d_mutual_info, d_Pi, d_Pj, d_Pij, P, eps, Hi, Mi, Hj, Mj);
     for (int hj = 0; hj < Hj; hj++) {
         // (Re)compute score from mutual info
-        compute_fanout_kernel_cpu(fanout, Connij, Hi, Hj);
-        recompute_score_kernel_cpu(score, mutual_info, fanout, Hi, Hj);
+        compute_fanout_kernel_cpu(d_fanout, d_Connij, Hi, Hj);
+        recompute_score_kernel_cpu(d_score, d_mutual_info, d_fanout, Hi, Hj);
         // Update connections
-        swap_kernel_cpu(Connij, score, updconn_nswapmax, updconn_nswap, updconn_threshold, Hi, hj);
+        swap_kernel_cpu(d_Connij, d_score, updconn_nswapmax, d_updconn_nswap, updconn_threshold, Hi, hj);
     }
     // (re)compute score from mutual info
-    compute_fanout_kernel_cpu(fanout, Connij, Hi, Hj);
-    recompute_score_kernel_cpu(score, mutual_info, fanout, Hi, Hj);
+    compute_fanout_kernel_cpu(d_fanout, d_Connij, Hi, Hj);
+    recompute_score_kernel_cpu(d_score, d_mutual_info, d_fanout, Hi, Hj);
 
-    updwconn_kernel_cpu(WConnij, Connij, Hi, Mi, Hj, Mj);
+    updwconn_kernel_cpu(d_WConnij, d_Connij, Hi, Mi, Hj, Mj);
 }
 
 /*-------------------------------------  LSGD ----------------------------------*/
@@ -512,7 +552,6 @@ void LSGD::allocate_memory() {
     Xi = (float*)malloc(Ni*sizeof(float));
     Bj = (float*)malloc(Nj*sizeof(float));
     Wij = (float*)malloc(Nij*sizeof(float));
-    Wij_transposed = (float*)malloc(Nij*sizeof(float));
     bwsup = (float*)malloc(Nj*sizeof(float));
     db = (float*)malloc(Nj*sizeof(float));
     m_db = (float*)malloc(Nj*sizeof(float));
@@ -547,6 +586,36 @@ void LSGD::allocate_memory() {
     for (int ji=0; ji<Nij; ji++) 
         Wij[ji] = gnextfloat() * 0.05;
 
+    d_Xi = (float*)malloc(Ni*sizeof(float));
+    d_Bj = (float*)malloc(Nj*sizeof(float));
+    d_Wij = (float*)malloc(Nij*sizeof(float));
+    d_bwsup = (float*)malloc(Nj*sizeof(float));
+    d_db = (float*)malloc(Nj*sizeof(float));
+    d_m_db = (float*)malloc(Nj*sizeof(float));
+    d_v_db = (float*)malloc(Nj*sizeof(float));
+    d_m_db_corr = (float*)malloc(Nj*sizeof(float));
+    d_v_db_corr = (float*)malloc(Nj*sizeof(float));
+    d_dw = (float*)malloc(Nj*Ni*sizeof(float));
+    d_m_dw = (float*)malloc(Nj*Ni*sizeof(float));
+    d_v_dw = (float*)malloc(Nj*Ni*sizeof(float));
+    d_m_dw_corr = (float*)malloc(Nj*Ni*sizeof(float));
+    d_v_dw_corr = (float*)malloc(Nj*Ni*sizeof(float));
+
+    memcpy(d_Xi, Xi, Ni*sizeof(float));
+    memcpy(d_Bj, Bj, Nj*sizeof(float));
+    memcpy(d_Wij, Wij, Nij*sizeof(float));
+    memcpy(d_bwsup, bwsup, Nj*sizeof(float));
+
+    memset(d_db, 0, Nj*sizeof(float));
+    memset(d_m_db, 0, Nj*sizeof(float));
+    memset(d_v_db, 0, Nj*sizeof(float));
+    memset(d_m_db_corr, 0, Nj*sizeof(float));
+    memset(d_v_db_corr, 0, Nj*sizeof(float));
+    memset(d_dw, 0, Ni*Nj*sizeof(float));
+    memset(d_m_dw, 0, Ni*Nj*sizeof(float));
+    memset(d_v_dw, 0, Ni*Nj*sizeof(float));
+    memset(d_m_dw_corr, 0, Ni*Nj*sizeof(float));
+    memset(d_v_dw_corr, 0, Ni*Nj*sizeof(float));    
 }
 
 void LSGD::store(std::string field, FILE* f) {
@@ -569,15 +638,15 @@ void LSGD::depolarize() {
     // with Ni = number of rows, Nj = number of columns
 
     for (int i = 0; i < Nj; i++) {
-        bwsup[i] *= beta;
+        d_bwsup[i] *= beta;
     }
     for (int i = 0; i < Nj; i++) {
         for (int j = 0; j < Ni; j++) {
-            bwsup[i] += alpha * Wij[j * Nj + i] * Xi[j];  // Accessing the transpose of Wij
+            d_bwsup[i] += alpha * d_Wij[j * Nj + i] * d_Xi[j];  // Accessing the transpose of Wij
         }
     }
     // Add bias using the provided add_bias function
-    add_bias(bwsup, Bj, biasmul, Nj);
+    add_bias(d_bwsup, d_Bj, biasmul, Nj);
 }
 
 void upd_traces_lsgd_cpu(float *db, float *dw, float *src, float *target, float *pred, int Ni, int Nj) {
@@ -597,10 +666,10 @@ void upd_traces_lsgd_cpu(float *db, float *dw, float *src, float *target, float 
 void LSGD::updtraces() {
     if (d_target == nullptr) return;
     if (printnow < eps) return;
-    float *srcact = Xi; // Pre-synaptic activity
-    float *Xj = pop_j->act; // Post-synaptic activity (predictions, in this case)
+    float *srcact = d_Xi; // Pre-synaptic activity
+    float *d_Xj = pop_j->d_act; // Post-synaptic activity (predictions, in this case)
     // Call the CPU version of the kernel function
-    upd_traces_lsgd_cpu(db, dw, srcact, d_target, Xj, Ni, Nj);
+    upd_traces_lsgd_cpu(d_db, d_dw, srcact, d_target, d_Xj, Ni, Nj);
 }
 
 void updbw_lsgd_cpu(float *b, float *db, float *m_db, float *v_db, float *m_db_corr, float *v_db_corr,
@@ -634,8 +703,8 @@ void LSGD::updbw() {
     if (printnow < eps) return;
     t++; // Increment time step for bias correction
     // Call the CPU version of the kernel function
-    updbw_lsgd_cpu(Bj, db, m_db, v_db, m_db_corr, v_db_corr, Wij, dw, m_dw, v_dw, m_dw_corr, v_dw_corr, alpha, beta1, beta2, epsilon, t, batch_size, Ni, Nj);
+    updbw_lsgd_cpu(d_Bj, d_db, d_m_db, d_v_db, d_m_db_corr, d_v_db_corr, d_Wij, d_dw, d_m_dw, d_v_dw, d_m_dw_corr, d_v_dw_corr, alpha, beta1, beta2, epsilon, t, batch_size, Ni, Nj);
     // Reset the gradients to zero for the next update
-    memset(db, 0, Nj*sizeof(float));
-    memset(dw, 0, Nij*sizeof(float));
+    memset(d_db, 0, Nj*sizeof(float));
+    memset(d_dw, 0, Nij*sizeof(float));
 }

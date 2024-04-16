@@ -57,7 +57,8 @@ public:
   // Synaptic plasticity parameters
   std::string lrule;
   float wgain=1, bgain=1;
-  float *bwsup, *Xi, * Wij, *Bj, *Wij_transposed;
+  float *bwsup, *Xi, *Wij, *Bj;
+  float *d_bwsup, *d_Xi, *d_Wij, *d_Bj;
   int ncorrect;
   float invmu;
 
@@ -67,7 +68,9 @@ public:
   float updconn_threshold;
   int *WConnij, *Connij;
   float *mutual_info, *score;
-  int *fanout, *updconn_nswap;
+  int *d_WConnij, *d_Connij;
+  float *d_mutual_info, *d_score;
+  int *d_fanout, *updconn_nswap, *d_updconn_nswap;
   
   Prj(Pop *pop_i, Pop *pop_j, std::string lrule = "BCPNN");
   ~Prj();
@@ -93,6 +96,7 @@ public:
   float P;
   float taup, taupdt;
   float *Pi, *Pj, *Pij;
+  float *d_Pi, *d_Pj, *d_Pij;
 
   BCP(Pop*, Pop*, std::string);
   void set_taup(float);
@@ -114,6 +118,8 @@ public:
   float *db, *m_db, *v_db, *m_db_corr, *v_db_corr;
   float *dw, *m_dw, *v_dw, *m_dw_corr, *v_dw_corr;
   int *d_ncorrect, *d_argpred, *d_argtarget;
+  float *d_db, *d_m_db, *d_v_db, *d_m_db_corr, *d_v_db_corr;
+  float *d_dw, *d_m_dw, *d_v_dw, *d_m_dw_corr, *d_v_dw_corr;
 
   float *d_target;
 

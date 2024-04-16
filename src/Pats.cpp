@@ -39,8 +39,9 @@ Pats::Pats(int H, int M, std::string dir, std::string filename, bool binarize, s
     this->binarize = binarize;
     this->patype = patype;
     pats = NULL;
+    d_pats = NULL;
     dispats = NULL;
-}
+    d_dispats = NULL;}
 
 void Pats::loadpats(int qbegin, int qend) {
     /* load binary patterns in range of query begin to end */
@@ -70,6 +71,9 @@ void Pats::loadpats(int qbegin, int qend) {
         // printf("\nLoaded %10s [begin=%d, end=%d, npat=%d] N=%d nitem=%d ", filename.c_str(), pbegin, pend, npat, N, nitem/N);
     }
     fclose(fileptr);
+
+    d_pats = (float*)malloc(N*npat*sizeof(float));
+    memcpy(d_pats, pats, N*npat*sizeof(float));
 }
 
 void Pats::mkbinpats(int npat) {
@@ -81,6 +85,9 @@ void Pats::mkbinpats(int npat) {
 	} else if (patype=="rand") {
 	    for (int h=0; h<H; h++) pats[p*N + h*M + gnextint()%M] = 1;
 	} else error("Pats::mkbinpats","No such patype: " + patype);
+
+    if (d_pats==NULL) d_pats = (float*)malloc(N*npat*sizeof(float));
+    memcpy(d_pats, pats, N*npat*sizeof(float));
 }
 
 
@@ -111,6 +118,10 @@ void Pats::distortpats(string distype,int disarg) {
             }
 	} else error("Pats::distortpats","No such distype: " + distype);
     }
+
+    if (d_dispats==NULL) d_dispats = (float*)malloc(N*npat*sizeof(float));
+    memcpy(d_dispats, dispats, N*npat*sizeof(float));  
+
 }
 
 void Pats::clearpats() {
@@ -120,13 +131,13 @@ void Pats::clearpats() {
 
 float* Pats::getpat(int p) {
     if (filename!="" and (pbegin>p or p>=pend)) { fprintf(stderr, "Warning! Data %d range not loaded!",p); }
-    return &(pats[(p-pbegin) * N]);
+    return &(d_pats[(p-pbegin) * N]);
 }
 
 
 float* Pats::getdispat(int p) {
     if (filename!="" and (pbegin>p or p>=pend)) { fprintf(stderr, "Warning! Data %d range not loaded!",p); }
-    return &(dispats[(p-pbegin) * N]);
+    return &(d_dispats[(p-pbegin) * N]);
 }
 
 

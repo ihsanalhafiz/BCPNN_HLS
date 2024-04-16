@@ -80,16 +80,34 @@ void Pop::allocate_memory() {
     for (int i=0; i<N; i++) act[i] = eps;
     for (int h=0; h<H; h++) spkidx[h] = 0;
     for (int i=0; i<N; i++) cumsum[i] = 0;
+
+    d_lgi = (float*)malloc(N*sizeof(float));
+    d_sup = (float*)malloc(N*sizeof(float));
+    d_supinf = (float*)malloc(N*sizeof(float));
+    d_act = (float*)malloc(N*sizeof(float));
+    d_spkidx = (int*)malloc(H*sizeof(int));
+    d_cumsum = (float*)malloc(N*sizeof(float));
+
+    memcpy(d_lgi, lgi, N*sizeof(float));
+    memcpy(d_sup, sup, N*sizeof(float));
+    memcpy(d_supinf, supinf, N*sizeof(float));
+    memcpy(d_act, act, N*sizeof(float));
+    memcpy(d_spkidx, spkidx, H*sizeof(int));
+    memcpy(d_cumsum, cumsum, N*sizeof(float));
 }
 
 void Pop::store(std::string field, FILE* f) {
     if (field == "act") {        
+        memcpy(act, d_act, N*sizeof(float));
         fwrite(act, sizeof(float), N, f);        
     } else if (field == "lgi") {
+        memcpy(lgi, d_lgi, N*sizeof(float));
         fwrite(lgi, sizeof(float), N, f);
     } else if (field == "sup") {
+        memcpy(sup, d_sup, N*sizeof(float));
         fwrite(sup, sizeof(float), N, f);
     } else if (field == "supinf") {
+        memcpy(supinf, d_supinf, N*sizeof(float));
         fwrite(supinf, sizeof(float), N, f);   
     } else {
         printf("\nPop::store Invalid field!");
@@ -97,12 +115,12 @@ void Pop::store(std::string field, FILE* f) {
 }
 
 float* Pop::getact() {
-    return act;
+    return d_act;
 }
 
 void Pop::resetsup() {
-    memset(supinf, 0, N*sizeof(float));
-    memset(act, 0, N*sizeof(float));
+    memset(d_supinf, 0, N*sizeof(float));
+    memset(d_act, 0, N*sizeof(float));
 }
 
 void setinput_to_zero_kernel_cpu(float* lgi, float eps, int N) {
@@ -119,9 +137,9 @@ void setinput_kernel_cpu(float* lgi, float* inp, float eps, int N) {
 
 void Pop::setinput(float *d_inp = nullptr) {
     if (d_inp == nullptr) {
-        setinput_to_zero_kernel_cpu(lgi, eps, N);
+        setinput_to_zero_kernel_cpu(d_lgi, eps, N);
     } else {
-        setinput_kernel_cpu(lgi, d_inp, eps, N);
+        setinput_kernel_cpu(d_lgi, d_inp, eps, N);
     }
 }
 
@@ -139,14 +157,14 @@ void calcsup_kernel_cpu(float *sup, float *supinf, int N) {
 
 void Pop::integrate() {
     /* Integrate all dendrite prj's support into pop's support */
-    addtosupinf_kernel_cpu(supinf, lgi, N);
+    addtosupinf_kernel_cpu(d_supinf, d_lgi, N);
     for (int did = 0; did < dends.size(); did++) {
         Prj *dend = dends[did];
         if (dend->bwgain < eps) continue;
-        addtosupinf_kernel_cpu(supinf, dend->bwsup, N);
+        addtosupinf_kernel_cpu(d_supinf, dend->d_bwsup, N);
         // No need to check for errors as in CUDA version
     }
-    calcsup_kernel_cpu(sup, supinf, N);
+    calcsup_kernel_cpu(d_sup, d_supinf, N);
 }
 
 
@@ -163,7 +181,7 @@ void inject_noise_kernel_cpu(float *sup, float nampl, int N) {
 
 void Pop::inject_noise(float nampl) {
     // Call the CPU version of the kernel function
-    inject_noise_kernel_cpu(sup, nampl, N);
+    inject_noise_kernel_cpu(d_sup, nampl, N);
 }
 
 void softmax_kernel_cpu(float* sup, float* act, float again, int H, int M) {
@@ -178,7 +196,7 @@ void softmax_kernel_cpu(float* sup, float* act, float again, int H, int M) {
 
 void Pop::updact() {
     if (actfn == "softmax") {
-        softmax_kernel_cpu(sup, act, again, H, M);
+        softmax_kernel_cpu(d_sup, d_act, again, H, M);
     } else {
         std::cerr << "Pop::updact - Unknown actfn" << std::endl;
     }
@@ -188,10 +206,17 @@ void Pop::resetncorrect() {
     ncorrect = 0;
 }
 
-void Pop::compute_accuracy(float *target) {
-    float *pred = this->act;
+void Pop::compute_accuracy(float *d_target) {
+    float *d_pred = this->d_act;
+
+    float *pred = new float[N];
+    float *target = new float[N];
+    
+    memcpy(target, d_target, N*sizeof(float));
+    memcpy(pred, d_pred, N*sizeof(float));
     // Increment ncorrect if the argmax (index of max value) of the target matches the pred.
     ncorrect += argmax(target, 0, N) == argmax(pred, 0, N);
+    printf("\n target = %d pred = %d ncorrect = %d", argmax(target, 0, N), argmax(pred, 0, N), ncorrect);
 }
 
 void Pop::settracc(int ntrpat) {

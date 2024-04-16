@@ -40,6 +40,7 @@ class Pats {
     int pbegin=0, pend=-1, npat=-1;
     bool binarize;
     float *pats,*dispats;
+   float *d_pats,*d_dispats;
 
  public:
 

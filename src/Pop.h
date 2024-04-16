@@ -47,9 +47,9 @@ public:
     std::vector<Prj*> dends, axons;
     std::string actfn;
     float eps, again = -1; 
-    float *lgi, *sup, *supinf, *act, *noise;
-    float *cumsum;
-    int *spkidx;
+    float *lgi, *sup, *supinf, *act, *d_lgi, *d_sup, *d_supinf, *d_act, *noise, *d_noise;
+    float *cumsum, *d_cumsum;
+    int *spkidx, *d_spkidx;
     int ncorrect = 0;
     float tracc, teacc;
 

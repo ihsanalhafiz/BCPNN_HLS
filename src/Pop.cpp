@@ -150,20 +150,19 @@ void Pop::integrate() {
 }
 
 
-void inject_noise_kernel_cpu(std::mt19937 &rng, float *sup, float nampl, int N) {
+void inject_noise_kernel_cpu(float *sup, float nampl, int N) {
     std::uniform_real_distribution<float> dist(0.0f, 1.0f); // Uniform distribution between 0 and 1
+    unsigned seed = 1234;
+
     for (int n = 0; n < N; n++) {
+        std::mt19937 rng(1234 + n); // Standard mersenne_twister_engine seeded with rd()
         sup[n] += nampl * dist(rng);
     }
 }
 
 void Pop::inject_noise(float nampl) {
-    // Initialize a random number generator
-    // Seed value
-    unsigned seed = 1234;
-    std::mt19937 rng(1234); // Standard mersenne_twister_engine seeded with rd()
     // Call the CPU version of the kernel function
-    inject_noise_kernel_cpu(rng, sup, nampl, N);
+    inject_noise_kernel_cpu(sup, nampl, N);
 }
 
 void softmax_kernel_cpu(float* sup, float* act, float again, int H, int M) {

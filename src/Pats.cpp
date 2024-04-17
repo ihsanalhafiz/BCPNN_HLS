@@ -64,11 +64,11 @@ void Pats::loadpats(int qbegin, int qend) {
                 pats[p*N + h*M + 1] = 1 - tmppats[p*H + h];
             }
         delete [] tmppats;
-        // printf("\nLoaded %10s [begin=%d, end=%d, npat=%d] N=%d nitem=%d ", filename.c_str(), pbegin, pend, npat, N, nitem/N);
+         printf("\nLoaded %10s [begin=%d, end=%d, npat=%d] N=%d nitem=%d ", filename.c_str(), pbegin, pend, npat, N, nitem/N);
     } else {
         fseek(fileptr, pbegin * N * sizeof(float), SEEK_SET);
         int nitem = fread(pats, sizeof(float), npat * N, fileptr);
-        // printf("\nLoaded %10s [begin=%d, end=%d, npat=%d] N=%d nitem=%d ", filename.c_str(), pbegin, pend, npat, N, nitem/N);
+         printf("\nLoaded %10s [begin=%d, end=%d, npat=%d] N=%d nitem=%d ", filename.c_str(), pbegin, pend, npat, N, nitem/N);
     }
     fclose(fileptr);
 

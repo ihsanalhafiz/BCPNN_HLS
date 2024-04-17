@@ -151,6 +151,23 @@ void Pop::start_send() {
     }
 }
 
+void Pop::update_connections() {
+    // Handle data transfer between axons and dendrites.
+    for (int aid = 0; aid < axons.size(); aid++) {
+        Prj *axon = axons[aid];
+        for (int did = 0; did < dends.size(); did++) {
+            Prj *dend = dends[did];
+
+            // Check if the axon's target matches the dendrite's source (or any other logical connection condition)
+            if (axon->pop_j == dend->pop_i) {
+                // Directly set the dendrite input to the axon output
+                dend->Xi = axon->Xi; // Assuming Xi is the interfacing data point
+            }
+        }
+    }
+}
+
+
 void Pop::start_recv() {
 
     if (dends.size()==0) return;

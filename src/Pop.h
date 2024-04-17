@@ -61,6 +61,7 @@ public:
     void resetsup();
     void setinput(float*);
     void start_send();
+    void update_connections();
     void start_recv();
     void integrate();
     void inject_noise(float nampl);

@@ -60,6 +60,8 @@ public:
     float* getact();
     void resetsup();
     void setinput(float*);
+    void start_send();
+    void start_recv();
     void integrate();
     void inject_noise(float nampl);
     void updact();

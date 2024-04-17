@@ -143,6 +143,26 @@ void Pop::setinput(float *d_inp = nullptr) {
     }
 }
 
+void Pop::start_send() {
+    if (axons.size()==0) return;    
+    for (int aid=0; aid<axons.size(); aid++) {
+        Prj *axon = axons[aid];
+        memcpy(axon->d_Xi, d_act, N*sizeof(float));
+    }
+}
+
+void Pop::start_recv() {
+
+    if (dends.size()==0) return;
+
+    for (int did=0; did<dends.size(); did++) {
+        Prj *dend = dends[did];
+        memcpy(dend->d_Xi, d_act, N*sizeof(float));
+    }
+
+}
+
+
 void addtosupinf_kernel_cpu(float *supinf, float *inc, int N) {
     for (int n = 0; n < N; n++) {
         supinf[n] += inc[n];
@@ -211,7 +231,7 @@ void Pop::compute_accuracy(float *d_target) {
 
     float *pred = new float[N];
     float *target = new float[N];
-    
+
     memcpy(target, d_target, N*sizeof(float));
     memcpy(pred, d_pred, N*sizeof(float));
     // Increment ncorrect if the argmax (index of max value) of the target matches the pred.

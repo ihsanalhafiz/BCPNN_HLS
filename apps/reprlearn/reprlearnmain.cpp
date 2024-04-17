@@ -189,6 +189,8 @@ void buildnet() {
 
 void run() {
     // All MPI and GPU related synchronization and communication calls removed
+    for (auto pop: pops) pop->start_send();
+    for (auto pop: pops) pop->start_recv();
     for (auto pop : pops) pop->resetsup();
     for (auto prj : prjs) prj->depolarize();
     for (auto pop : pops) pop->integrate();

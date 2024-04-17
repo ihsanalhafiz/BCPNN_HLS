@@ -650,8 +650,8 @@ void LSGD::depolarize() {
 }
 
 void upd_traces_lsgd_cpu(float *db, float *dw, float *src, float *target, float *pred, int Ni, int Nj) {
-    for (int r = 0; r < Nj; r++) {
-        for (int s = 0; s < Ni; s++) {
+    for (int s = 0; s < Ni; s++) {
+         for (int r = 0; r < Nj; r++){
             int rs = r * Ni + s;
             // Update db for the first element in each column
             if (s == 0) {
@@ -676,8 +676,8 @@ void updbw_lsgd_cpu(float *b, float *db, float *m_db, float *v_db, float *m_db_c
                     float *w, float *dw, float *m_dw, float *v_dw, float *m_dw_corr, float *v_dw_corr,
                     float alpha, float beta1, float beta2, float epsilon, float t, int batch_size, 
                     int Ni, int Nj) {
-    for (int r = 0; r < Nj; r++) {
-        for (int s = 0; s < Ni; s++) {
+    for (int s = 0; s < Ni; s++) {
+         for (int r = 0; r < Nj; r++){
             int rs = r * Ni + s;
             // Update moment estimates for weights
             m_dw[rs] = beta1 * m_dw[rs] + (1 - beta1) * dw[rs] / (float) batch_size;

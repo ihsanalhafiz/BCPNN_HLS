@@ -8,7 +8,7 @@ CXX			= g++
 
 INCLUDE		= -I$(SRC_DIR) # for header files
 
-FLAGS		= -O3
+FLAGS		= -O0 -g
 
 %.o: %.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(INCLUDE) $(FLAGS) 

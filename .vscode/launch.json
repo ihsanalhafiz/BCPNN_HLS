@@ -1,25 +1,26 @@
 {
   "version": "0.2.0",
   "configurations": [
-    
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
-      "request": "launch",
-      "args": [],
-      "stopAtEntry": false,
-      "externalConsole": true,
-      "cwd": "c:/Users/ihsan/Documents/Github/BCPNN_HLS",
-      "program": "c:/Users/ihsan/Documents/Github/BCPNN_HLS/build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
-    }
+      {
+          "name": "Debug ReprLearn",
+          "type": "cppdbg",
+          "request": "launch",
+          "program": "${workspaceFolder}/apps/reprlearn/reprlearnmain",
+          "args": ["${workspaceFolder}/apps/reprlearn/reprlearn.par"],
+          "stopAtEntry": false,
+          "cwd": "${workspaceFolder}",
+          "environment": [],
+          "externalConsole": false,
+          "MIMode": "gdb",
+          "setupCommands": [
+              {
+                  "description": "Enable pretty-printing for gdb",
+                  "text": "-enable-pretty-printing",
+                  "ignoreFailures": true
+              }
+          ],
+          "preLaunchTask": "build",
+          "miDebuggerPath": "/usr/bin/gdb"
+      }
   ]
 }

@@ -174,7 +174,7 @@ void Pop::start_recv() {
 
     for (int did=0; did<dends.size(); did++) {
         Prj *dend = dends[did];
-        memcpy(dend->d_Xi, dends[did]->pop_i->d_act, N*sizeof(float));
+        memcpy(dend->d_Xi, d_act, N*sizeof(float));
     }
 
 }
@@ -211,7 +211,7 @@ void inject_noise_kernel_cpu(float *sup, float nampl, int N) {
     std::mt19937 rng(1234); // Standard mersenne_twister_engine seeded with rd()
 
     for (int n = 0; n < N; n++) {
-        //rng.discard(n); // Discard n random numbers
+        rng.discard(n); // Discard n random numbers
         sup[n] += nampl * dist(rng);
     }
 }

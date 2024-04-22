@@ -189,9 +189,16 @@ void buildnet() {
 
 void run() {
     // All MPI and GPU related synchronization and communication calls removed
-    for (auto pop: pops) pop->start_send();
+    //for (auto pop: pops) pop->start_send();
+
+    Prj *axon_hid = pops[1]->axons[0];
+    Prj *dend_hid = pops[1]->dends[0];
+
+    memcpy(dend_hid->d_Xi, pops[0]->d_act, pops[0]->N*sizeof(float));
+    memcpy(axon_hid->d_Xi, pops[1]->d_act, pops[1]->N*sizeof(float));
+
     //for (auto pop: pops) pop->update_connections();
-    for (auto pop: pops) pop->start_recv();
+    //for (auto pop: pops) pop->start_recv();
     for (auto pop : pops) pop->resetsup();
     for (auto prj : prjs) prj->depolarize();
     for (auto pop : pops) pop->integrate();

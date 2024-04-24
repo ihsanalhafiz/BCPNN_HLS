@@ -369,6 +369,16 @@ void BCP::store(std::string field, FILE* f) {
     }
 }
 
+void sgemv(float *d_bwsup, float *d_Wij, float *d_Xi, int Ni, int Nj, float alpha, float beta){
+    for (int i = 0; i < Nj; i++) {
+        d_bwsup[i] *= beta;
+        for (int j = 0; j < Ni; j++) {
+            d_bwsup[i] += alpha * d_Wij[j + i *Ni] * d_Xi[j];  // Accessing the transpose of Wij
+        }
+    }
+
+}
+
 void BCP::depolarize() {
     /* Multiply pre-synaptic activity by weights and calculate dendrite's support to post-synaptic neuron */
     if (bwgain < eps) return;  
@@ -379,12 +389,7 @@ void BCP::depolarize() {
     // perform gemv operation: bwsup = alpha * Wij * Xi + beta * bwsup
     // with Ni = number of rows, Nj = number of columns
 
-    for (int i = 0; i < Nj; i++) {
-        d_bwsup[i] *= beta;
-        for (int j = 0; j < Ni; j++) {
-            d_bwsup[i] += alpha * d_Wij[j * Nj + i] * d_Xi[j];  // Accessing the transpose of Wij
-        }
-    }
+    sgemv(d_bwsup, d_Wij, d_Xi, Ni, Nj, alpha, beta);
 
     // Add bias using the provided add_bias function
     add_bias(d_bwsup, d_Bj, biasmul, Nj);
@@ -637,14 +642,8 @@ void LSGD::depolarize() {
     // perform gemv operation: bwsup = alpha * Wij * Xi + beta * bwsup
     // with Ni = number of rows, Nj = number of columns
 
-    for (int i = 0; i < Nj; i++) {
-        d_bwsup[i] *= beta;
-    }
-    for (int i = 0; i < Nj; i++) {
-        for (int j = 0; j < Ni; j++) {
-            d_bwsup[i] += alpha * d_Wij[j * Nj + i] * d_Xi[j];  // Accessing the transpose of Wij
-        }
-    }
+    sgemv(d_bwsup, d_Wij, d_Xi, Ni, Nj, alpha, beta);
+
     // Add bias using the provided add_bias function
     add_bias(d_bwsup, d_Bj, biasmul, Nj);
 }
@@ -658,6 +657,8 @@ void upd_traces_lsgd_cpu(float *db, float *dw, float *src, float *target, float 
                 db[r] += (target[r] - pred[r]);
             }
             // Update dw for all elements
+            float tar = target[r];
+            float prd = pred[r];
             dw[rs] += src[s] * (target[r] - pred[r]);
         }
     }

@@ -1,2 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vivadoHLSLog:LogRoot xmlns:vivadoHLSLog="www.xilinx.com/vivadoHLSLog"/>
+<vivadoHLSLog:LogRoot xmlns:vivadoHLSLog="www.xilinx.com/vivadoHLSLog">
+  <errorLogs>
+    <logs>
+      <synLog/>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </errorLogs>
+  <warningLogs>
+    <logs>
+      <synLog>
+        <logs message="WARNING: [HLS 200-1016] The critical path in module 'sgemv_Pipeline_ColumnLoop_RowLoop' consists of the following:&#xA;&#x9;'fmul' operation 32 bit ('mul', src/Prj.cpp:375) [38]  (5.008 ns)&#xA;&#x9;'store' operation 0 bit ('add145_write_ln375', src/Prj.cpp:375) of variable 'mul', src/Prj.cpp:375 on local variable 'add145' [39]  (1.324 ns)&#xA;&#x9;'load' operation 32 bit ('add145_load', src/Prj.cpp:378) on local variable 'add145' [42]  (0.000 ns)&#xA;&#x9;'fadd' operation 32 bit ('add', src/Prj.cpp:378) [45]  (6.514 ns)&#xA;&#xA;&#xA;Resolution: For help on HLS 200-1016 see docs.xilinx.com/access/sources/dita/topic?Doc_Version=2023.2%20English&amp;url=ug1448-hls-guidance&amp;resourceid=200-1016.html" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:14:06.309+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 200-871] Estimated clock period (12.846 ns) exceeds the target (target clock period: 10.000 ns, clock uncertainty: 2.700 ns, effective delay budget: 7.300 ns).&#xA;Resolution: For help on HLS 200-871 see docs.xilinx.com/access/sources/dita/topic?Doc_Version=2023.2%20English&amp;url=ug1448-hls-guidance&amp;resourceid=200-871.html" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:14:06.308+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 200-880] The II Violation in module 'sgemv_Pipeline_ColumnLoop_RowLoop' (loop 'ColumnLoop_RowLoop'): Unable to enforce a carried dependence constraint (II = 7, distance = 1, offset = 1) between wire write operation ('d_bwsup_write_ln378', src/Prj.cpp:378) on port 'd_bwsup' (src/Prj.cpp:378) and wire read operation ('d_bwsup_read', src/Prj.cpp:375) on port 'd_bwsup' (src/Prj.cpp:375).&#xA;Resolution: For help on HLS 200-880 see docs.xilinx.com/access/sources/dita/topic?Doc_Version=2023.2%20English&amp;url=ug1448-hls-guidance&amp;resourceid=200-880.html" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:14:06.304+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 200-880] The II Violation in module 'sgemv_Pipeline_ColumnLoop_RowLoop' (loop 'ColumnLoop_RowLoop'): Unable to enforce a carried dependence constraint (II = 6, distance = 1, offset = 1) between wire write operation ('d_bwsup_write_ln378', src/Prj.cpp:378) on port 'd_bwsup' (src/Prj.cpp:378) and wire read operation ('d_bwsup_read', src/Prj.cpp:375) on port 'd_bwsup' (src/Prj.cpp:375).&#xA;Resolution: For help on HLS 200-880 see docs.xilinx.com/access/sources/dita/topic?Doc_Version=2023.2%20English&amp;url=ug1448-hls-guidance&amp;resourceid=200-880.html" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:14:06.297+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 200-880] The II Violation in module 'sgemv_Pipeline_ColumnLoop_RowLoop' (loop 'ColumnLoop_RowLoop'): Unable to enforce a carried dependence constraint (II = 5, distance = 1, offset = 1) between wire write operation ('d_bwsup_write_ln378', src/Prj.cpp:378) on port 'd_bwsup' (src/Prj.cpp:378) and wire read operation ('d_bwsup_read', src/Prj.cpp:375) on port 'd_bwsup' (src/Prj.cpp:375).&#xA;Resolution: For help on HLS 200-880 see docs.xilinx.com/access/sources/dita/topic?Doc_Version=2023.2%20English&amp;url=ug1448-hls-guidance&amp;resourceid=200-880.html" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:14:06.294+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 200-936] Cannot unroll loop 'RowLoop' (src/Prj.cpp:376) in function 'sgemv': cannot completely unroll a loop with a variable trip count.&#xA;Resolution: For help on HLS 200-936 see docs.xilinx.com/access/sources/dita/topic?Doc_Version=2023.2%20English&amp;url=ug1448-hls-guidance&amp;resourceid=200-936.html" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:14:06.203+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 214-381] Inferring assertion (tripcount > 0) for loop 'RowLoop' (src/Prj.cpp:376:18) in function 'sgemv(float*, float*, float*, int, int, float, float)' due to the existence of loop flatten pragma and variable loop bounds in loop (src/Prj.cpp:372:0)&#xA;Resolution: For help on HLS 214-381 see docs.xilinx.com/access/sources/dita/topic?Doc_Version=2023.2%20English&amp;url=ug1448-hls-guidance&amp;resourceid=214-381.html" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:14:06.101+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 214-275] In 'RowLoop', Pragma conflict happens on 'PIPELINE' and 'FLATTEN' pragmas: Pipeline requires unrolling all sub loops (src/Prj.cpp:376:18)" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:14:06.093+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'f' (src/Prj.cpp:628:43)" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:13:57.646+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'field' (src/Prj.cpp:628:30)" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:13:57.640+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'eps' (src/Prj.cpp:431:151)" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:13:57.632+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'eps' (src/Prj.cpp:413:78)" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:13:57.628+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'again' (src/Pop.cpp:224:55)" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:13:55.265+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'eps' (src/Pop.cpp:126:52)" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:13:55.249+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'N' (src/Pop.cpp:66:47)" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:13:55.246+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'state' (src/Pop.cpp:66:36)" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:13:55.243+0200" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'paramlogfile' (src/Parseparam.cpp:67:33)" projectName="VitisHLS_Proj" solutionName="solution2" date="2024-04-24T17:13:52.194+0200" type="Warning"/>
+      </synLog>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </warningLogs>
+</vivadoHLSLog:LogRoot>

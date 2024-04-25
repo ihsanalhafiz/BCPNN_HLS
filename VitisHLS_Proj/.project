@@ -29,32 +29,112 @@
 		<link>
 			<name>source</name>
 			<type>2</type>
-			<location>C:/Users/ihsan/Documents/Github/BCPNN_HLS/VitisHLS_Proj/.apc/.src</location>
+			<location>/home/miahafiz/BCPNN_HLS/VitisHLS_Proj/.apc/.src</location>
 		</link>
 		<link>
 			<name>testbench</name>
 			<type>2</type>
-			<location>C:/Users/ihsan/Documents/Github/BCPNN_HLS/VitisHLS_Proj/.apc/.tb</location>
+			<location>/home/miahafiz/BCPNN_HLS/VitisHLS_Proj/.apc/.tb</location>
 		</link>
 		<link>
 			<name>solution1/constraints</name>
 			<type>2</type>
-			<location>C:/Users/ihsan/Documents/Github/BCPNN_HLS/VitisHLS_Proj/solution1/.tcls</location>
+			<location>/home/miahafiz/BCPNN_HLS/VitisHLS_Proj/solution1/.tcls</location>
+		</link>
+		<link>
+			<name>solution2/constraints</name>
+			<type>2</type>
+			<location>/home/miahafiz/BCPNN_HLS/VitisHLS_Proj/solution2/.tcls</location>
+		</link>
+		<link>
+			<name>source/Globals.cpp</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/src/Globals.cpp</location>
+		</link>
+		<link>
+			<name>source/Globals.h</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/src/Globals.h</location>
+		</link>
+		<link>
+			<name>source/Logger.cpp</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/src/Logger.cpp</location>
+		</link>
+		<link>
+			<name>source/Logger.h</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/src/Logger.h</location>
+		</link>
+		<link>
+			<name>source/Parseparam.cpp</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/src/Parseparam.cpp</location>
+		</link>
+		<link>
+			<name>source/Parseparam.h</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/src/Parseparam.h</location>
+		</link>
+		<link>
+			<name>source/Pats.cpp</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/src/Pats.cpp</location>
+		</link>
+		<link>
+			<name>source/Pats.h</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/src/Pats.h</location>
+		</link>
+		<link>
+			<name>source/Pop.cpp</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/src/Pop.cpp</location>
+		</link>
+		<link>
+			<name>source/Pop.h</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/src/Pop.h</location>
+		</link>
+		<link>
+			<name>source/Prj.cpp</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/src/Prj.cpp</location>
+		</link>
+		<link>
+			<name>source/Prj.h</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/src/Prj.h</location>
 		</link>
 		<link>
 			<name>solution1/constraints/.xml.directive</name>
 			<type>1</type>
-			<location>C:/Users/ihsan/Documents/Github/BCPNN_HLS/VitisHLS_Proj/solution1/solution1.directive</location>
+			<location>/home/miahafiz/BCPNN_HLS/VitisHLS_Proj/solution1/solution1.directive</location>
 		</link>
 		<link>
 			<name>solution1/constraints/directives.tcl</name>
 			<type>1</type>
-			<location>C:/Users/ihsan/Documents/Github/BCPNN_HLS/VitisHLS_Proj/solution1/directives.tcl</location>
+			<location>/home/miahafiz/BCPNN_HLS/VitisHLS_Proj/solution1/directives.tcl</location>
 		</link>
 		<link>
 			<name>solution1/constraints/script.tcl</name>
 			<type>1</type>
-			<location>C:/Users/ihsan/Documents/Github/BCPNN_HLS/VitisHLS_Proj/solution1/script.tcl</location>
+			<location>/home/miahafiz/BCPNN_HLS/VitisHLS_Proj/solution1/script.tcl</location>
+		</link>
+		<link>
+			<name>solution2/constraints/.xml.directive</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/VitisHLS_Proj/solution2/solution2.directive</location>
+		</link>
+		<link>
+			<name>solution2/constraints/directives.tcl</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/VitisHLS_Proj/solution2/directives.tcl</location>
+		</link>
+		<link>
+			<name>solution2/constraints/script.tcl</name>
+			<type>1</type>
+			<location>/home/miahafiz/BCPNN_HLS/VitisHLS_Proj/solution2/script.tcl</location>
 		</link>
 	</linkedResources>
 </projectDescription>

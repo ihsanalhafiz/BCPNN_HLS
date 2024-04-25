@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
-  <source/>
+  <source>
+    <originFiles name="Globals.cpp" path="/home/miahafiz/BCPNN_HLS/src/Globals.cpp"/>
+    <originFiles name="Globals.h" path="/home/miahafiz/BCPNN_HLS/src/Globals.h"/>
+    <originFiles name="Logger.cpp" path="/home/miahafiz/BCPNN_HLS/src/Logger.cpp"/>
+    <originFiles name="Logger.h" path="/home/miahafiz/BCPNN_HLS/src/Logger.h"/>
+    <originFiles name="Parseparam.cpp" path="/home/miahafiz/BCPNN_HLS/src/Parseparam.cpp"/>
+    <originFiles name="Parseparam.h" path="/home/miahafiz/BCPNN_HLS/src/Parseparam.h"/>
+    <originFiles name="Pats.cpp" path="/home/miahafiz/BCPNN_HLS/src/Pats.cpp"/>
+    <originFiles name="Pats.h" path="/home/miahafiz/BCPNN_HLS/src/Pats.h"/>
+    <originFiles name="Pop.cpp" path="/home/miahafiz/BCPNN_HLS/src/Pop.cpp"/>
+    <originFiles name="Pop.h" path="/home/miahafiz/BCPNN_HLS/src/Pop.h"/>
+    <originFiles name="Prj.cpp" path="/home/miahafiz/BCPNN_HLS/src/Prj.cpp"/>
+    <originFiles name="Prj.h" path="/home/miahafiz/BCPNN_HLS/src/Prj.h"/>
+  </source>
   <testbench/>
 </autopilotfilemapping:AutoPilotFileMapping>

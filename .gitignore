@@ -29,3 +29,15 @@ predict.tract.l1.log
 predict.tract.l2.log
 .vscode/launch.json
 .vscode/launch.json
+VitisHLS_Proj/.cproject
+VitisHLS_Proj/.cproject
+VitisHLS_Proj/.project
+VitisHLS_Proj/.vitis_hls_log_all.xml
+VitisHLS_Proj/hls.app
+VitisHLS_Proj/solution1/solution1.aps
+VitisHLS_Proj/solution1/script.tcl
+VitisHLS_Proj/.settings/VitisHLS_Proj.Release.launch
+VitisHLS_Proj/.settings/VitisHLS_Proj.Debug.launch
+VitisHLS_Proj/.settings/language.settings.xml
+VitisHLS_Proj/.apc/autopilot.apfmapping
+VitisHLS_Proj/hls.app

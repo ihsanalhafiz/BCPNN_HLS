@@ -370,13 +370,12 @@ void BCP::store(std::string field, FILE* f) {
 }
 
 void sgemv(float *d_bwsup, float *d_Wij, float *d_Xi, int Ni, int Nj, float alpha, float beta){
-    for (int i = 0; i < Nj; i++) {
+    ColumnLoop: for (int i = 0; i < Nj; i++) {
         d_bwsup[i] *= beta;
-        for (int j = 0; j < Ni; j++) {
+        RowLoop: for (int j = 0; j < Ni; j++) {
             d_bwsup[i] += alpha * d_Wij[j + i *Ni] * d_Xi[j];  // Accessing the transpose of Wij
         }
     }
-
 }
 
 void BCP::depolarize() {

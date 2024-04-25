@@ -1,0 +1,325 @@
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55182:9: warning: Added loop label VITIS_LOOP_81_1:   [xilinx-label-all-loops]
+        for (int hji=0; hji<Hij; hji++)
+        ^~~
+        VITIS_LOOP_81_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55182:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55184:9: warning: Added loop label VITIS_LOOP_83_2:   [xilinx-label-all-loops]
+        for (int hji=0; hji<Hij; hji++)
+        ^~~
+        VITIS_LOOP_83_2: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55184:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55186:9: warning: Added loop label VITIS_LOOP_85_3:   [xilinx-label-all-loops]
+        for (int hji=0; hji<Hij; hji++)
+        ^~~
+        VITIS_LOOP_85_3: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55186:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55188:9: warning: Added loop label VITIS_LOOP_87_4:   [xilinx-label-all-loops]
+        for (int ji=0; ji<Nij; ji++)
+        ^~~
+        VITIS_LOOP_87_4: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55188:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55228:5: warning: Added loop label VITIS_LOOP_127_1:   [xilinx-label-all-loops]
+    for (int n = 0; n < N; n++) {
+    ^~~
+    VITIS_LOOP_127_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55228:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55271:5: warning: Added loop label VITIS_LOOP_170_1:   [xilinx-label-all-loops]
+    for (int hi = 0; hi < Hi; hi++) {
+    ^~~
+    VITIS_LOOP_170_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55271:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55272:9: warning: Added loop label VITIS_LOOP_171_2:   [xilinx-label-all-loops]
+        for (int hj = 0; hj < Hj; hj++) {
+        ^~~
+        VITIS_LOOP_171_2: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55272:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55273:13: warning: Added loop label VITIS_LOOP_172_3:   [xilinx-label-all-loops]
+            for (int mj = 0; mj < Mj; mj++) {
+            ^~~
+            VITIS_LOOP_172_3: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55273:13: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55274:17: warning: Added loop label VITIS_LOOP_173_4:   [xilinx-label-all-loops]
+                for (int ms = 0; ms < Mi; ms++) {
+                ^~~
+                VITIS_LOOP_173_4: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55274:17: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55289:5: warning: Added loop label VITIS_LOOP_188_1:   [xilinx-label-all-loops]
+    for (size_t hi = 0; hi < Hi; hi++)
+    ^~~
+    VITIS_LOOP_188_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55289:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55291:5: warning: Added loop label VITIS_LOOP_190_2:   [xilinx-label-all-loops]
+    for (size_t hj = 0; hj < Hj; hj++) {
+    ^~~
+    VITIS_LOOP_190_2: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55291:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55293:9: warning: Added loop label VITIS_LOOP_192_3:   [xilinx-label-all-loops]
+        for (size_t id = 0; id < Hi; id++) {
+        ^~~
+        VITIS_LOOP_192_3: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55293:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55317:5: warning: Added loop label VITIS_LOOP_216_1:   [xilinx-label-all-loops]
+    for (int hji=0; hji<Hij; hji++)
+    ^~~
+    VITIS_LOOP_216_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55317:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55320:5: warning: Added loop label VITIS_LOOP_219_2:   [xilinx-label-all-loops]
+    for (int wj=0; wj<Wj; wj++) {
+    ^~~
+    VITIS_LOOP_219_2: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55320:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55321:9: warning: Added loop label VITIS_LOOP_220_3:   [xilinx-label-all-loops]
+        for (int lj=0; lj<Wj; lj++) {
+        ^~~
+        VITIS_LOOP_220_3: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55321:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55323:13: warning: Added loop label VITIS_LOOP_222_4:   [xilinx-label-all-loops]
+            for (int wi=wj*stride; wi<=wj*stride+Wf; wi++) {
+            ^~~
+            VITIS_LOOP_222_4: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55323:13: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55324:17: warning: Added loop label VITIS_LOOP_223_5:   [xilinx-label-all-loops]
+                for (int li=lj*stride; li<=lj*stride+Wf; li++) {
+                ^~~
+                VITIS_LOOP_223_5: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55324:17: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55373:5: warning: Added loop label VITIS_LOOP_272_1:   [xilinx-label-all-loops]
+    for (int s=0; s<Ni; s++)
+    ^~~
+    VITIS_LOOP_272_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55373:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55375:5: warning: Added loop label VITIS_LOOP_274_2:   [xilinx-label-all-loops]
+    for (int r=0; r<Nj; r++)
+    ^~~
+    VITIS_LOOP_274_2: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55375:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55377:5: warning: Added loop label VITIS_LOOP_276_3:   [xilinx-label-all-loops]
+    for (int ji=0; ji<Nij; ji++)
+    ^~~
+    VITIS_LOOP_276_3: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55377:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55379:5: warning: Added loop label VITIS_LOOP_278_4:   [xilinx-label-all-loops]
+    for (int r=0; r<Nj; r++)
+    ^~~
+    VITIS_LOOP_278_4: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55379:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55381:5: warning: Added loop label VITIS_LOOP_280_5:   [xilinx-label-all-loops]
+    for (int s=0; s<Ni; s++)
+    ^~~
+    VITIS_LOOP_280_5: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55381:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55383:5: warning: Added loop label VITIS_LOOP_282_6:   [xilinx-label-all-loops]
+    for (int r=0; r<Nj; r++)
+    ^~~
+    VITIS_LOOP_282_6: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55383:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55385:5: warning: Added loop label VITIS_LOOP_284_7:   [xilinx-label-all-loops]
+    for (int ji=0; ji<Nij; ji++)
+    ^~~
+    VITIS_LOOP_284_7: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55385:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55390:5: warning: Added loop label VITIS_LOOP_289_8:   [xilinx-label-all-loops]
+    for (int i = 0; i < Ni; i++) {
+    ^~~
+    VITIS_LOOP_289_8: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55390:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55394:5: warning: Added loop label VITIS_LOOP_293_9:   [xilinx-label-all-loops]
+    for (int j = 0; j < Nj; j++) {
+    ^~~
+    VITIS_LOOP_293_9: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55394:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55398:5: warning: Added loop label VITIS_LOOP_297_10:   [xilinx-label-all-loops]
+    for (int k = 0; k < Ni * Nj; k++) {
+    ^~~
+    VITIS_LOOP_297_10: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55398:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55401:5: warning: Added loop label VITIS_LOOP_300_11:   [xilinx-label-all-loops]
+    for (int hi = 0; hi < Hi; hi++) {
+    ^~~
+    VITIS_LOOP_300_11: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55401:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55403:9: warning: Added loop label VITIS_LOOP_302_12:   [xilinx-label-all-loops]
+        for (int i = hi * Mi; i < (hi + 1) * Mi; i++)
+        ^~~
+        VITIS_LOOP_302_12: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55403:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55406:13: warning: Added loop label VITIS_LOOP_305_13:   [xilinx-label-all-loops]
+            for (int i = hi * Mi; i < (hi + 1) * Mi; i++) {
+            ^~~
+            VITIS_LOOP_305_13: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55406:13: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55411:5: warning: Added loop label VITIS_LOOP_310_14:   [xilinx-label-all-loops]
+    for (int hj = 0; hj < Hj; hj++) {
+    ^~~
+    VITIS_LOOP_310_14: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55411:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55413:9: warning: Added loop label VITIS_LOOP_312_15:   [xilinx-label-all-loops]
+        for (int j = hj * Mj; j < (hj + 1) * Mj; j++)
+        ^~~
+        VITIS_LOOP_312_15: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55413:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55416:13: warning: Added loop label VITIS_LOOP_315_16:   [xilinx-label-all-loops]
+            for (int j = hj * Mj; j < (hj + 1) * Mj; j++) {
+            ^~~
+            VITIS_LOOP_315_16: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55416:13: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55421:5: warning: Added loop label VITIS_LOOP_320_17:   [xilinx-label-all-loops]
+    for (int hi = 0; hi < Hi; hi++) {
+    ^~~
+    VITIS_LOOP_320_17: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55421:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55422:9: warning: Added loop label VITIS_LOOP_321_18:   [xilinx-label-all-loops]
+        for (int hj = 0; hj < Hj; hj++) {
+        ^~~
+        VITIS_LOOP_321_18: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55422:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55424:13: warning: Added loop label VITIS_LOOP_323_19:   [xilinx-label-all-loops]
+            for (int i = hi * Mi; i < (hi + 1) * Mi; i++) {
+            ^~~
+            VITIS_LOOP_323_19: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55424:13: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55425:17: warning: Added loop label VITIS_LOOP_324_20:   [xilinx-label-all-loops]
+                for (int j = hj * Mj; j < (hj + 1) * Mj; j++) {
+                ^~~
+                VITIS_LOOP_324_20: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55425:17: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55429:13: warning: Added loop label VITIS_LOOP_328_21:   [xilinx-label-all-loops]
+            for (int i = hi * Mi; i < (hi + 1) * Mi; i++) {
+            ^~~
+            VITIS_LOOP_328_21: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55429:13: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55430:17: warning: Added loop label VITIS_LOOP_329_22:   [xilinx-label-all-loops]
+                for (int j = hj * Mj; j < (hj + 1) * Mj; j++) {
+                ^~~
+                VITIS_LOOP_329_22: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55430:17: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55610:5: warning: Added loop label VITIS_LOOP_600_1:   [xilinx-label-all-loops]
+    for (int i = 0; i < Ni; i++) {
+    ^~~
+    VITIS_LOOP_600_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55610:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55616:5: warning: Added loop label VITIS_LOOP_606_1:   [xilinx-label-all-loops]
+    for (int j = 0; j < Nj; j++) {
+    ^~~
+    VITIS_LOOP_606_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55616:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55622:5: warning: Added loop label VITIS_LOOP_612_1:   [xilinx-label-all-loops]
+    for (int i = 0; i < Ni; i++) {
+    ^~~
+    VITIS_LOOP_612_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55622:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55623:9: warning: Added loop label VITIS_LOOP_613_2:   [xilinx-label-all-loops]
+        for (int j = 0; j < Nj; j++) {
+        ^~~
+        VITIS_LOOP_613_2: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55623:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55640:5: warning: Added loop label VITIS_LOOP_630_1:   [xilinx-label-all-loops]
+    for (int i = 0; i < Ni; i++) {
+    ^~~
+    VITIS_LOOP_630_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55640:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55641:9: warning: Added loop label VITIS_LOOP_631_2:   [xilinx-label-all-loops]
+        for (int j = 0; j < Nj; j++) {
+        ^~~
+        VITIS_LOOP_631_2: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55641:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55659:5: warning: Added loop label VITIS_LOOP_649_1:   [xilinx-label-all-loops]
+    for (int hi = 0; hi < Hi; hi++) {
+    ^~~
+    VITIS_LOOP_649_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55659:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55660:9: warning: Added loop label VITIS_LOOP_650_2:   [xilinx-label-all-loops]
+        for (int hj = 0; hj < Hj; hj++) {
+        ^~~
+        VITIS_LOOP_650_2: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55660:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55663:13: warning: Added loop label VITIS_LOOP_653_3:   [xilinx-label-all-loops]
+            for (int mj = 0; mj < Mj; mj++) {
+            ^~~
+            VITIS_LOOP_653_3: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55663:13: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55664:17: warning: Added loop label VITIS_LOOP_654_4:   [xilinx-label-all-loops]
+                for (int mi = 0; mi < Mi; mi++) {
+                ^~~
+                VITIS_LOOP_654_4: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55664:17: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55680:5: warning: Added loop label VITIS_LOOP_670_1:   [xilinx-label-all-loops]
+    for (int hi = 0; hi < Hi; hi++) {
+    ^~~
+    VITIS_LOOP_670_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55680:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55682:9: warning: Added loop label VITIS_LOOP_672_2:   [xilinx-label-all-loops]
+        for (int hj = 0; hj < Hj; hj++){
+        ^~~
+        VITIS_LOOP_672_2: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55682:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55690:5: warning: Added loop label VITIS_LOOP_680_1:   [xilinx-label-all-loops]
+    for (int hi = 0; hi < Hi; hi++) {
+    ^~~
+    VITIS_LOOP_680_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55690:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55691:9: warning: Added loop label VITIS_LOOP_681_2:   [xilinx-label-all-loops]
+        for (int hj = 0; hj < Hj; hj++) {
+        ^~~
+        VITIS_LOOP_681_2: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55691:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55703:5: warning: Added loop label VITIS_LOOP_693_1:   [xilinx-label-all-loops]
+    for (int swapid=0; swapid<updconn_nswapmax; swapid++) {
+    ^~~
+    VITIS_LOOP_693_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55703:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55713:9: warning: Added loop label VITIS_LOOP_703_2:   [xilinx-label-all-loops]
+        for (int hi=0; hi<Hi; hi++) {
+        ^~~
+        VITIS_LOOP_703_2: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55713:9: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55738:5: warning: Added loop label VITIS_LOOP_728_1:   [xilinx-label-all-loops]
+    for (int hj = 0; hj < Hj; hj++) {
+    ^~~
+    VITIS_LOOP_728_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55738:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55782:5: warning: Added loop label VITIS_LOOP_772_1:   [xilinx-label-all-loops]
+    for (int s=0; s<Ni; s++)
+    ^~~
+    VITIS_LOOP_772_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55782:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55784:5: warning: Added loop label VITIS_LOOP_774_2:   [xilinx-label-all-loops]
+    for (int r=0; r<Nj; r++)
+    ^~~
+    VITIS_LOOP_774_2: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55784:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55786:5: warning: Added loop label VITIS_LOOP_776_3:   [xilinx-label-all-loops]
+    for (int ji=0; ji<Nij; ji++)
+    ^~~
+    VITIS_LOOP_776_3: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55786:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55788:5: warning: Added loop label VITIS_LOOP_778_4:   [xilinx-label-all-loops]
+    for (int r=0; r<Nj; r++)
+    ^~~
+    VITIS_LOOP_778_4: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55788:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55801:5: warning: Added loop label VITIS_LOOP_791_5:   [xilinx-label-all-loops]
+    for (int ji=0; ji<Nij; ji++)
+    ^~~
+    VITIS_LOOP_791_5: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55801:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55862:5: warning: Added loop label VITIS_LOOP_852_1:   [xilinx-label-all-loops]
+    for (int s = 0; s < Ni; s++) {
+    ^~~
+    VITIS_LOOP_852_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55862:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55863:10: warning: Added loop label VITIS_LOOP_853_2:   [xilinx-label-all-loops]
+         for (int r = 0; r < Nj; r++){
+         ^~~
+         VITIS_LOOP_853_2: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55863:10: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55890:5: warning: Added loop label VITIS_LOOP_880_1:   [xilinx-label-all-loops]
+    for (int s = 0; s < Ni; s++) {
+    ^~~
+    VITIS_LOOP_880_1: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55890:5: note: FIX-IT applied suggested code changes
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55891:10: warning: Added loop label VITIS_LOOP_881_2:   [xilinx-label-all-loops]
+         for (int r = 0; r < Nj; r++){
+         ^~~
+         VITIS_LOOP_881_2: 
+/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp:55891:10: note: FIX-IT applied suggested code changes

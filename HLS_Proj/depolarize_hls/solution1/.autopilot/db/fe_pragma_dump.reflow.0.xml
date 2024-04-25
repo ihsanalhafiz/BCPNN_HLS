@@ -1,0 +1,30 @@
+<pragmas>
+<pragma file="" line="0" pragmaType="inline" parentfunction="read" off="0" region="0" recursive="0"/>
+<pragma file="" line="0" pragmaType="inline" parentfunction="write" off="0" region="0" recursive="0"/>
+<pragma file="" line="0" pragmaType="inline" parentfunction="read" off="0" region="0" recursive="0"/>
+<pragma file="../src_hls/Prj.cpp" line="498" pragmaType="inline" parentfunction="stream_Xi" off="0" region="0" recursive="0"/>
+<pragma file="../src_hls/Prj.cpp" line="502" pragmaType="pipeline" parentfunction="stream_Xi" off="0" ii="1" rewind="0" style=""/>
+<pragma file="../src_hls/Prj.cpp" line="501" pragmaType="loop_tripcount" parentfunction="stream_Xi" min="1000" max="1000" avg="1000"/>
+<pragma file="../src_hls/Prj.cpp" line="520" pragmaType="inline" parentfunction="stream_bwsup" off="0" region="0" recursive="0"/>
+<pragma file="../src_hls/Prj.cpp" line="524" pragmaType="pipeline" parentfunction="stream_bwsup" off="0" ii="1" rewind="0" style=""/>
+<pragma file="../src_hls/Prj.cpp" line="523" pragmaType="loop_tripcount" parentfunction="stream_bwsup" min="1000" max="1000" avg="1000"/>
+<pragma file="../src_hls/Prj.cpp" line="483" pragmaType="inline" parentfunction="stream_Wij" off="0" region="0" recursive="0"/>
+<pragma file="../src_hls/Prj.cpp" line="486" pragmaType="loop_tripcount" parentfunction="stream_Wij" min="1000" max="1000" avg="1000"/>
+<pragma file="../src_hls/Prj.cpp" line="490" pragmaType="pipeline" parentfunction="stream_Wij" off="0" ii="1" rewind="0" style=""/>
+<pragma file="../src_hls/Prj.cpp" line="489" pragmaType="loop_tripcount" parentfunction="stream_Wij" min="1000" max="1000" avg="1000"/>
+<pragma file="../src_hls/Prj.cpp" line="562" pragmaType="interface" parentfunction="depolarize_hls" mode="m_axi" port="d_bwsup" bundle="" offset="" name="" depth="1000" num_read_outstanding="-1" num_write_outstanding="-1" max_burst_read_length="-1" max_burst_write_length="-1" latency="-1" max_widen_bitwidth="-1" channel=""/>
+<pragma file="../src_hls/Prj.cpp" line="563" pragmaType="interface" parentfunction="depolarize_hls" mode="m_axi" port="d_Wij" bundle="" offset="" name="" depth="1000000" num_read_outstanding="-1" num_write_outstanding="-1" max_burst_read_length="-1" max_burst_write_length="-1" latency="-1" max_widen_bitwidth="-1" channel=""/>
+<pragma file="../src_hls/Prj.cpp" line="564" pragmaType="interface" parentfunction="depolarize_hls" mode="m_axi" port="d_Xi" bundle="" offset="" name="" depth="1000" num_read_outstanding="-1" num_write_outstanding="-1" max_burst_read_length="-1" max_burst_write_length="-1" latency="-1" max_widen_bitwidth="-1" channel=""/>
+<pragma file="../src_hls/Prj.cpp" line="565" pragmaType="interface" parentfunction="depolarize_hls" mode="m_axi" port="d_Bj" bundle="" offset="" name="" depth="1000" num_read_outstanding="-1" num_write_outstanding="-1" max_burst_read_length="-1" max_burst_write_length="-1" latency="-1" max_widen_bitwidth="-1" channel=""/>
+<pragma file="../src_hls/Prj.cpp" line="509" pragmaType="inline" parentfunction="stream_Bj" off="0" region="0" recursive="0"/>
+<pragma file="../src_hls/Prj.cpp" line="513" pragmaType="pipeline" parentfunction="stream_Bj" off="0" ii="1" rewind="0" style=""/>
+<pragma file="../src_hls/Prj.cpp" line="512" pragmaType="loop_tripcount" parentfunction="stream_Bj" min="1000" max="1000" avg="1000"/>
+<pragma file="../src_hls/Prj.cpp" line="531" pragmaType="inline" parentfunction="compute_depolarize" off="0" region="0" recursive="0"/>
+<pragma file="../src_hls/Prj.cpp" line="534" pragmaType="loop_tripcount" parentfunction="compute_depolarize" min="1000" max="1000" avg="1000"/>
+<pragma file="../src_hls/Prj.cpp" line="539" pragmaType="pipeline" parentfunction="compute_depolarize" off="0" ii="5" rewind="0" style=""/>
+<pragma file="../src_hls/Prj.cpp" line="538" pragmaType="loop_tripcount" parentfunction="compute_depolarize" min="1000" max="1000" avg="1000"/>
+<pragma file="../src_hls/Prj.cpp" line="552" pragmaType="inline" parentfunction="store_bwsup" off="0" region="0" recursive="0"/>
+<pragma file="../src_hls/Prj.cpp" line="556" pragmaType="pipeline" parentfunction="store_bwsup" off="0" ii="1" rewind="0" style=""/>
+<pragma file="../src_hls/Prj.cpp" line="555" pragmaType="loop_tripcount" parentfunction="store_bwsup" min="1000" max="1000" avg="1000"/>
+<pragma file="" line="0" pragmaType="inline" parentfunction="hls::stream<float, 0>::stream()" off="0" region="0" recursive="0"/>
+</pragmas>

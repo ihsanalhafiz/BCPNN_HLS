@@ -1,0 +1,52 @@
+<profile>
+
+<section name = "Vitis HLS Report for 'depolarize_hls'" level="0">
+<item name = "Date">Thu Apr 25 16:51:31 2024
+</item>
+<item name = "Version">2023.2 (Build 4023990 on Oct 11 2023)</item>
+<item name = "Project">depolarize_hls</item>
+<item name = "Solution">solution1 (Vivado IP Flow Target)</item>
+<item name = "Product family">artix7</item>
+<item name = "Target device">xc7a200t-fbg484-1</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">10.00 ns, 7.300 ns, 2.70 ns</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="8">, min, max, min, max, min, max, Type</keys>
+<column name="">1017, 6036066, 10.170 us, 60.361 ms, 1018, 6036067, no</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="9">Instance, Module, min, max, min, max, min, max, Type</keys>
+<column name="grp_depolarize_hls_Pipeline_read_bwsup_fu_257">depolarize_hls_Pipeline_read_bwsup, 1003, 1003, 10.030 us, 10.030 us, 1003, 1003, no</column>
+<column name="grp_depolarize_hls_Pipeline_read_Wij_first_read_Wij_second_fu_266">depolarize_hls_Pipeline_read_Wij_first_read_Wij_second, 1000003, 1000003, 10.000 ms, 10.000 ms, 1000003, 1000003, no</column>
+<column name="grp_depolarize_hls_Pipeline_read_Xi_fu_275">depolarize_hls_Pipeline_read_Xi, 1003, 1003, 10.030 us, 10.030 us, 1003, 1003, no</column>
+<column name="grp_depolarize_hls_Pipeline_read_Bj_fu_284">depolarize_hls_Pipeline_read_Bj, 1003, 1003, 10.030 us, 10.030 us, 1003, 1003, no</column>
+<column name="grp_depolarize_hls_Pipeline_computeRow_fu_293">depolarize_hls_Pipeline_computeRow, 5012, 5012, 50.120 us, 50.120 us, 5012, 5012, no</column>
+<column name="grp_depolarize_hls_Pipeline_store_bwsup_fu_303">depolarize_hls_Pipeline_store_bwsup, 1003, 1003, 10.030 us, 10.030 us, 1003, 1003, no</column>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+<column name="- computeCol">5032000, 5032000, 5032, -, -, 1000, no</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+</profile>

@@ -1,0 +1,23 @@
+[
+  {
+    "functionLabel": "",
+    "functionName": "depolarize_hls",
+    "id": 0,
+    "ifcond": "",
+    "insert_position": "",
+    "label": "",
+    "pragma": {
+      "name": "TOP",
+      "option": [
+        {
+          "name": "name",
+          "value": "depolarize_hls"
+        }
+      ]
+    },
+    "slx": false,
+    "sourceFile": "/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/csynth.tcl",
+    "sourceLine": 17,
+    "success": true
+  }
+]

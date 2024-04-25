@@ -1,0 +1,114 @@
+<xilinx:hls_fe_msgs>
+    <msg msg_groups="PRAGMA_INVALID" msg_id="207-5566" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:576:34" msg_body="unexpected pragma argument 'compute_depolarize', expects function/operation">
+        <args ClangWarningOption="invalid-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5292" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:611:78" msg_body="unused parameter 'eps'">
+        <args ClangWarningOption="unused-parameter"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5292" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:629:151" msg_body="unused parameter 'eps'">
+        <args ClangWarningOption="unused-parameter"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5292" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:826:30" msg_body="unused parameter 'field'">
+        <args ClangWarningOption="unused-parameter"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5292" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:826:43" msg_body="unused parameter 'f'">
+        <args ClangWarningOption="unused-parameter"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:483:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="stream_Wij" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:486:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="stream_Wij" ARG_PragmaIsValid="1" ARG_PragmaOptions="min = 1000 max = 1000" ARG_PragmaType="loop_tripcount" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:489:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="stream_Wij" ARG_PragmaIsValid="1" ARG_PragmaOptions="min = 1000 max = 1000" ARG_PragmaType="loop_tripcount" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:490:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="stream_Wij" ARG_PragmaIsValid="1" ARG_PragmaOptions="II=1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:498:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="stream_Xi" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:501:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="stream_Xi" ARG_PragmaIsValid="1" ARG_PragmaOptions="min = 1000 max = 1000" ARG_PragmaType="loop_tripcount" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:502:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="stream_Xi" ARG_PragmaIsValid="1" ARG_PragmaOptions="II=1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:509:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="stream_Bj" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:512:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="stream_Bj" ARG_PragmaIsValid="1" ARG_PragmaOptions="min = 1000 max = 1000" ARG_PragmaType="loop_tripcount" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:513:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="stream_Bj" ARG_PragmaIsValid="1" ARG_PragmaOptions="II=1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:520:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="stream_bwsup" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:523:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="stream_bwsup" ARG_PragmaIsValid="1" ARG_PragmaOptions="min = 1000 max = 1000" ARG_PragmaType="loop_tripcount" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:524:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="stream_bwsup" ARG_PragmaIsValid="1" ARG_PragmaOptions="II=1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:531:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="compute_depolarize" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:534:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="compute_depolarize" ARG_PragmaIsValid="1" ARG_PragmaOptions="min = 1000 max = 1000" ARG_PragmaType="loop_tripcount" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:538:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="compute_depolarize" ARG_PragmaIsValid="1" ARG_PragmaOptions="min = 1000 max = 1000" ARG_PragmaType="loop_tripcount" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:539:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="compute_depolarize" ARG_PragmaIsValid="1" ARG_PragmaOptions="II=5" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:552:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="store_bwsup" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:555:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="store_bwsup" ARG_PragmaIsValid="1" ARG_PragmaOptions="min = 1000 max = 1000" ARG_PragmaType="loop_tripcount" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:556:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="store_bwsup" ARG_PragmaIsValid="1" ARG_PragmaOptions="II=1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/csynth.tcl:17:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaContext="directive" ARG_PragmaFunction="depolarize_hls" ARG_PragmaIsValid="1" ARG_PragmaOptions="name=depolarize_hls" ARG_PragmaType="top" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:562:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="depolarize_hls" ARG_PragmaIsValid="1" ARG_PragmaOptions="m_axi port=d_bwsup depth=1000" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:563:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="depolarize_hls" ARG_PragmaIsValid="1" ARG_PragmaOptions="m_axi port=d_Wij depth=1000000" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:564:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="depolarize_hls" ARG_PragmaIsValid="1" ARG_PragmaOptions="m_axi port=d_Xi depth=1000" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:565:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="depolarize_hls" ARG_PragmaIsValid="1" ARG_PragmaOptions="m_axi port=d_Bj depth=1000" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src_hls/Prj.cpp:576:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="depolarize_hls" ARG_PragmaIsValid="0" ARG_PragmaOptions="instances=compute_depolarize" ARG_PragmaType="allocation" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-131" msg_severity="INFO" msg_loc="../src_hls/Prj.cpp:571:5" msg_body="Inlining function 'stream_bwsup(float*, hls::stream&lt;float, 0&gt;&amp;, int)' into 'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'">
+        <args Callee="stream_bwsup(float*, hls::stream&lt;float, 0&gt;&amp;, int)" Callee-DebugLoc="File ../src_hls/Prj.cpp Line 519 Column 0" Caller="depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)" Caller-DebugLoc="File ../src_hls/Prj.cpp Line 561 Column 0"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-131" msg_severity="INFO" msg_loc="../src_hls/Prj.cpp:581:5" msg_body="Inlining function 'store_bwsup(hls::stream&lt;float, 0&gt;&amp;, float*, int)' into 'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'">
+        <args Callee="store_bwsup(hls::stream&lt;float, 0&gt;&amp;, float*, int)" Callee-DebugLoc="File ../src_hls/Prj.cpp Line 551 Column 0" Caller="depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)" Caller-DebugLoc="File ../src_hls/Prj.cpp Line 561 Column 0"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-131" msg_severity="INFO" msg_loc="../src_hls/Prj.cpp:578:2" msg_body="Inlining function 'compute_depolarize(hls::stream&lt;float, 0&gt;&amp;, hls::stream&lt;float, 0&gt;&amp;, hls::stream&lt;float, 0&gt;&amp;, hls::stream&lt;float, 0&gt;&amp;, hls::stream&lt;float, 0&gt;&amp;, int, int, float, float, float)' into 'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'">
+        <args Callee="compute_depolarize(hls::stream&lt;float, 0&gt;&amp;, hls::stream&lt;float, 0&gt;&amp;, hls::stream&lt;float, 0&gt;&amp;, hls::stream&lt;float, 0&gt;&amp;, hls::stream&lt;float, 0&gt;&amp;, int, int, float, float, float)" Callee-DebugLoc="File ../src_hls/Prj.cpp Line 530 Column 0" Caller="depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)" Caller-DebugLoc="File ../src_hls/Prj.cpp Line 561 Column 0"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-131" msg_severity="INFO" msg_loc="../src_hls/Prj.cpp:574:5" msg_body="Inlining function 'stream_Bj(float*, hls::stream&lt;float, 0&gt;&amp;, int)' into 'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'">
+        <args Callee="stream_Bj(float*, hls::stream&lt;float, 0&gt;&amp;, int)" Callee-DebugLoc="File ../src_hls/Prj.cpp Line 508 Column 0" Caller="depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)" Caller-DebugLoc="File ../src_hls/Prj.cpp Line 561 Column 0"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-131" msg_severity="INFO" msg_loc="../src_hls/Prj.cpp:573:5" msg_body="Inlining function 'stream_Xi(float*, hls::stream&lt;float, 0&gt;&amp;, int)' into 'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'">
+        <args Callee="stream_Xi(float*, hls::stream&lt;float, 0&gt;&amp;, int)" Callee-DebugLoc="File ../src_hls/Prj.cpp Line 497 Column 0" Caller="depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)" Caller-DebugLoc="File ../src_hls/Prj.cpp Line 561 Column 0"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-131" msg_severity="INFO" msg_loc="../src_hls/Prj.cpp:572:5" msg_body="Inlining function 'stream_Wij(float*, hls::stream&lt;float, 0&gt;&amp;, int, int)' into 'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'">
+        <args Callee="stream_Wij(float*, hls::stream&lt;float, 0&gt;&amp;, int, int)" Callee-DebugLoc="File ../src_hls/Prj.cpp Line 482 Column 0" Caller="depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)" Caller-DebugLoc="File ../src_hls/Prj.cpp Line 561 Column 0"/>
+    </msg>
+</xilinx:hls_fe_msgs>
+

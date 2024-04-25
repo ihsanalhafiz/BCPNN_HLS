@@ -1,0 +1,255 @@
+
+
+================================================================
+== Synthesis Summary Report of 'depolarize_hls'
+================================================================
++ General Information: 
+    * Date:           Thu Apr 25 16:51:31 2024
+    * Version:        2023.2 (Build 4023990 on Oct 11 2023)
+    * Project:        depolarize_hls
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: artix7
+    * Target device:  xc7a200t-fbg484-1
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +-----------------------------------------------------------+------+------+---------+-----------+----------+---------+---------+----------+---------+---------+-----------+-----------+-----+
+    |                          Modules                          | Issue|      | Latency |  Latency  | Iteration|         |   Trip  |          |         |         |           |           |     |
+    |                          & Loops                          | Type | Slack| (cycles)|    (ns)   |  Latency | Interval|  Count  | Pipelined|  BRAM   |   DSP   |     FF    |    LUT    | URAM|
+    +-----------------------------------------------------------+------+------+---------+-----------+----------+---------+---------+----------+---------+---------+-----------+-----------+-----+
+    |+ depolarize_hls                                           |     -|  0.00|  6036066|  6.036e+07|         -|  6036067|        -|        no|  4 (~0%)|  12 (1%)|  4263 (1%)|  4348 (3%)|    -|
+    | + depolarize_hls_Pipeline_read_bwsup                      |     -|  0.00|     1003|  1.003e+04|         -|     1003|        -|        no|        -|        -|   68 (~0%)|  134 (~0%)|    -|
+    |  o read_bwsup                                             |     -|  7.30|     1001|  1.001e+04|         3|        1|     1000|       yes|        -|        -|          -|          -|    -|
+    | + depolarize_hls_Pipeline_read_Wij_first_read_Wij_second  |     -|  0.00|  1000003|  1.000e+07|         -|  1000003|        -|        no|        -|        -|  101 (~0%)|  198 (~0%)|    -|
+    |  o read_Wij_first_read_Wij_second                         |     -|  7.30|  1000001|  1.000e+07|         3|        1|  1000000|       yes|        -|        -|          -|          -|    -|
+    | + depolarize_hls_Pipeline_read_Xi                         |     -|  0.00|     1003|  1.003e+04|         -|     1003|        -|        no|        -|        -|   68 (~0%)|  135 (~0%)|    -|
+    |  o read_Xi                                                |     -|  7.30|     1001|  1.001e+04|         3|        1|     1000|       yes|        -|        -|          -|          -|    -|
+    | + depolarize_hls_Pipeline_read_Bj                         |     -|  0.00|     1003|  1.003e+04|         -|     1003|        -|        no|        -|        -|   68 (~0%)|  134 (~0%)|    -|
+    |  o read_Bj                                                |     -|  7.30|     1001|  1.001e+04|         3|        1|     1000|       yes|        -|        -|          -|          -|    -|
+    | + depolarize_hls_Pipeline_store_bwsup                     |     -|  0.00|     1003|  1.003e+04|         -|     1003|        -|        no|        -|        -|   68 (~0%)|  136 (~0%)|    -|
+    |  o store_bwsup                                            |     -|  7.30|     1001|  1.001e+04|         3|        1|     1000|       yes|        -|        -|          -|          -|    -|
+    | o computeCol                                              |     -|  7.30|  5032000|  5.032e+07|      5032|        -|     1000|        no|        -|        -|          -|          -|    -|
+    |  + depolarize_hls_Pipeline_computeRow                     |     -|  0.15|     5012|  5.012e+04|         -|     5012|        -|        no|        -|        -|  483 (~0%)|  634 (~0%)|    -|
+    |   o computeRow                                            |     -|  7.30|     5010|  5.010e+04|        16|        5|     1000|       yes|        -|        -|          -|          -|    -|
+    +-----------------------------------------------------------+------+------+---------+-----------+----------+---------+---------+----------+---------+---------+-----------+-----------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+| Interface  | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   | Resource Estimate |
+|            | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |                   |
++------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+| m_axi_gmem | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 16          | 16          | BRAM=4            |
++------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 6             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+-----------+--------+-------+--------+------------------------+
+| Interface     | Register  | Offset | Width | Access | Description            |
++---------------+-----------+--------+-------+--------+------------------------+
+| s_axi_control | d_bwsup_1 | 0x10   | 32    | W      | Data signal of d_bwsup |
+| s_axi_control | d_bwsup_2 | 0x14   | 32    | W      | Data signal of d_bwsup |
+| s_axi_control | d_Wij_1   | 0x1c   | 32    | W      | Data signal of d_Wij   |
+| s_axi_control | d_Wij_2   | 0x20   | 32    | W      | Data signal of d_Wij   |
+| s_axi_control | d_Xi_1    | 0x28   | 32    | W      | Data signal of d_Xi    |
+| s_axi_control | d_Xi_2    | 0x2c   | 32    | W      | Data signal of d_Xi    |
+| s_axi_control | d_Bj_1    | 0x34   | 32    | W      | Data signal of d_Bj    |
+| s_axi_control | d_Bj_2    | 0x38   | 32    | W      | Data signal of d_Bj    |
++---------------+-----------+--------+-------+--------+------------------------+
+
+* Other Ports
++---------+---------+-----------+----------+
+| Port    | Mode    | Direction | Bitwidth |
++---------+---------+-----------+----------+
+| Ni      | ap_none | in        | 32       |
+| Nj      | ap_none | in        | 32       |
+| alpha   | ap_none | in        | 32       |
+| beta    | ap_none | in        | 32       |
+| biasmul | ap_none | in        | 32       |
++---------+---------+-----------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst_n  | reset      | ap_rst_n                          |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++----------+-----------+----------+
+| Argument | Direction | Datatype |
++----------+-----------+----------+
+| d_bwsup  | inout     | float*   |
+| d_Wij    | inout     | float*   |
+| d_Xi     | inout     | float*   |
+| Ni       | in        | int      |
+| Nj       | in        | int      |
+| alpha    | in        | float    |
+| beta     | in        | float    |
+| d_Bj     | inout     | float*   |
+| biasmul  | in        | float    |
++----------+-----------+----------+
+
+* SW-to-HW Mapping
++----------+---------------+-----------+----------+-------------------------------------+
+| Argument | HW Interface  | HW Type   | HW Usage | HW Info                             |
++----------+---------------+-----------+----------+-------------------------------------+
+| d_bwsup  | m_axi_gmem    | interface |          |                                     |
+| d_bwsup  | s_axi_control | register  | offset   | name=d_bwsup_1 offset=0x10 range=32 |
+| d_bwsup  | s_axi_control | register  | offset   | name=d_bwsup_2 offset=0x14 range=32 |
+| d_Wij    | m_axi_gmem    | interface |          |                                     |
+| d_Wij    | s_axi_control | register  | offset   | name=d_Wij_1 offset=0x1c range=32   |
+| d_Wij    | s_axi_control | register  | offset   | name=d_Wij_2 offset=0x20 range=32   |
+| d_Xi     | m_axi_gmem    | interface |          |                                     |
+| d_Xi     | s_axi_control | register  | offset   | name=d_Xi_1 offset=0x28 range=32    |
+| d_Xi     | s_axi_control | register  | offset   | name=d_Xi_2 offset=0x2c range=32    |
+| Ni       | Ni            | port      |          |                                     |
+| Nj       | Nj            | port      |          |                                     |
+| alpha    | alpha         | port      |          |                                     |
+| beta     | beta          | port      |          |                                     |
+| d_Bj     | m_axi_gmem    | interface |          |                                     |
+| d_Bj     | s_axi_control | register  | offset   | name=d_Bj_1 offset=0x34 range=32    |
+| d_Bj     | s_axi_control | register  | offset   | name=d_Bj_2 offset=0x38 range=32    |
+| biasmul  | biasmul       | port      |          |                                     |
++----------+---------------+-----------+----------+-------------------------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++--------------+-----------+----------+-------+-------------+--------------------------+
+| HW Interface | Direction | Length   | Width | Loop        | Loop Location            |
++--------------+-----------+----------+-------+-------------+--------------------------+
+| m_axi_gmem   | read      | variable | 32    |             |                          |
+| m_axi_gmem   | read      | variable | 32    | read_Xi     | ../src_hls/Prj.cpp:500:5 |
+| m_axi_gmem   | read      | variable | 32    | read_Bj     | ../src_hls/Prj.cpp:511:5 |
+| m_axi_gmem   | read      | variable | 32    | read_bwsup  | ../src_hls/Prj.cpp:522:5 |
+| m_axi_gmem   | write     | variable | 32    | store_bwsup | ../src_hls/Prj.cpp:554:5 |
++--------------+-----------+----------+-------+-------------+--------------------------+
+
+* All M_AXI Variable Accesses
++--------------+----------+---------------------------+-----------+--------------+----------+-----------------+--------------------------+------------+---------------------------------------------------------------------------------------------------------+
+| HW Interface | Variable | Access Location           | Direction | Burst Status | Length   | Loop            | Loop Location            | Resolution | Problem                                                                                                 |
++--------------+----------+---------------------------+-----------+--------------+----------+-----------------+--------------------------+------------+---------------------------------------------------------------------------------------------------------+
+| m_axi_gmem   | d_Wij    | ../src_hls/Prj.cpp:491:13 | read      | Widen Fail   |          | read_Wij_second | ../src_hls/Prj.cpp:488:9 | 214-353    | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 |
+| m_axi_gmem   | d_Wij    | ../src_hls/Prj.cpp:491:13 | read      | Inferred     | variable | read_Wij_first  | ../src_hls/Prj.cpp:485:5 |            |                                                                                                         |
+| m_axi_gmem   | d_Xi     | ../src_hls/Prj.cpp:503:12 | read      | Widen Fail   |          | read_Xi         | ../src_hls/Prj.cpp:500:5 | 214-353    | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 |
+| m_axi_gmem   | d_Xi     | ../src_hls/Prj.cpp:503:12 | read      | Inferred     | variable | read_Xi         | ../src_hls/Prj.cpp:500:5 |            |                                                                                                         |
+| m_axi_gmem   | d_Bj     | ../src_hls/Prj.cpp:514:12 | read      | Widen Fail   |          | read_Bj         | ../src_hls/Prj.cpp:511:5 | 214-353    | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 |
+| m_axi_gmem   | d_Bj     | ../src_hls/Prj.cpp:514:12 | read      | Inferred     | variable | read_Bj         | ../src_hls/Prj.cpp:511:5 |            |                                                                                                         |
+| m_axi_gmem   | d_bwsup  | ../src_hls/Prj.cpp:525:15 | read      | Widen Fail   |          | read_bwsup      | ../src_hls/Prj.cpp:522:5 | 214-353    | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 |
+| m_axi_gmem   | d_bwsup  | ../src_hls/Prj.cpp:525:15 | read      | Inferred     | variable | read_bwsup      | ../src_hls/Prj.cpp:522:5 |            |                                                                                                         |
+| m_axi_gmem   | d_bwsup  | ../src_hls/Prj.cpp:557:13 | write     | Widen Fail   |          | store_bwsup     | ../src_hls/Prj.cpp:554:5 | 214-353    | Could not widen since type float size is greater than or equal to the max_widen_bitwidth threshold of 0 |
+| m_axi_gmem   | d_bwsup  | ../src_hls/Prj.cpp:557:13 | write     | Inferred     | variable | store_bwsup     | ../src_hls/Prj.cpp:554:5 |            |                                                                                                         |
++--------------+----------+---------------------------+-----------+--------------+----------+-----------------+--------------------------+------------+---------------------------------------------------------------------------------------------------------+
+
+    * Resolution URL: docs.xilinx.com/access/sources/dita/topic?Doc_Version=2023.2%20English&url=ug1448-hls-guidance&resourceid=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++-----------------------------------------------------------+-----+--------+-----------+------+---------+---------+
+| Name                                                      | DSP | Pragma | Variable  | Op   | Impl    | Latency |
++-----------------------------------------------------------+-----+--------+-----------+------+---------+---------+
+| + depolarize_hls                                          | 12  |        |           |      |         |         |
+|   mul_32s_32s_32_2_1_U33                                  | 3   |        | mul_ln485 | mul  | auto    | 1       |
+|   mul_31ns_32ns_63_2_1_U32                                | 4   |        | mul_ln482 | mul  | auto    | 1       |
+|   add_ln533_fu_484_p2                                     |     |        | add_ln533 | add  | fabric  | 0       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U31                       | 3   |        | temp      | fmul | maxdsp  | 3       |
+|   fmul_32ns_32ns_32_4_max_dsp_1_U31                       | 3   |        | mul10_i   | fmul | maxdsp  | 3       |
+|   fadd_32ns_32ns_32_7_full_dsp_1_U30                      | 2   |        | temp_3    | fadd | fulldsp | 6       |
+|  + depolarize_hls_Pipeline_read_bwsup                     | 0   |        |           |      |         |         |
+|    add_ln522_fu_100_p2                                    |     |        | add_ln522 | add  | fabric  | 0       |
+|  + depolarize_hls_Pipeline_read_Wij_first_read_Wij_second | 0   |        |           |      |         |         |
+|    add_ln485_fu_99_p2                                     |     |        | add_ln485 | add  | fabric  | 0       |
+|  + depolarize_hls_Pipeline_read_Xi                        | 0   |        |           |      |         |         |
+|    add_ln500_fu_104_p2                                    |     |        | add_ln500 | add  | fabric  | 0       |
+|  + depolarize_hls_Pipeline_read_Bj                        | 0   |        |           |      |         |         |
+|    add_ln511_fu_100_p2                                    |     |        | add_ln511 | add  | fabric  | 0       |
+|  + depolarize_hls_Pipeline_computeRow                     | 0   |        |           |      |         |         |
+|    add_ln537_fu_124_p2                                    |     |        | add_ln537 | add  | fabric  | 0       |
+|    fadd_32ns_32ns_32_6_no_dsp_1_U17                       |     |        | temp_2    | fadd | fabric  | 5       |
+|  + depolarize_hls_Pipeline_store_bwsup                    | 0   |        |           |      |         |         |
+|    add_ln554_fu_104_p2                                    |     |        | add_ln554 | add  | fabric  | 0       |
++-----------------------------------------------------------+-----+--------+-----------+------+---------+---------+
+
+
+================================================================
+== Storage Report
+================================================================
++---------------------------+------------+-----------+------+------+--------+------------------+------+---------+------------------+
+| Name                      | Usage      | Type      | BRAM | URAM | Pragma | Variable         | Impl | Latency | Bitwidth, Depth, |
+|                           |            |           |      |      |        |                  |      |         | Banks            |
++---------------------------+------------+-----------+------+------+--------+------------------+------+---------+------------------+
+| + depolarize_hls          |            |           | 4    | 0    |        |                  |      |         |                  |
+|   control_s_axi_U         | interface  | s_axilite |      |      |        |                  |      |         |                  |
+|   gmem_m_axi_U            | interface  | m_axi     | 4    |      |        |                  |      |         |                  |
+|   Wij_stream_fifo_U       | fifo array |           |      |      |        | Wij_stream       | srl  | 0       | 32, 2, 1         |
+|   Xi_stream_fifo_U        | fifo array |           |      |      |        | Xi_stream        | srl  | 0       | 32, 2, 1         |
+|   Bj_stream_fifo_U        | fifo array |           |      |      |        | Bj_stream        | srl  | 0       | 32, 2, 1         |
+|   bwsup_stream_fifo_U     | fifo array |           |      |      |        | bwsup_stream     | srl  | 0       | 32, 2, 1         |
+|   bwsup_stream_out_fifo_U | fifo array |           |      |      |        | bwsup_stream_out | srl  | 0       | 32, 2, 1         |
++---------------------------+------------+-----------+------+------+--------+------------------+------+---------+------------------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Ignored Pragmas
++------------+------------------------------+------------------------------------------+-----------------------------------------------------------------------------+
+| Type       | Options                      | Location                                 | Messages                                                                    |
++------------+------------------------------+------------------------------------------+-----------------------------------------------------------------------------+
+| allocation | instances=compute_depolarize | ../src_hls/Prj.cpp:576 in depolarize_hls | unexpected pragma argument 'compute_depolarize', expects function/operation |
++------------+------------------------------+------------------------------------------+-----------------------------------------------------------------------------+
+
+* Valid Pragma Syntax
++----------------+--------------------------------+---------------------------------------------------+
+| Type           | Options                        | Location                                          |
++----------------+--------------------------------+---------------------------------------------------+
+| inline         |                                | ../src_hls/Prj.cpp:483 in stream_wij              |
+| loop_tripcount | min = 1000 max = 1000          | ../src_hls/Prj.cpp:486 in stream_wij              |
+| loop_tripcount | min = 1000 max = 1000          | ../src_hls/Prj.cpp:489 in stream_wij              |
+| pipeline       | II=1                           | ../src_hls/Prj.cpp:490 in stream_wij              |
+| inline         |                                | ../src_hls/Prj.cpp:498 in stream_xi               |
+| loop_tripcount | min = 1000 max = 1000          | ../src_hls/Prj.cpp:501 in stream_xi               |
+| pipeline       | II=1                           | ../src_hls/Prj.cpp:502 in stream_xi               |
+| inline         |                                | ../src_hls/Prj.cpp:509 in stream_bj               |
+| loop_tripcount | min = 1000 max = 1000          | ../src_hls/Prj.cpp:512 in stream_bj               |
+| pipeline       | II=1                           | ../src_hls/Prj.cpp:513 in stream_bj               |
+| inline         |                                | ../src_hls/Prj.cpp:520 in stream_bwsup            |
+| loop_tripcount | min = 1000 max = 1000          | ../src_hls/Prj.cpp:523 in stream_bwsup            |
+| pipeline       | II=1                           | ../src_hls/Prj.cpp:524 in stream_bwsup            |
+| inline         |                                | ../src_hls/Prj.cpp:531 in compute_depolarize      |
+| loop_tripcount | min = 1000 max = 1000          | ../src_hls/Prj.cpp:534 in compute_depolarize      |
+| loop_tripcount | min = 1000 max = 1000          | ../src_hls/Prj.cpp:538 in compute_depolarize      |
+| pipeline       | II=5                           | ../src_hls/Prj.cpp:539 in compute_depolarize      |
+| inline         |                                | ../src_hls/Prj.cpp:552 in store_bwsup             |
+| loop_tripcount | min = 1000 max = 1000          | ../src_hls/Prj.cpp:555 in store_bwsup             |
+| pipeline       | II=1                           | ../src_hls/Prj.cpp:556 in store_bwsup             |
+| interface      | m_axi port=d_bwsup depth=1000  | ../src_hls/Prj.cpp:562 in depolarize_hls, d_bwsup |
+| interface      | m_axi port=d_Wij depth=1000000 | ../src_hls/Prj.cpp:563 in depolarize_hls, d_Wij   |
+| interface      | m_axi port=d_Xi depth=1000     | ../src_hls/Prj.cpp:564 in depolarize_hls, d_Xi    |
+| interface      | m_axi port=d_Bj depth=1000     | ../src_hls/Prj.cpp:565 in depolarize_hls, d_Bj    |
++----------------+--------------------------------+---------------------------------------------------+
+
+

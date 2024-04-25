@@ -1,0 +1,181 @@
+
+
+================================================================
+== Vitis HLS Report for 'depolarize_hls_Pipeline_computeRow'
+================================================================
+* Date:           Thu Apr 25 16:51:31 2024
+
+* Version:        2023.2 (Build 4023990 on Oct 11 2023)
+* Project:        depolarize_hls
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: artix7
+* Target device:  xc7a200t-fbg484-1
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+----------+----------+------------+
+    |  Clock |  Target  | Estimated| Uncertainty|
+    +--------+----------+----------+------------+
+    |ap_clk  |  10.00 ns|  7.147 ns|     2.70 ns|
+    +--------+----------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+-----------+------+------+---------+
+    |  Latency (cycles) |   Latency (absolute)  |   Interval  | Pipeline|
+    |   min   |   max   |    min    |    max    |  min |  max |   Type  |
+    +---------+---------+-----------+-----------+------+------+---------+
+    |     5012|     5012|  50.120 us|  50.120 us|  5012|  5012|       no|
+    +---------+---------+-----------+-----------+------+------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +--------------+---------+---------+----------+-----------+-----------+------+----------+
+        |              |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |   Loop Name  |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +--------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- computeRow  |     5010|     5010|        16|          5|          5|  1000|       yes|
+        +--------------+---------+---------+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-----+--------+--------+-----+
+|       Name      | BRAM_18K| DSP |   FF   |   LUT  | URAM|
++-----------------+---------+-----+--------+--------+-----+
+|DSP              |        -|    -|       -|       -|    -|
+|Expression       |        -|    -|       0|      83|    -|
+|FIFO             |        -|    -|       -|       -|    -|
+|Instance         |        -|    0|     278|     392|    -|
+|Memory           |        -|    -|       -|       -|    -|
+|Multiplexer      |        -|    -|       -|     159|    -|
+|Register         |        -|    -|     205|       -|    -|
++-----------------+---------+-----+--------+--------+-----+
+|Total            |        0|    0|     483|     634|    0|
++-----------------+---------+-----+--------+--------+-----+
+|Available        |      730|  740|  269200|  134600|    0|
++-----------------+---------+-----+--------+--------+-----+
+|Utilization (%)  |        0|    0|      ~0|      ~0|    0|
++-----------------+---------+-----+--------+--------+-----+
+
++ Detail: 
+    * Instance: 
+    +----------------------------------+------------------------------+---------+----+-----+-----+-----+
+    |             Instance             |            Module            | BRAM_18K| DSP|  FF | LUT | URAM|
+    +----------------------------------+------------------------------+---------+----+-----+-----+-----+
+    |fadd_32ns_32ns_32_6_no_dsp_1_U17  |fadd_32ns_32ns_32_6_no_dsp_1  |        0|   0|  278|  392|    0|
+    +----------------------------------+------------------------------+---------+----+-----+-----+-----+
+    |Total                             |                              |        0|   0|  278|  392|    0|
+    +----------------------------------+------------------------------+---------+----+-----+-----+-----+
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +----------------------------------+----------+----+---+----+------------+------------+
+    |           Variable Name          | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +----------------------------------+----------+----+---+----+------------+------------+
+    |add_ln537_fu_124_p2               |         +|   0|  0|  38|          31|           1|
+    |ap_block_pp0_stage1_11001         |       and|   0|  0|   2|           1|           1|
+    |icmp_ln537_fu_118_p2              |      icmp|   0|  0|  39|          32|          32|
+    |ap_block_state2_pp0_stage1_iter0  |        or|   0|  0|   2|           1|           1|
+    |ap_enable_pp0                     |       xor|   0|  0|   2|           1|           2|
+    +----------------------------------+----------+----+---+----+------------+------------+
+    |Total                             |          |   0|  0|  83|          66|          37|
+    +----------------------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +----------------------------------+----+-----------+-----+-----------+
+    |               Name               | LUT| Input Size| Bits| Total Bits|
+    +----------------------------------+----+-----------+-----+-----------+
+    |Wij_stream_blk_n                  |   9|          2|    1|          2|
+    |Xi_stream_blk_n                   |   9|          2|    1|          2|
+    |ap_NS_fsm                         |  25|          6|    1|          6|
+    |ap_done_int                       |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter0           |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter1           |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter3           |   9|          2|    1|          2|
+    |ap_loop_exit_ready_pp0_iter1_reg  |   9|          2|    1|          2|
+    |ap_loop_exit_ready_pp0_iter2_reg  |   9|          2|    1|          2|
+    |ap_sig_allocacmp_j_4_load         |   9|          2|   31|         62|
+    |ap_sig_allocacmp_temp_1_load      |   9|          2|   32|         64|
+    |grp_fu_97_p0                      |  13|          3|   32|         96|
+    |grp_fu_97_p1                      |  13|          3|   32|         96|
+    |j_4_fu_52                         |   9|          2|   31|         62|
+    |temp_1_fu_48                      |   9|          2|   32|         64|
+    +----------------------------------+----+-----------+-----+-----------+
+    |Total                             | 159|         36|  199|        466|
+    +----------------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +----------------------------------+----+----+-----+-----------+
+    |               Name               | FF | LUT| Bits| Const Bits|
+    +----------------------------------+----+----+-----+-----------+
+    |Wij_stream_read_reg_185           |  32|   0|   32|          0|
+    |Xi_stream_read_reg_180            |  32|   0|   32|          0|
+    |ap_CS_fsm                         |   5|   0|    5|          0|
+    |ap_done_reg                       |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter0_reg       |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter1           |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter2           |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter3           |   1|   0|    1|          0|
+    |ap_loop_exit_ready_pp0_iter1_reg  |   1|   0|    1|          0|
+    |ap_loop_exit_ready_pp0_iter2_reg  |   1|   0|    1|          0|
+    |icmp_ln537_reg_176                |   1|   0|    1|          0|
+    |icmp_ln537_reg_176_pp0_iter1_reg  |   1|   0|    1|          0|
+    |j_4_fu_52                         |  31|   0|   31|          0|
+    |mul7_i_reg_195                    |  32|   0|   32|          0|
+    |mul8_i_reg_205                    |  32|   0|   32|          0|
+    |temp_1_fu_48                      |  32|   0|   32|          0|
+    +----------------------------------+----+----+-----+-----------+
+    |Total                             | 205|   0|  205|          0|
+    +----------------------------------+----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++--------------------+-----+-----+------------+------------------------------------+--------------+
+|      RTL Ports     | Dir | Bits|  Protocol  |            Source Object           |    C Type    |
++--------------------+-----+-----+------------+------------------------------------+--------------+
+|ap_clk              |   in|    1|  ap_ctrl_hs|  depolarize_hls_Pipeline_computeRow|  return value|
+|ap_rst              |   in|    1|  ap_ctrl_hs|  depolarize_hls_Pipeline_computeRow|  return value|
+|ap_start            |   in|    1|  ap_ctrl_hs|  depolarize_hls_Pipeline_computeRow|  return value|
+|ap_done             |  out|    1|  ap_ctrl_hs|  depolarize_hls_Pipeline_computeRow|  return value|
+|ap_idle             |  out|    1|  ap_ctrl_hs|  depolarize_hls_Pipeline_computeRow|  return value|
+|ap_ready            |  out|    1|  ap_ctrl_hs|  depolarize_hls_Pipeline_computeRow|  return value|
+|grp_fu_316_p_din0   |  out|   32|  ap_ctrl_hs|  depolarize_hls_Pipeline_computeRow|  return value|
+|grp_fu_316_p_din1   |  out|   32|  ap_ctrl_hs|  depolarize_hls_Pipeline_computeRow|  return value|
+|grp_fu_316_p_dout0  |   in|   32|  ap_ctrl_hs|  depolarize_hls_Pipeline_computeRow|  return value|
+|grp_fu_316_p_ce     |  out|    1|  ap_ctrl_hs|  depolarize_hls_Pipeline_computeRow|  return value|
+|temp                |   in|   32|     ap_none|                                temp|        scalar|
+|Ni                  |   in|   32|     ap_none|                                  Ni|        scalar|
+|Xi_stream_dout      |   in|   32|     ap_fifo|                           Xi_stream|       pointer|
+|Xi_stream_empty_n   |   in|    1|     ap_fifo|                           Xi_stream|       pointer|
+|Xi_stream_read      |  out|    1|     ap_fifo|                           Xi_stream|       pointer|
+|Wij_stream_dout     |   in|   32|     ap_fifo|                          Wij_stream|       pointer|
+|Wij_stream_empty_n  |   in|    1|     ap_fifo|                          Wij_stream|       pointer|
+|Wij_stream_read     |  out|    1|     ap_fifo|                          Wij_stream|       pointer|
+|alpha               |   in|   32|     ap_none|                               alpha|        scalar|
+|temp_1_out          |  out|   32|      ap_vld|                          temp_1_out|       pointer|
+|temp_1_out_ap_vld   |  out|    1|      ap_vld|                          temp_1_out|       pointer|
++--------------------+-----+-----+------------+------------------------------------+--------------+
+

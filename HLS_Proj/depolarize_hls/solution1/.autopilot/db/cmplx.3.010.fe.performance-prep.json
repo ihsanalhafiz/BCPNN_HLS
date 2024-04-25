@@ -1,0 +1,11 @@
+{
+  "0": {
+    "basicblocks": 27,
+    "calls": "",
+    "file": "Prj.cpp",
+    "fileloc": 561,
+    "instructions": 121,
+    "name": "depolarize_hls",
+    "total_instructions": 121
+  }
+}

@@ -1,0 +1,17 @@
+INFO: [SIM 2] *************** CSIM start ***************
+INFO: [SIM 4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../../src_hls/hls_depolarize.cpp in release mode
+In file included from /usr/include/features.h:392,
+                 from /tools/Xilinx/Vitis_HLS/2023.2/tps/lnx64/gcc-8.3.0/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/os_defines.h:39,
+                 from /tools/Xilinx/Vitis_HLS/2023.2/tps/lnx64/gcc-8.3.0/include/c++/8.3.0/x86_64-pc-linux-gnu/bits/c++config.h:508,
+                 from /tools/Xilinx/Vitis_HLS/2023.2/tps/lnx64/gcc-8.3.0/include/c++/8.3.0/bits/stl_algobase.h:59,
+                 from /tools/Xilinx/Vitis_HLS/2023.2/tps/lnx64/gcc-8.3.0/include/c++/8.3.0/vector:60,
+                 from ../../../../../src_hls/Prj.h:30,
+                 from ../../../../../src_hls/hls_depolarize.cpp:4:
+/usr/include/features-time64.h:20:10: fatal error: bits/wordsize.h: No such file or directory
+ #include <bits/wordsize.h>
+          ^~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [csim.mk:78: obj/hls_depolarize.o] Error 1
+ERR: [SIM 100] 'csim_design' failed: compilation error(s).
+INFO: [SIM 3] *************** CSIM finish ***************

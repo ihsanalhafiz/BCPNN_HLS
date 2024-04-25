@@ -1,0 +1,74 @@
+{
+  "0": {
+    "basicblocks": 1,
+    "calls": "1 3 5 6 4 2",
+    "file": "Prj.cpp",
+    "fileloc": 561,
+    "instructions": 41,
+    "name": "depolarize_hls",
+    "total_instructions": 243
+  },
+  "1": {
+    "basicblocks": 7,
+    "calls": "",
+    "file": "Prj.cpp",
+    "fileloc": 519,
+    "instructions": 13,
+    "name": "stream_bwsup",
+    "total_instructions": 17
+  },
+  "2": {
+    "basicblocks": 7,
+    "calls": "",
+    "file": "Prj.cpp",
+    "fileloc": 551,
+    "instructions": 14,
+    "name": "store_bwsup",
+    "stores": {
+      "L": 1
+    },
+    "total_instructions": 26
+  },
+  "3": {
+    "basicblocks": 13,
+    "calls": "",
+    "file": "Prj.cpp",
+    "fileloc": 482,
+    "instructions": 24,
+    "name": "stream_Wij",
+    "total_instructions": 28
+  },
+  "4": {
+    "basicblocks": 13,
+    "calls": "",
+    "file": "Prj.cpp",
+    "fileloc": 530,
+    "instructions": 40,
+    "loads": {
+      "L": 2
+    },
+    "name": "compute_depolarize",
+    "stores": {
+      "L": 3
+    },
+    "total_instructions": 92
+  },
+  "5": {
+    "basicblocks": 7,
+    "calls": "",
+    "file": "Prj.cpp",
+    "fileloc": 497,
+    "instructions": 13,
+    "name": "stream_Xi",
+    "total_instructions": 17
+  },
+  "6": {
+    "basicblocks": 7,
+    "calls": "",
+    "file": "Prj.cpp",
+    "fileloc": 508,
+    "instructions": 13,
+    "name": "stream_Bj",
+    "total_instructions": 17
+  }
+}

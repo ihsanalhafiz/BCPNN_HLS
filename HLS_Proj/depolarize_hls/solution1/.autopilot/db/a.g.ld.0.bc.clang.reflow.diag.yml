@@ -1,0 +1,615 @@
+--- !Passed
+Pass:            inline
+Name:            AlwaysInline
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 571, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          'stream_bwsup(float*, hls::stream<float, 0>&, int)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 519, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            inline
+Name:            AlwaysInline
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 581, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          'store_bwsup(hls::stream<float, 0>&, float*, int)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 551, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            inline
+Name:            AlwaysInline
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 578, Column: 2 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          'compute_depolarize(hls::stream<float, 0>&, hls::stream<float, 0>&, hls::stream<float, 0>&, hls::stream<float, 0>&, hls::stream<float, 0>&, int, int, float, float, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 530, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            inline
+Name:            AlwaysInline
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 574, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          'stream_Bj(float*, hls::stream<float, 0>&, int)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 508, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            inline
+Name:            AlwaysInline
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 573, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          'stream_Xi(float*, hls::stream<float, 0>&, int)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 497, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            inline
+Name:            AlwaysInline
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 572, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Inlining function '''
+  - Callee:          'stream_Wij(float*, hls::stream<float, 0>&, int, int)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 482, Column: 0 }
+  - String:          ''' into '''
+  - Caller:          'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ''''
+...
+--- !Passed
+Pass:            reflow-burst-inference
+Name:            BurstInferred
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 522, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Sequential '
+  - Direction:       read
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length'
+  - String:          ' has been inferred'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        d_bwsup6seq
+  - ArrayName:       d_bwsup
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - LoopName:        read_bwsup
+  - String:          ' '
+  - LoopLoc:         '../src_hls/Prj.cpp:522:5'
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+  - String:          ' _XLX_SEP_ '
+  - OrigAccess:      load
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 525, Column: 15 }
+  - OrigDirection:   read
+  - OrigID:          for.body.i.load.4
+...
+--- !Passed
+Pass:            reflow-burst-inference
+Name:            BurstInferred
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 485, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Sequential '
+  - Direction:       read
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length'
+  - String:          ' has been inferred'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        d_Wij7seq
+  - ArrayName:       d_Wij
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - LoopName:        read_Wij_first
+  - String:          ' '
+  - LoopLoc:         '../src_hls/Prj.cpp:485:5'
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+  - String:          ' _XLX_SEP_ '
+  - OrigAccess:      load
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 491, Column: 13 }
+  - OrigDirection:   read
+  - OrigID:          for.body4.i45.load.8
+...
+--- !Passed
+Pass:            reflow-burst-inference
+Name:            BurstInferred
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 500, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Sequential '
+  - Direction:       read
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length'
+  - String:          ' has been inferred'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        d_Xi8seq
+  - ArrayName:       d_Xi
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - LoopName:        read_Xi
+  - String:          ' '
+  - LoopLoc:         '../src_hls/Prj.cpp:500:5'
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+  - String:          ' _XLX_SEP_ '
+  - OrigAccess:      load
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 503, Column: 12 }
+  - OrigDirection:   read
+  - OrigID:          for.body.i30.load.4
+...
+--- !Passed
+Pass:            reflow-burst-inference
+Name:            BurstInferred
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 511, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Sequential '
+  - Direction:       read
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length'
+  - String:          ' has been inferred'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        d_Bj9seq
+  - ArrayName:       d_Bj
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - LoopName:        read_Bj
+  - String:          ' '
+  - LoopLoc:         '../src_hls/Prj.cpp:511:5'
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+  - String:          ' _XLX_SEP_ '
+  - OrigAccess:      load
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 514, Column: 12 }
+  - OrigDirection:   read
+  - OrigID:          for.body.i22.load.4
+...
+--- !Passed
+Pass:            reflow-burst-inference
+Name:            BurstInferred
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 554, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Sequential '
+  - Direction:       write
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length'
+  - String:          ' has been inferred'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        d_bwsup6seq10
+  - ArrayName:       d_bwsup
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - LoopName:        store_bwsup
+  - String:          ' '
+  - LoopLoc:         '../src_hls/Prj.cpp:554:5'
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+  - String:          ' _XLX_SEP_ '
+  - OrigAccess:      store
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 557, Column: 13 }
+  - OrigDirection:   write
+  - OrigID:          for.body.i6.store.5
+...
+--- !Missed
+Pass:            reflow-burst-widen
+Name:            GreaterOrEqualThreshold
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 554, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Could not widen since type '
+  - Type:            float
+  - String:          ' size is greater than or equal to the max_widen_bitwidth threshold of '
+  - Threshold:       '0'
+  - String:          ' _XLX_SEP_ '
+  - OrigAccess:      call
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 554, Column: 5 }
+  - OrigDirection:   write
+  - OrigID:          d_bwsup6seq10
+  - ArrayName:       d_bwsup
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - LoopName:        store_bwsup
+  - String:          ' '
+  - LoopLoc:         '../src_hls/Prj.cpp:554:5'
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+...
+--- !Missed
+Pass:            reflow-burst-widen
+Name:            GreaterOrEqualThreshold
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 511, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Could not widen since type '
+  - Type:            float
+  - String:          ' size is greater than or equal to the max_widen_bitwidth threshold of '
+  - Threshold:       '0'
+  - String:          ' _XLX_SEP_ '
+  - OrigAccess:      call
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 511, Column: 5 }
+  - OrigDirection:   read
+  - OrigID:          d_Bj9seq
+  - ArrayName:       d_Bj
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - LoopName:        read_Bj
+  - String:          ' '
+  - LoopLoc:         '../src_hls/Prj.cpp:511:5'
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+...
+--- !Missed
+Pass:            reflow-burst-widen
+Name:            GreaterOrEqualThreshold
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 500, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Could not widen since type '
+  - Type:            float
+  - String:          ' size is greater than or equal to the max_widen_bitwidth threshold of '
+  - Threshold:       '0'
+  - String:          ' _XLX_SEP_ '
+  - OrigAccess:      call
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 500, Column: 5 }
+  - OrigDirection:   read
+  - OrigID:          d_Xi8seq
+  - ArrayName:       d_Xi
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - LoopName:        read_Xi
+  - String:          ' '
+  - LoopLoc:         '../src_hls/Prj.cpp:500:5'
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+...
+--- !Missed
+Pass:            reflow-burst-widen
+Name:            GreaterOrEqualThreshold
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 485, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Could not widen since type '
+  - Type:            float
+  - String:          ' size is greater than or equal to the max_widen_bitwidth threshold of '
+  - Threshold:       '0'
+  - String:          ' _XLX_SEP_ '
+  - OrigAccess:      call
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 485, Column: 5 }
+  - OrigDirection:   read
+  - OrigID:          d_Wij7seq
+  - ArrayName:       d_Wij
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - LoopName:        read_Wij_second
+  - String:          ' '
+  - LoopLoc:         '../src_hls/Prj.cpp:488:9'
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+...
+--- !Missed
+Pass:            reflow-burst-widen
+Name:            GreaterOrEqualThreshold
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 522, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Could not widen since type '
+  - Type:            float
+  - String:          ' size is greater than or equal to the max_widen_bitwidth threshold of '
+  - Threshold:       '0'
+  - String:          ' _XLX_SEP_ '
+  - OrigAccess:      call
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 522, Column: 5 }
+  - OrigDirection:   read
+  - OrigID:          d_bwsup6seq
+  - ArrayName:       d_bwsup
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - LoopName:        read_bwsup
+  - String:          ' '
+  - LoopLoc:         '../src_hls/Prj.cpp:522:5'
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+...
+--- !Passed
+Pass:            reflow-burst-summary
+Name:            BurstInferredVerboseSummary
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 522, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Multiple burst '
+  - Direction:       reads
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length and bit width '
+  - Width:           '32'
+  - String:          ' has been inferred.'
+  - String:          ' These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        seq
+  - ArrayName:       ''
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - LoopName:        read_bwsup
+  - String:          ' '
+  - LoopLoc:         '../src_hls/Prj.cpp:522:5'
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+...
+--- !Passed
+Pass:            reflow-burst-summary
+Name:            BurstInferredSummary
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 522, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Multiple burst '
+  - Direction:       reads
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length and bit width '
+  - Width:           '32'
+  - String:          ' in loop '''
+  - LoopName:        read_bwsup
+  - String:          '''('
+  - LoopLoc:         '../src_hls/Prj.cpp:522:5'
+  - String:          ')'
+  - String:          ' has been inferred on bundle '''
+  - BundleName:      gmem
+  - String:          '''.'
+  - String:          ' These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.'
+...
+--- !Passed
+Pass:            reflow-burst-summary
+Name:            BurstInferredVerboseSummary
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 485, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Multiple burst '
+  - Direction:       reads
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length and bit width '
+  - Width:           '32'
+  - String:          ' has been inferred.'
+  - String:          ' These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        seq1
+  - ArrayName:       ''
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+...
+--- !Passed
+Pass:            reflow-burst-summary
+Name:            BurstInferredSummary
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 485, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Multiple burst '
+  - Direction:       reads
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length and bit width '
+  - Width:           '32'
+  - String:          ' has been inferred on bundle '''
+  - BundleName:      gmem
+  - String:          '''.'
+  - String:          ' These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.'
+...
+--- !Passed
+Pass:            reflow-burst-summary
+Name:            BurstInferredVerboseSummary
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 500, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Multiple burst '
+  - Direction:       reads
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length and bit width '
+  - Width:           '32'
+  - String:          ' has been inferred.'
+  - String:          ' These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        seq2
+  - ArrayName:       ''
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - LoopName:        read_Xi
+  - String:          ' '
+  - LoopLoc:         '../src_hls/Prj.cpp:500:5'
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+...
+--- !Passed
+Pass:            reflow-burst-summary
+Name:            BurstInferredSummary
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 500, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Multiple burst '
+  - Direction:       reads
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length and bit width '
+  - Width:           '32'
+  - String:          ' in loop '''
+  - LoopName:        read_Xi
+  - String:          '''('
+  - LoopLoc:         '../src_hls/Prj.cpp:500:5'
+  - String:          ')'
+  - String:          ' has been inferred on bundle '''
+  - BundleName:      gmem
+  - String:          '''.'
+  - String:          ' These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.'
+...
+--- !Passed
+Pass:            reflow-burst-summary
+Name:            BurstInferredVerboseSummary
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 511, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Multiple burst '
+  - Direction:       reads
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length and bit width '
+  - Width:           '32'
+  - String:          ' has been inferred.'
+  - String:          ' These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        seq3
+  - ArrayName:       ''
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - LoopName:        read_Bj
+  - String:          ' '
+  - LoopLoc:         '../src_hls/Prj.cpp:511:5'
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+...
+--- !Passed
+Pass:            reflow-burst-summary
+Name:            BurstInferredSummary
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 511, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Multiple burst '
+  - Direction:       reads
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length and bit width '
+  - Width:           '32'
+  - String:          ' in loop '''
+  - LoopName:        read_Bj
+  - String:          '''('
+  - LoopLoc:         '../src_hls/Prj.cpp:511:5'
+  - String:          ')'
+  - String:          ' has been inferred on bundle '''
+  - BundleName:      gmem
+  - String:          '''.'
+  - String:          ' These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.'
+...
+--- !Passed
+Pass:            reflow-burst-summary
+Name:            BurstInferredVerboseSummary
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 554, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Multiple burst '
+  - Direction:       writes
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length and bit width '
+  - Width:           '32'
+  - String:          ' has been inferred.'
+  - String:          ' These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.'
+  - String:          ' _XLX_SEP_ '
+  - AccessID:        seq4
+  - ArrayName:       ''
+  - String:          ' '
+  - BundleName:      gmem
+  - String:          ' '
+  - LoopName:        store_bwsup
+  - String:          ' '
+  - LoopLoc:         '../src_hls/Prj.cpp:554:5'
+  - String:          ' '
+  - Function:        'depolarize_hls(float*, float*, float*, int, int, float, float, float*, float)'
+    DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 561, Column: 0 }
+  - String:          ' '
+...
+--- !Passed
+Pass:            reflow-burst-summary
+Name:            BurstInferredSummary
+DebugLoc:        { File: ../src_hls/Prj.cpp, Line: 554, Column: 5 }
+Function:        _Z14depolarize_hlsPfS_S_iiffS_f
+Args:            
+  - String:          'Multiple burst '
+  - Direction:       writes
+  - String:          ' of '
+  - Length:          variable
+  - String:          ' length and bit width '
+  - Width:           '32'
+  - String:          ' in loop '''
+  - LoopName:        store_bwsup
+  - String:          '''('
+  - LoopLoc:         '../src_hls/Prj.cpp:554:5'
+  - String:          ')'
+  - String:          ' has been inferred on bundle '''
+  - BundleName:      gmem
+  - String:          '''.'
+  - String:          ' These burst requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.'
+...

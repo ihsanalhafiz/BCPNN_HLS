@@ -1,0 +1,253 @@
+<profile>
+  <RunData>
+    <RUN_TYPE>impl</RUN_TYPE>
+    <VIVADO_VERSION>v.2023.2</VIVADO_VERSION>
+    <ROOT_MODULE_CELL>bd_0_i/hls_inst</ROOT_MODULE_CELL>
+  </RunData>
+  <TimingReport>
+    <TargetClockPeriod>10.000</TargetClockPeriod>
+    <AchievedClockPeriod>6.782</AchievedClockPeriod>
+    <CLOCK_NAME>ap_clk</CLOCK_NAME>
+    <CP_FINAL>6.782</CP_FINAL>
+    <CP_ROUTE>6.782</CP_ROUTE>
+    <CP_SYNTH>6.195</CP_SYNTH>
+    <CP_TARGET>10.000</CP_TARGET>
+    <SLACK_FINAL>3.218</SLACK_FINAL>
+    <SLACK_ROUTE>3.218</SLACK_ROUTE>
+    <SLACK_SYNTH>3.805</SLACK_SYNTH>
+    <TIMING_MET>TRUE</TIMING_MET>
+    <TNS_FINAL>0.000</TNS_FINAL>
+    <TNS_ROUTE>0.000</TNS_ROUTE>
+    <TNS_SYNTH>0.000</TNS_SYNTH>
+    <WNS_FINAL>3.218</WNS_FINAL>
+    <WNS_ROUTE>3.218</WNS_ROUTE>
+    <WNS_SYNTH>3.805</WNS_SYNTH>
+  </TimingReport>
+  <AreaReport>
+    <Resources>
+      <BRAM>2</BRAM>
+      <CLB>0</CLB>
+      <DSP>12</DSP>
+      <FF>4826</FF>
+      <LATCH>0</LATCH>
+      <LUT>3118</LUT>
+      <SLICE>1286</SLICE>
+      <SRL>162</SRL>
+      <URAM>0</URAM>
+    </Resources>
+    <AvailableResources>
+      <BRAM>730</BRAM>
+      <CLB>0</CLB>
+      <DSP>740</DSP>
+      <FF>269200</FF>
+      <LUT>134600</LUT>
+      <SLICE>33650</SLICE>
+      <URAM>0</URAM>
+    </AvailableResources>
+  </AreaReport>
+  <RtlModules>
+    <RtlModule CELL="U0" DEPTH="0" IS_TOP="1" TYPE="function" MODULENAME="depolarize_hls" DISPNAME="U0" RTLNAME="depolarize_hls">
+      <SubModules count="17">Bj_stream_fifo_U Wij_stream_fifo_U Xi_stream_fifo_U bwsup_stream_fifo_U bwsup_stream_out_fifo_U control_s_axi_U fadd_32ns_32ns_32_7_full_dsp_1_U30 fmul_32ns_32ns_32_4_max_dsp_1_U31 gmem_m_axi_U grp_depolarize_hls_Pipeline_computeRow_fu_293 grp_depolarize_hls_Pipeline_read_Bj_fu_284 grp_depolarize_hls_Pipeline_read_Wij_first_read_Wij_second_fu_266 grp_depolarize_hls_Pipeline_read_Xi_fu_275 grp_depolarize_hls_Pipeline_read_bwsup_fu_257 grp_depolarize_hls_Pipeline_store_bwsup_fu_303 mul_31ns_32ns_63_2_1_U32 mul_32s_32s_32_2_1_U33</SubModules>
+      <Resources BRAM="2" DSP="12" FF="4826" LUT="3118"/>
+      <LocalResources FF="923" LUT="39"/>
+    </RtlModule>
+    <RtlModule CELL="U0/Bj_stream_fifo_U" BINDMODULE="depolarize_hls_fifo_w32_d2_S" DEPTH="1" TYPE="resource" MODULENAME="fifo_w32_d2_S" DISPNAME="Bj_stream_fifo_U" RTLNAME="depolarize_hls_fifo_w32_d2_S">
+      <Resources FF="68" LUT="35"/>
+      <LocalResources FF="4" LUT="3"/>
+      <BindNode BINDTYPE="storage" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_storage fifo" DSP="0" ID="" IMPL="srl" LATENCY="0" LOOP="" OPTYPE="fifo" PRAGMA="" RTLNAME="Bj_stream_fifo_U" SOURCE="../src_hls/Prj.cpp:568" STORAGESIZE="32 2 1" STORAGESUBTYPE="" STORAGEUSAGE="fifo array" URAM="0" VARIABLE="Bj_stream"/>
+    </RtlModule>
+    <RtlModule CELL="U0/Wij_stream_fifo_U" BINDMODULE="depolarize_hls_fifo_w32_d2_S" DEPTH="1" TYPE="resource" MODULENAME="fifo_w32_d2_S" DISPNAME="Wij_stream_fifo_U" RTLNAME="depolarize_hls_fifo_w32_d2_S">
+      <Resources FF="68" LUT="35"/>
+      <LocalResources FF="4" LUT="3"/>
+      <BindNode BINDTYPE="storage" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_storage fifo" DSP="0" ID="" IMPL="srl" LATENCY="0" LOOP="" OPTYPE="fifo" PRAGMA="" RTLNAME="Wij_stream_fifo_U" SOURCE="../src_hls/Prj.cpp:568" STORAGESIZE="32 2 1" STORAGESUBTYPE="" STORAGEUSAGE="fifo array" URAM="0" VARIABLE="Wij_stream"/>
+    </RtlModule>
+    <RtlModule CELL="U0/Xi_stream_fifo_U" BINDMODULE="depolarize_hls_fifo_w32_d2_S" DEPTH="1" TYPE="resource" MODULENAME="fifo_w32_d2_S" DISPNAME="Xi_stream_fifo_U" RTLNAME="depolarize_hls_fifo_w32_d2_S">
+      <Resources FF="68" LUT="35"/>
+      <LocalResources FF="4" LUT="3"/>
+      <BindNode BINDTYPE="storage" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_storage fifo" DSP="0" ID="" IMPL="srl" LATENCY="0" LOOP="" OPTYPE="fifo" PRAGMA="" RTLNAME="Xi_stream_fifo_U" SOURCE="../src_hls/Prj.cpp:568" STORAGESIZE="32 2 1" STORAGESUBTYPE="" STORAGEUSAGE="fifo array" URAM="0" VARIABLE="Xi_stream"/>
+    </RtlModule>
+    <RtlModule CELL="U0/bwsup_stream_fifo_U" BINDMODULE="depolarize_hls_fifo_w32_d2_S" DEPTH="1" TYPE="resource" MODULENAME="fifo_w32_d2_S" DISPNAME="bwsup_stream_fifo_U" RTLNAME="depolarize_hls_fifo_w32_d2_S">
+      <Resources FF="68" LUT="47"/>
+      <LocalResources FF="4" LUT="15"/>
+      <BindNode BINDTYPE="storage" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_storage fifo" DSP="0" ID="" IMPL="srl" LATENCY="0" LOOP="" OPTYPE="fifo" PRAGMA="" RTLNAME="bwsup_stream_fifo_U" SOURCE="../src_hls/Prj.cpp:568" STORAGESIZE="32 2 1" STORAGESUBTYPE="" STORAGEUSAGE="fifo array" URAM="0" VARIABLE="bwsup_stream"/>
+    </RtlModule>
+    <RtlModule CELL="U0/bwsup_stream_out_fifo_U" BINDMODULE="depolarize_hls_fifo_w32_d2_S" DEPTH="1" TYPE="resource" MODULENAME="fifo_w32_d2_S" DISPNAME="bwsup_stream_out_fifo_U" RTLNAME="depolarize_hls_fifo_w32_d2_S">
+      <Resources FF="68" LUT="39"/>
+      <LocalResources FF="4" LUT="6"/>
+      <BindNode BINDTYPE="storage" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_storage fifo" DSP="0" ID="" IMPL="srl" LATENCY="0" LOOP="" OPTYPE="fifo" PRAGMA="" RTLNAME="bwsup_stream_out_fifo_U" SOURCE="../src_hls/Prj.cpp:568" STORAGESIZE="32 2 1" STORAGESUBTYPE="" STORAGEUSAGE="fifo array" URAM="0" VARIABLE="bwsup_stream_out"/>
+    </RtlModule>
+    <RtlModule CELL="U0/control_s_axi_U" BINDMODULE="depolarize_hls_control_s_axi" DEPTH="1" TYPE="resource" MODULENAME="control_s_axi" DISPNAME="control_s_axi_U" RTLNAME="depolarize_hls_control_s_axi">
+      <Resources FF="299" LUT="209"/>
+      <BindNode BINDTYPE="adapter" BRAM="0" BUNDLEDNAME="control" DISPNAME="bind_adapter " DSP="0" ID="" IMPL="" LATENCY="" LOOP="" OPTYPE="" PRAGMA="" RTLNAME="control_s_axi_U" SOURCE="" STORAGESIZE="" STORAGESUBTYPE="s_axilite" STORAGEUSAGE="interface" URAM="0" VARIABLE=""/>
+    </RtlModule>
+    <RtlModule CELL="U0/fadd_32ns_32ns_32_7_full_dsp_1_U30" BINDMODULE="depolarize_hls_fadd_32ns_32ns_32_7_full_dsp_1" DEPTH="1" TYPE="resource" MODULENAME="fadd_32ns_32ns_32_7_full_dsp_1" DISPNAME="fadd_32ns_32ns_32_7_full_dsp_1_U30" RTLNAME="depolarize_hls_fadd_32ns_32ns_32_7_full_dsp_1">
+      <Resources DSP="2" FF="286" LUT="166"/>
+      <LocalResources FF="64"/>
+      <BindNode BINDTYPE="op" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_op fadd" DSP="2" ID="" IMPL="fulldsp" LATENCY="6" LOOP="computeCol" OPTYPE="fadd" PRAGMA="" RTLNAME="fadd_32ns_32ns_32_7_full_dsp_1_U30" SOURCE="../src_hls/Prj.cpp:545" STORAGESUBTYPE="" URAM="0" VARIABLE="temp_3"/>
+    </RtlModule>
+    <RtlModule CELL="U0/fmul_32ns_32ns_32_4_max_dsp_1_U31" BINDMODULE="depolarize_hls_fmul_32ns_32ns_32_4_max_dsp_1" DEPTH="1" TYPE="resource" MODULENAME="fmul_32ns_32ns_32_4_max_dsp_1" DISPNAME="fmul_32ns_32ns_32_4_max_dsp_1_U31" RTLNAME="depolarize_hls_fmul_32ns_32ns_32_4_max_dsp_1">
+      <Resources DSP="3" FF="144" LUT="88"/>
+      <LocalResources FF="97" LUT="16"/>
+      <BindNode BINDTYPE="op" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_op fmul" DSP="3" ID="" IMPL="maxdsp" LATENCY="3" LOOP="computeCol" OPTYPE="fmul" PRAGMA="" RTLNAME="fmul_32ns_32ns_32_4_max_dsp_1_U31" SOURCE="../src_hls/Prj.cpp:535" STORAGESUBTYPE="" URAM="0" VARIABLE="temp"/>
+      <BindNode BINDTYPE="op" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_op fmul" DSP="3" ID="" IMPL="maxdsp" LATENCY="3" LOOP="computeCol" OPTYPE="fmul" PRAGMA="" RTLNAME="fmul_32ns_32ns_32_4_max_dsp_1_U31" SOURCE="../src_hls/Prj.cpp:545" STORAGESUBTYPE="" URAM="0" VARIABLE="mul10_i"/>
+    </RtlModule>
+    <RtlModule CELL="U0/gmem_m_axi_U" BINDMODULE="depolarize_hls_gmem_m_axi" DEPTH="1" TYPE="resource" MODULENAME="gmem_m_axi" DISPNAME="gmem_m_axi_U" RTLNAME="depolarize_hls_gmem_m_axi">
+      <Resources BRAM="2" FF="1925" LUT="1458"/>
+      <BindNode BINDTYPE="adapter" BRAM="4" BUNDLEDNAME="gmem" DISPNAME="bind_adapter " DSP="0" ID="" IMPL="" LATENCY="" LOOP="" OPTYPE="" PRAGMA="" RTLNAME="gmem_m_axi_U" SOURCE="" STORAGESIZE="" STORAGESUBTYPE="m_axi" STORAGEUSAGE="interface" URAM="0" VARIABLE=""/>
+    </RtlModule>
+    <RtlModule CELL="U0/grp_depolarize_hls_Pipeline_computeRow_fu_293" DEPTH="1" TYPE="function" MODULENAME="depolarize_hls_Pipeline_computeRow" DISPNAME="grp_depolarize_hls_Pipeline_computeRow_fu_293" RTLNAME="depolarize_hls_depolarize_hls_Pipeline_computeRow">
+      <SubModules count="2">fadd_32ns_32ns_32_6_no_dsp_1_U17 flow_control_loop_pipe_sequential_init_U</SubModules>
+      <Resources FF="485" LUT="600"/>
+      <LocalResources FF="204" LUT="143"/>
+    </RtlModule>
+    <RtlModule CELL="U0/grp_depolarize_hls_Pipeline_computeRow_fu_293/fadd_32ns_32ns_32_6_no_dsp_1_U17" BINDMODULE="depolarize_hls_fadd_32ns_32ns_32_6_no_dsp_1" DEPTH="2" TYPE="resource" MODULENAME="fadd_32ns_32ns_32_6_no_dsp_1" DISPNAME="fadd_32ns_32ns_32_6_no_dsp_1_U17" RTLNAME="depolarize_hls_fadd_32ns_32ns_32_6_no_dsp_1">
+      <Resources FF="279" LUT="402"/>
+      <LocalResources FF="97" LUT="3"/>
+      <BindNode BINDTYPE="op" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_op fadd" DSP="0" ID="" IMPL="fabric" LATENCY="5" LOOP="computeRow" OPTYPE="fadd" PRAGMA="" RTLNAME="fadd_32ns_32ns_32_6_no_dsp_1_U17" SOURCE="../src_hls/Prj.cpp:542" STORAGESUBTYPE="" URAM="0" VARIABLE="temp_2"/>
+    </RtlModule>
+    <RtlModule CELL="U0/grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U" BINDMODULE="depolarize_hls_flow_control_loop_pipe_sequential_init" DEPTH="2" TYPE="rtl" MODULENAME="flow_control_loop_pipe_sequential_init" DISPNAME="flow_control_loop_pipe_sequential_init_U" RTLNAME="depolarize_hls_flow_control_loop_pipe_sequential_init">
+      <Resources FF="2" LUT="56"/>
+    </RtlModule>
+    <RtlModule CELL="U0/grp_depolarize_hls_Pipeline_read_Bj_fu_284" DEPTH="1" TYPE="function" MODULENAME="depolarize_hls_Pipeline_read_Bj" DISPNAME="grp_depolarize_hls_Pipeline_read_Bj_fu_284" RTLNAME="depolarize_hls_depolarize_hls_Pipeline_read_Bj">
+      <SubModules count="1">flow_control_loop_pipe_sequential_init_U</SubModules>
+      <Resources FF="68" LUT="63"/>
+      <LocalResources FF="66" LUT="3"/>
+    </RtlModule>
+    <RtlModule CELL="U0/grp_depolarize_hls_Pipeline_read_Bj_fu_284/flow_control_loop_pipe_sequential_init_U" BINDMODULE="depolarize_hls_flow_control_loop_pipe_sequential_init" DEPTH="2" TYPE="rtl" MODULENAME="flow_control_loop_pipe_sequential_init" DISPNAME="flow_control_loop_pipe_sequential_init_U" RTLNAME="depolarize_hls_flow_control_loop_pipe_sequential_init">
+      <Resources FF="2" LUT="61"/>
+    </RtlModule>
+    <RtlModule CELL="U0/grp_depolarize_hls_Pipeline_read_Wij_first_read_Wij_second_fu_266" DEPTH="1" TYPE="function" MODULENAME="depolarize_hls_Pipeline_read_Wij_first_read_Wij_second" DISPNAME="grp_depolarize_hls_Pipeline_read_Wij_first_read_Wij_second_fu_266" RTLNAME="depolarize_hls_depolarize_hls_Pipeline_read_Wij_first_read_Wij_second">
+      <SubModules count="1">flow_control_loop_pipe_sequential_init_U</SubModules>
+      <Resources FF="101" LUT="36"/>
+      <LocalResources FF="99" LUT="31"/>
+    </RtlModule>
+    <RtlModule CELL="U0/grp_depolarize_hls_Pipeline_read_Wij_first_read_Wij_second_fu_266/flow_control_loop_pipe_sequential_init_U" BINDMODULE="depolarize_hls_flow_control_loop_pipe_sequential_init" DEPTH="2" TYPE="rtl" MODULENAME="flow_control_loop_pipe_sequential_init" DISPNAME="flow_control_loop_pipe_sequential_init_U" RTLNAME="depolarize_hls_flow_control_loop_pipe_sequential_init">
+      <Resources FF="2" LUT="6"/>
+    </RtlModule>
+    <RtlModule CELL="U0/grp_depolarize_hls_Pipeline_read_Xi_fu_275" DEPTH="1" TYPE="function" MODULENAME="depolarize_hls_Pipeline_read_Xi" DISPNAME="grp_depolarize_hls_Pipeline_read_Xi_fu_275" RTLNAME="depolarize_hls_depolarize_hls_Pipeline_read_Xi">
+      <SubModules count="1">flow_control_loop_pipe_sequential_init_U</SubModules>
+      <Resources FF="68" LUT="78"/>
+      <LocalResources FF="66" LUT="6"/>
+    </RtlModule>
+    <RtlModule CELL="U0/grp_depolarize_hls_Pipeline_read_Xi_fu_275/flow_control_loop_pipe_sequential_init_U" BINDMODULE="depolarize_hls_flow_control_loop_pipe_sequential_init" DEPTH="2" TYPE="rtl" MODULENAME="flow_control_loop_pipe_sequential_init" DISPNAME="flow_control_loop_pipe_sequential_init_U" RTLNAME="depolarize_hls_flow_control_loop_pipe_sequential_init">
+      <Resources FF="2" LUT="73"/>
+    </RtlModule>
+    <RtlModule CELL="U0/grp_depolarize_hls_Pipeline_read_bwsup_fu_257" DEPTH="1" TYPE="function" MODULENAME="depolarize_hls_Pipeline_read_bwsup" DISPNAME="grp_depolarize_hls_Pipeline_read_bwsup_fu_257" RTLNAME="depolarize_hls_depolarize_hls_Pipeline_read_bwsup">
+      <SubModules count="1">flow_control_loop_pipe_sequential_init_U</SubModules>
+      <Resources FF="68" LUT="66"/>
+      <LocalResources FF="66" LUT="5"/>
+    </RtlModule>
+    <RtlModule CELL="U0/grp_depolarize_hls_Pipeline_read_bwsup_fu_257/flow_control_loop_pipe_sequential_init_U" BINDMODULE="depolarize_hls_flow_control_loop_pipe_sequential_init" DEPTH="2" TYPE="rtl" MODULENAME="flow_control_loop_pipe_sequential_init" DISPNAME="flow_control_loop_pipe_sequential_init_U" RTLNAME="depolarize_hls_flow_control_loop_pipe_sequential_init">
+      <Resources FF="2" LUT="62"/>
+    </RtlModule>
+    <RtlModule CELL="U0/grp_depolarize_hls_Pipeline_store_bwsup_fu_303" DEPTH="1" TYPE="function" MODULENAME="depolarize_hls_Pipeline_store_bwsup" DISPNAME="grp_depolarize_hls_Pipeline_store_bwsup_fu_303" RTLNAME="depolarize_hls_depolarize_hls_Pipeline_store_bwsup">
+      <SubModules count="1">flow_control_loop_pipe_sequential_init_U</SubModules>
+      <Resources FF="68" LUT="64"/>
+      <LocalResources FF="66" LUT="4"/>
+    </RtlModule>
+    <RtlModule CELL="U0/grp_depolarize_hls_Pipeline_store_bwsup_fu_303/flow_control_loop_pipe_sequential_init_U" BINDMODULE="depolarize_hls_flow_control_loop_pipe_sequential_init" DEPTH="2" TYPE="rtl" MODULENAME="flow_control_loop_pipe_sequential_init" DISPNAME="flow_control_loop_pipe_sequential_init_U" RTLNAME="depolarize_hls_flow_control_loop_pipe_sequential_init">
+      <Resources FF="2" LUT="61"/>
+    </RtlModule>
+    <RtlModule CELL="U0/mul_31ns_32ns_63_2_1_U32" BINDMODULE="depolarize_hls_mul_31ns_32ns_63_2_1" DEPTH="1" TYPE="resource" MODULENAME="mul_31ns_32ns_63_2_1" DISPNAME="mul_31ns_32ns_63_2_1_U32" RTLNAME="depolarize_hls_mul_31ns_32ns_63_2_1">
+      <Resources DSP="4" FF="34" LUT="46"/>
+      <BindNode BINDTYPE="op" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_op mul" DSP="4" ID="" IMPL="auto" LATENCY="1" LOOP="" OPTYPE="mul" PRAGMA="" RTLNAME="mul_31ns_32ns_63_2_1_U32" SOURCE="../src_hls/Prj.cpp:482" STORAGESUBTYPE="" URAM="0" VARIABLE="mul_ln482"/>
+    </RtlModule>
+    <RtlModule CELL="U0/mul_32s_32s_32_2_1_U33" BINDMODULE="depolarize_hls_mul_32s_32s_32_2_1" DEPTH="1" TYPE="resource" MODULENAME="mul_32s_32s_32_2_1" DISPNAME="mul_32s_32s_32_2_1_U33" RTLNAME="depolarize_hls_mul_32s_32s_32_2_1">
+      <Resources DSP="3" FF="17" LUT="15"/>
+      <BindNode BINDTYPE="op" BRAM="0" BUNDLEDNAME="" DISPNAME="bind_op mul" DSP="3" ID="" IMPL="auto" LATENCY="1" LOOP="" OPTYPE="mul" PRAGMA="" RTLNAME="mul_32s_32s_32_2_1_U33" SOURCE="../src_hls/Prj.cpp:485" STORAGESUBTYPE="" URAM="0" VARIABLE="mul_ln485"/>
+    </RtlModule>
+  </RtlModules>
+  <TimingPaths>
+    <TPATH DATAPATH_DELAY="6.429" DATAPATH_LOGIC_DELAY="4.292" DATAPATH_NET_DELAY="2.137" ENDPOINT_PIN="fmul_32ns_32ns_32_4_max_dsp_1_U31/depolarize_hls_fmul_32ns_32ns_32_4_max_dsp_1_ip_u/inst/i_synth/MULT.OP/i_non_prim.OP/RESULT_REG.NORMAL.mant_op_reg[22]/D" LOGIC_LEVELS="3" MAX_FANOUT="2" SLACK="3.218" STARTPOINT_PIN="fmul_32ns_32ns_32_4_max_dsp_1_U31/depolarize_hls_fmul_32ns_32ns_32_4_max_dsp_1_ip_u/inst/i_synth/MULT.OP/i_non_prim.MULT/DSP48E1_SPD_SGL_VARIANT.FIX_MULT/DSP2/i_no_versal_es1_workaround.DSP/CLK">
+      <CELL NAME="fmul_32ns_32ns_32_4_max_dsp_1_U31/depolarize_hls_fmul_32ns_32ns_32_4_max_dsp_1_ip_u/inst/i_synth/MULT.OP/i_non_prim.MULT/DSP48E1_SPD_SGL_VARIANT.FIX_MULT/DSP2/i_no_versal_es1_workaround.DSP" PRIMITIVE_TYPE="MULT.dsp.DSP48E1" LINE_NUMBER="1"/>
+      <CELL NAME="fmul_32ns_32ns_32_4_max_dsp_1_U31/depolarize_hls_fmul_32ns_32ns_32_4_max_dsp_1_ip_u/inst/i_synth/MULT.OP/i_non_prim.R_AND_R/LAT_OPT.FULL.R_AND_R/DSP48E1_SGL_EXP_IP.OLD_ADD.ADD/i_no_versal_es1_workaround.DSP" PRIMITIVE_TYPE="MULT.dsp.DSP48E1" LINE_NUMBER="1"/>
+      <CELL NAME="fmul_32ns_32ns_32_4_max_dsp_1_U31/depolarize_hls_fmul_32ns_32ns_32_4_max_dsp_1_ip_u/inst/i_synth/MULT.OP/i_non_prim.MULT/DSP48E1_SPD_SGL_VARIANT.FIX_MULT/DSP2/RESULT_REG.NORMAL.mant_op[22]_i_2" PRIMITIVE_TYPE="LUT.others.LUT6" LINE_NUMBER="1"/>
+      <CELL NAME="fmul_32ns_32ns_32_4_max_dsp_1_U31/depolarize_hls_fmul_32ns_32ns_32_4_max_dsp_1_ip_u/inst/i_synth/MULT.OP/i_non_prim.EXP/SIG_DELAY/i_pipe/RESULT_REG.NORMAL.mant_op[22]_i_1" PRIMITIVE_TYPE="LUT.others.LUT3" LINE_NUMBER="1"/>
+      <CELL NAME="fmul_32ns_32ns_32_4_max_dsp_1_U31/depolarize_hls_fmul_32ns_32ns_32_4_max_dsp_1_ip_u/inst/i_synth/MULT.OP/i_non_prim.OP/RESULT_REG.NORMAL.mant_op_reg[22]" PRIMITIVE_TYPE="FLOP_LATCH.flop.FDRE" LINE_NUMBER="1"/>
+    </TPATH>
+    <TPATH DATAPATH_DELAY="6.185" DATAPATH_LOGIC_DELAY="1.774" DATAPATH_NET_DELAY="4.411" ENDPOINT_PIN="grp_depolarize_hls_Pipeline_computeRow_fu_293/j_4_fu_52_reg[25]/R" LOGIC_LEVELS="7" MAX_FANOUT="87" SLACK="3.302" STARTPOINT_PIN="grp_depolarize_hls_Pipeline_computeRow_fu_293/ap_CS_fsm_reg[0]/C">
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/ap_CS_fsm_reg[0]" PRIMITIVE_TYPE="FLOP_LATCH.flop.FDSE" LINE_NUMBER="222"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52[30]_i_25" PRIMITIVE_TYPE="LUT.others.LUT3" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52[30]_i_41" PRIMITIVE_TYPE="LUT.others.LUT5" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_26" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_16" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_7" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_4" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52[30]_i_1" PRIMITIVE_TYPE="LUT.others.LUT4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/j_4_fu_52_reg[25]" PRIMITIVE_TYPE="FLOP_LATCH.flop.FDRE" LINE_NUMBER="333"/>
+    </TPATH>
+    <TPATH DATAPATH_DELAY="6.185" DATAPATH_LOGIC_DELAY="1.774" DATAPATH_NET_DELAY="4.411" ENDPOINT_PIN="grp_depolarize_hls_Pipeline_computeRow_fu_293/j_4_fu_52_reg[26]/R" LOGIC_LEVELS="7" MAX_FANOUT="87" SLACK="3.302" STARTPOINT_PIN="grp_depolarize_hls_Pipeline_computeRow_fu_293/ap_CS_fsm_reg[0]/C">
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/ap_CS_fsm_reg[0]" PRIMITIVE_TYPE="FLOP_LATCH.flop.FDSE" LINE_NUMBER="222"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52[30]_i_25" PRIMITIVE_TYPE="LUT.others.LUT3" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52[30]_i_41" PRIMITIVE_TYPE="LUT.others.LUT5" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_26" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_16" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_7" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_4" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52[30]_i_1" PRIMITIVE_TYPE="LUT.others.LUT4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/j_4_fu_52_reg[26]" PRIMITIVE_TYPE="FLOP_LATCH.flop.FDRE" LINE_NUMBER="333"/>
+    </TPATH>
+    <TPATH DATAPATH_DELAY="6.185" DATAPATH_LOGIC_DELAY="1.774" DATAPATH_NET_DELAY="4.411" ENDPOINT_PIN="grp_depolarize_hls_Pipeline_computeRow_fu_293/j_4_fu_52_reg[27]/R" LOGIC_LEVELS="7" MAX_FANOUT="87" SLACK="3.302" STARTPOINT_PIN="grp_depolarize_hls_Pipeline_computeRow_fu_293/ap_CS_fsm_reg[0]/C">
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/ap_CS_fsm_reg[0]" PRIMITIVE_TYPE="FLOP_LATCH.flop.FDSE" LINE_NUMBER="222"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52[30]_i_25" PRIMITIVE_TYPE="LUT.others.LUT3" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52[30]_i_41" PRIMITIVE_TYPE="LUT.others.LUT5" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_26" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_16" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_7" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_4" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52[30]_i_1" PRIMITIVE_TYPE="LUT.others.LUT4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/j_4_fu_52_reg[27]" PRIMITIVE_TYPE="FLOP_LATCH.flop.FDRE" LINE_NUMBER="333"/>
+    </TPATH>
+    <TPATH DATAPATH_DELAY="6.185" DATAPATH_LOGIC_DELAY="1.774" DATAPATH_NET_DELAY="4.411" ENDPOINT_PIN="grp_depolarize_hls_Pipeline_computeRow_fu_293/j_4_fu_52_reg[28]/R" LOGIC_LEVELS="7" MAX_FANOUT="87" SLACK="3.302" STARTPOINT_PIN="grp_depolarize_hls_Pipeline_computeRow_fu_293/ap_CS_fsm_reg[0]/C">
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/ap_CS_fsm_reg[0]" PRIMITIVE_TYPE="FLOP_LATCH.flop.FDSE" LINE_NUMBER="222"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52[30]_i_25" PRIMITIVE_TYPE="LUT.others.LUT3" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52[30]_i_41" PRIMITIVE_TYPE="LUT.others.LUT5" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_26" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_16" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_7" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52_reg[30]_i_4" PRIMITIVE_TYPE="CARRY.others.CARRY4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/flow_control_loop_pipe_sequential_init_U/j_4_fu_52[30]_i_1" PRIMITIVE_TYPE="LUT.others.LUT4" LINE_NUMBER="194"/>
+      <CELL NAME="grp_depolarize_hls_Pipeline_computeRow_fu_293/j_4_fu_52_reg[28]" PRIMITIVE_TYPE="FLOP_LATCH.flop.FDRE" LINE_NUMBER="333"/>
+    </TPATH>
+  </TimingPaths>
+  <VivadoReportFiles>
+    <ReportFile TYPE="design_analysis" PATH="vhdl/report/depolarize_hls_design_analysis_routed.rpt"/>
+    <ReportFile TYPE="failfast" PATH="vhdl/report/depolarize_hls_failfast_routed.rpt"/>
+    <ReportFile TYPE="status" PATH="vhdl/report/depolarize_hls_status_routed.rpt"/>
+    <ReportFile TYPE="timing" PATH="vhdl/report/depolarize_hls_timing_routed.rpt"/>
+    <ReportFile TYPE="timing_paths" PATH="vhdl/report/depolarize_hls_timing_paths_routed.rpt"/>
+    <ReportFile TYPE="utilization" PATH="vhdl/report/depolarize_hls_utilization_routed.rpt"/>
+    <ReportFile TYPE="utilization_hierarchical" PATH="vhdl/report/depolarize_hls_utilization_hierarchical_routed.rpt"/>
+  </VivadoReportFiles>
+  <GeneralInfo NAME="General Information">
+    <item NAME="Date" VALUE="Thu Apr 25 17:04:40 CEST 2024"/>
+    <item NAME="Version" VALUE="2023.2 (Build 4023990 on Oct 11 2023)"/>
+    <item NAME="Project" VALUE="depolarize_hls"/>
+    <item NAME="Solution" VALUE="solution1 (Vivado IP Flow Target)"/>
+    <item NAME="Product family" VALUE="artix7"/>
+    <item NAME="Target device" VALUE="xc7a200t-fbg484-1"/>
+  </GeneralInfo>
+  <RunOptions NAME="Run Constraints &amp; Options">
+    <General NAME="Design Constraints &amp; Options">
+      <item NAME="Place &amp; Route target clock" VALUE="10 ns"/>
+      <item NAME="C-Synthesis target clock" VALUE="10 ns"/>
+      <item NAME="C-Synthesis uncertainty" VALUE="27%"/>
+      <item NAME="config_export -ip_xdc_file" VALUE=""/>
+      <item NAME="config_export -ip_xdc_ooc_file" VALUE=""/>
+    </General>
+    <Syn NAME="RTL Synthesis Options">
+      <item NAME="config_export -vivado_synth_strategy" VALUE="default"/>
+      <item NAME="config_export -vivado_synth_design_args" VALUE="-directive sdx_optimization_effort_high"/>
+    </Syn>
+    <Impl NAME="Place &amp; Route Options">
+      <item NAME="config_export -vivado_impl_strategy" VALUE="default"/>
+      <item NAME="config_export -vivado_phys_opt" VALUE="none"/>
+      <item NAME="config_export -vivado_pblock" VALUE=""/>
+    </Impl>
+    <Reporting NAME="Reporting Options">
+      <item NAME="config_export -vivado_report_level" VALUE="2"/>
+      <item NAME="config_export -vivado_max_timing_paths" VALUE="10"/>
+    </Reporting>
+  </RunOptions>
+</profile>
+

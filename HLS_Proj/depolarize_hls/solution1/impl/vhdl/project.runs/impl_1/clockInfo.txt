@@ -1,0 +1,10 @@
+-------------------------------------
+| Tool Version : Vivado v.2023.2
+| Date         : Thu Apr 25 17:03:27 2024
+| Host         : miahafiz
+| Design       : checkpoint_bd_0_wrapper
+| Device       : xc7a200t-fbg484-1--
+-------------------------------------
+
+For more information on clockInfo.txt clock routing debug file see https://support.xilinx.com/s/article/000035660?language=en_US
+

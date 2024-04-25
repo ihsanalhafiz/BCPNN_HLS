@@ -32,6 +32,11 @@ SOFTWARE.
 #include "Prj.h"
 #include <cstring>
 
+#include <hls_stream.h>
+
+#define MAX_SIZE 1000  // Define according to the maximum expected size
+
+typedef hls::stream<float> float_stream;
 
 using namespace std;
 using namespace Globals;
@@ -379,31 +384,201 @@ void sgemv(float *d_bwsup, float *d_Wij, float *d_Xi, int Ni, int Nj, float alph
     }
 }
 
-void depolarize_hls(float *d_bwsup, float *d_Wij, float *d_Xi, int Ni, int Nj, float alpha, float beta, float *d_Bj, float biasmul){
-    // Pragma directives for interface configuration
-    #pragma HLS INTERFACE m_axi port=d_bwsup offset=slave bundle=gmem
-    #pragma HLS INTERFACE m_axi port=d_Wij offset=slave bundle=gmem
-    #pragma HLS INTERFACE m_axi port=d_Xi offset=slave bundle=gmem
-    #pragma HLS INTERFACE m_axi port=d_Bj offset=slave bundle=gmem
-    #pragma HLS INTERFACE s_axilite port=return bundle=control
-    #pragma HLS INTERFACE s_axilite port=Ni bundle=control
-    #pragma HLS INTERFACE s_axilite port=Nj bundle=control
-    #pragma HLS INTERFACE s_axilite port=alpha bundle=control
-    #pragma HLS INTERFACE s_axilite port=beta bundle=control
-    #pragma HLS INTERFACE s_axilite port=biasmul bundle=control
-
-    // Pipeline the outer loop for better throughput
-    #pragma HLS pipeline
-    ColumnLoop: for (int i = 0; i < Nj; i++) {
-        float temp = d_bwsup[i] * beta;  // Scale with beta first
-        // Unroll the inner loop partially to increase parallelism
-        #pragma HLS unroll factor=4
-        RowLoop: for (int j = 0; j < Ni; j++) {
-            temp += alpha * d_Wij[j + i * Ni] * d_Xi[j];  // Matrix-vector multiplication with scaling
-        }
-        temp += biasmul * d_Bj[i];  // Add scaled bias
-        d_bwsup[i] = temp;  // Store back the result
+/*
+static void read_Xi(float *d_Xi, float *Xi_local, int Ni){
+    // Read Xi from global memory to local buffer
+#pragma HLS pipeline II=1
+    read_Xi:
+    for (int i = 0; i < Ni; i++) {
+#pragma HLS unroll
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+        Xi_local[i] = d_Xi[i];
     }
+}
+
+static void read_Bj(float *d_Bj, float *Bj_local, int Nj){
+    // Read Xi from global memory to local buffer
+	read_Bj:
+    for (int j = 0; j < Nj; j++) {
+#pragma HLS unroll
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+    	Bj_local[j] = d_Bj[j];
+    }
+}
+
+static void read_bwsup(float *d_bwsup, float *bwsup_local, int Nj){
+    // Read bwsup from global memory to local buffer
+    read_bwsup:
+    for (int i = 0; i < Nj; i++) {
+#pragma HLS unroll
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+        bwsup_local[i] = d_bwsup[i];
+    }
+}
+
+static void read_Wij(float *d_Wij, float *Wij_local, int Ni, int Nj){
+    // Read Wij from global memory to local buffer
+    read_Wij_first:
+    for (int i = 0; i < Nj; i++) {
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+        read_Wij_second:
+        for (int j = 0; j < Ni; j++) {
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+            Wij_local[i * Ni + j] = d_Wij[i * Ni + j];
+        }
+    }
+}
+
+static void compute_depolarize(float *bwsup_local, float *Wij_local, float *Xi_local, float *Bj_local, int Ni, int Nj, float alpha, float beta, float biasmul){
+    // Compute the depolarization using local buffers
+    #pragma HLS pipeline II=1
+    computeCol:
+    for (int i = 0; i < Nj; i++) {
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+        float temp = bwsup_local[i] * beta;  // Apply beta scaling to the local buffer
+        computeRow: for (int j = 0; j < Ni; j++) {
+#pragma HLS unroll
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+            temp += alpha * Wij_local[j + i *Ni] * Xi_local[j];
+        }
+        temp += biasmul * Bj_local[i];
+        bwsup_local[i] = temp;
+    }
+}
+
+static void store_bwsup(float *d_bwsup, float *bwsup_local, int Nj){
+    // Write the results back to global memory
+    store_bwsup:
+    for (int i = 0; i < Nj; i++) {
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+#pragma HLS unroll
+        d_bwsup[i] = bwsup_local[i];
+    }
+}
+
+void depolarize_hls(float *d_bwsup, float *d_Wij, float *d_Xi, int Ni, int Nj, float alpha, float beta, float *d_Bj, float biasmul) {
+#pragma HLS INTERFACE m_axi port=d_bwsup depth=1000
+#pragma HLS INTERFACE m_axi port=d_Wij depth=1000000
+#pragma HLS INTERFACE m_axi port=d_Xi depth=1000
+#pragma HLS INTERFACE m_axi port=d_Bj depth=1000
+
+    // Local buffers
+    float Xi_local[MAX_SIZE];
+    float Wij_local[MAX_SIZE*MAX_SIZE];
+    float Bj_local[MAX_SIZE];
+    float bwsup_local[MAX_SIZE];
+
+//#pragma HLS dataflow
+    read_Xi(d_Xi, Xi_local, Ni);
+    read_Bj(d_Bj, Bj_local, Nj);
+    read_bwsup(d_bwsup, bwsup_local, Nj);
+    read_Wij(d_Wij, Wij_local, Ni, Nj);
+    compute_depolarize(bwsup_local, Wij_local, Xi_local, Bj_local, Ni, Nj, alpha, beta, biasmul);
+    store_bwsup(d_bwsup, bwsup_local, Nj);
+}
+*/
+
+// Function to stream matrix Wij from global memory
+void stream_Wij(float *d_Wij, float_stream &Wij_stream, int Ni, int Nj) {
+    #pragma HLS INLINE
+	read_Wij_first:
+    for (int i = 0; i < Nj; i++) {
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+    	read_Wij_second:
+        for (int j = 0; j < Ni; j++) {
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+            #pragma HLS PIPELINE II=1
+            Wij_stream.write(d_Wij[i * Ni + j]);
+        }
+    }
+}
+
+// Function to stream vector Xi from global memory
+void stream_Xi(float *d_Xi, float_stream &Xi_stream, int Ni) {
+    #pragma HLS INLINE
+	read_Xi:
+    for (int i = 0; i < Ni; i++) {
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+        #pragma HLS PIPELINE II=1
+        Xi_stream.write(d_Xi[i]);
+    }
+}
+
+// Function to stream vector Bj from global memory
+void stream_Bj(float *d_Bj, float_stream &Bj_stream, int Nj) {
+    #pragma HLS INLINE
+	read_Bj:
+    for (int j = 0; j < Nj; j++) {
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+        #pragma HLS PIPELINE II=1
+        Bj_stream.write(d_Bj[j]);
+    }
+}
+
+// Function to stream 'bwsup' from global memory to local computation
+void stream_bwsup(float *d_bwsup, float_stream &bwsup_stream, int Nj) {
+    #pragma HLS INLINE
+	read_bwsup:
+    for (int j = 0; j < Nj; j++) {
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+        #pragma HLS PIPELINE II=1
+        bwsup_stream.write(d_bwsup[j]);
+    }
+}
+
+// Function to compute depolarization using streamed data
+void compute_depolarize(float_stream &Wij_stream, float_stream &Xi_stream, float_stream &Bj_stream, float_stream &bwsup_stream, float_stream &bwsup_stream_out, int Ni, int Nj, float alpha, float beta, float biasmul) {
+    #pragma HLS INLINE
+	computeCol:
+	for (int i = 0; i < Nj; i++) {
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+	    float temp = bwsup_stream.read() * beta;
+	    computeRow:
+	    for (int j = 0; j < Ni; j++) {
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+	        #pragma HLS PIPELINE II=5
+	        float Xi_val = Xi_stream.read(); // Read Xi directly each time
+	        float Wij_val = Wij_stream.read();
+	        temp += alpha * Wij_val * Xi_val;
+	    }
+	    // Resetting or re-reading Xi_stream here could be problematic without buffering
+	    temp += biasmul * Bj_stream.read();
+	    bwsup_stream_out.write(temp);
+	}
+}
+
+// Function to write the computed 'bwsup' back to global memory
+void store_bwsup(float_stream &bwsup_stream, float *d_bwsup, int Nj) {
+    #pragma HLS INLINE
+	store_bwsup:
+    for (int j = 0; j < Nj; j++) {
+#pragma HLS LOOP_TRIPCOUNT min = MAX_SIZE max = MAX_SIZE
+        #pragma HLS PIPELINE II=1
+        d_bwsup[j] = bwsup_stream.read();
+    }
+}
+
+void depolarize_hls(float *d_bwsup, float *d_Wij, float *d_Xi, int Ni, int Nj, float alpha, float beta, float *d_Bj, float biasmul) {
+    #pragma HLS INTERFACE m_axi port=d_bwsup depth=1000
+    #pragma HLS INTERFACE m_axi port=d_Wij depth=1000000
+    #pragma HLS INTERFACE m_axi port=d_Xi depth=1000
+    #pragma HLS INTERFACE m_axi port=d_Bj depth=1000
+	//#pragma HLS DATAFLOW
+
+    float_stream Wij_stream, Xi_stream, Bj_stream, bwsup_stream, bwsup_stream_out;
+
+    // Streaming data from global memory
+    stream_bwsup(d_bwsup, bwsup_stream, Nj);  // Stream in initial bwsup values
+    stream_Wij(d_Wij, Wij_stream, Ni, Nj);
+    stream_Xi(d_Xi, Xi_stream, Ni);
+    stream_Bj(d_Bj, Bj_stream, Nj);
+
+#pragma HLS ALLOCATION instances=compute_depolarize limit=2
+    // Compute operation with streamed data
+    compute_depolarize(Wij_stream, Xi_stream, Bj_stream, bwsup_stream, bwsup_stream_out, Ni, Nj, alpha, beta, biasmul);
+
+    // Store the updated bwsup back to global memory
+    store_bwsup(bwsup_stream_out, d_bwsup, Nj);
 }
 
 void BCP::depolarize() {

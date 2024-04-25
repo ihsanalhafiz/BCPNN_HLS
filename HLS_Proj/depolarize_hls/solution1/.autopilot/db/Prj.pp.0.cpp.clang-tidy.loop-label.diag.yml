@@ -1,0 +1,589 @@
+---
+MainSourceFile:  /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+Diagnostics:     
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_81_1:  '
+    FileOffset:      81
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1536333
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_81_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_83_2:  '
+    FileOffset:      83
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1536407
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_83_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_85_3:  '
+    FileOffset:      85
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1536475
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_85_3: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_87_4:  '
+    FileOffset:      87
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1536544
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_87_4: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_127_1:  '
+    FileOffset:      127
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1537959
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_127_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_170_1:  '
+    FileOffset:      170
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1539160
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_170_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_171_2:  '
+    FileOffset:      171
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1539202
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_171_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_172_3:  '
+    FileOffset:      172
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1539248
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_172_3: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_173_4:  '
+    FileOffset:      173
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1539298
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_173_4: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_188_1:  '
+    FileOffset:      188
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1539663
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_188_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_190_2:  '
+    FileOffset:      190
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1539729
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_190_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_192_3:  '
+    FileOffset:      192
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1539851
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_192_3: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_216_1:  '
+    FileOffset:      216
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1540661
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_216_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_219_2:  '
+    FileOffset:      219
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1540723
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_219_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_220_3:  '
+    FileOffset:      220
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1540761
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_220_3: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_222_4:  '
+    FileOffset:      222
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1540838
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_222_4: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_223_5:  '
+    FileOffset:      223
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1540903
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_223_5: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_272_1:  '
+    FileOffset:      272
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1542264
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_272_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_274_2:  '
+    FileOffset:      274
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1542316
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_274_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_276_3:  '
+    FileOffset:      276
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1542366
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_276_3: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_278_4:  '
+    FileOffset:      278
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1542420
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_278_4: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_280_5:  '
+    FileOffset:      280
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1542471
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_280_5: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_282_6:  '
+    FileOffset:      282
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1542521
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_282_6: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_284_7:  '
+    FileOffset:      284
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1542571
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_284_7: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_289_8:  '
+    FileOffset:      289
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1542692
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_289_8: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_293_9:  '
+    FileOffset:      293
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1542816
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_293_9: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_297_10:  '
+    FileOffset:      297
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1542947
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_297_10: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_300_11:  '
+    FileOffset:      300
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1543039
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_300_11: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_302_12:  '
+    FileOffset:      302
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1543105
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_302_12: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_305_13:  '
+    FileOffset:      305
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1543214
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_305_13: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_310_14:  '
+    FileOffset:      310
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1543343
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_310_14: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_312_15:  '
+    FileOffset:      312
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1543409
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_312_15: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_315_16:  '
+    FileOffset:      315
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1543518
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_315_16: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_320_17:  '
+    FileOffset:      320
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1543647
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_320_17: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_321_18:  '
+    FileOffset:      321
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1543689
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_321_18: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_323_19:  '
+    FileOffset:      323
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1543765
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_323_19: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_324_20:  '
+    FileOffset:      324
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1543829
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_324_20: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_328_21:  '
+    FileOffset:      328
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1543968
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_328_21: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_329_22:  '
+    FileOffset:      329
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1544032
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_329_22: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_600_1:  '
+    FileOffset:      600
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1549444
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_600_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_606_1:  '
+    FileOffset:      606
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1549616
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_606_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_612_1:  '
+    FileOffset:      612
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1549820
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_612_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_613_2:  '
+    FileOffset:      613
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1549859
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_613_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_630_1:  '
+    FileOffset:      630
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1550482
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_630_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_631_2:  '
+    FileOffset:      631
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1550521
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_631_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_649_1:  '
+    FileOffset:      649
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1551090
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_649_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_650_2:  '
+    FileOffset:      650
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1551132
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_650_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_653_3:  '
+    FileOffset:      653
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1551244
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_653_3: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_654_4:  '
+    FileOffset:      654
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1551294
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_654_4: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_670_1:  '
+    FileOffset:      670
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1551848
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_670_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_672_2:  '
+    FileOffset:      672
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1551914
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_672_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_680_1:  '
+    FileOffset:      680
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1552145
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_680_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_681_2:  '
+    FileOffset:      681
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1552187
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_681_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_693_1:  '
+    FileOffset:      693
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1552547
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_693_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_703_2:  '
+    FileOffset:      703
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1552827
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_703_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_728_1:  '
+    FileOffset:      728
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1553583
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_728_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_772_1:  '
+    FileOffset:      772
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1555016
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_772_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_774_2:  '
+    FileOffset:      774
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1555064
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_774_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_776_3:  '
+    FileOffset:      776
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1555112
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_776_3: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_778_4:  '
+    FileOffset:      778
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1555166
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_778_4: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_791_5:  '
+    FileOffset:      791
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1555639
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_791_5: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_852_1:  '
+    FileOffset:      852
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1557517
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_852_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_853_2:  '
+    FileOffset:      853
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1557557
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_853_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_880_1:  '
+    FileOffset:      880
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1558423
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_880_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_881_2:  '
+    FileOffset:      881
+    FilePath:        /home/miahafiz/BCPNN_HLS/src_hls/Prj.cpp
+    Replacements:    
+      - FilePath:        /home/miahafiz/BCPNN_HLS/HLS_Proj/depolarize_hls/solution1/.autopilot/db/Prj.pp.0.cpp
+        Offset:          1558463
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_881_2: '
+...

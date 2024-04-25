@@ -1,0 +1,159 @@
+<profile>
+
+<section name = "Vitis HLS Report for 'depolarize_hls_Pipeline_computeRow'" level="0">
+<item name = "Date">Thu Apr 25 16:51:31 2024
+</item>
+<item name = "Version">2023.2 (Build 4023990 on Oct 11 2023)</item>
+<item name = "Project">depolarize_hls</item>
+<item name = "Solution">solution1 (Vivado IP Flow Target)</item>
+<item name = "Product family">artix7</item>
+<item name = "Target device">xc7a200t-fbg484-1</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">10.00 ns, 7.147 ns, 2.70 ns</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="8">, min, max, min, max, min, max, Type</keys>
+<column name="">5012, 5012, 50.120 us, 50.120 us, 5012, 5012, no</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="9">Instance, Module, min, max, min, max, min, max, Type</keys>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+<column name="- computeRow">5010, 5010, 16, 5, 5, 1000, yes</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Utilization Estimates" level="0">
+<item name = "Summary"><table name="" hasTotal="1">
+<keys size="6">Name, BRAM_18K, DSP, FF, LUT, URAM</keys>
+<column name="DSP">-, -, -, -, -</column>
+<column name="Expression">-, -, 0, 83, -</column>
+<column name="FIFO">-, -, -, -, -</column>
+<column name="Instance">-, 0, 278, 392, -</column>
+<column name="Memory">-, -, -, -, -</column>
+<column name="Multiplexer">-, -, -, 159, -</column>
+<column name="Register">-, -, 205, -, -</column>
+<specialColumn name="Available">730, 740, 269200, 134600, 0</specialColumn>
+<specialColumn name="Utilization (%)">0, 0, ~0, ~0, 0</specialColumn>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="1">
+<keys size="7">Instance, Module, BRAM_18K, DSP, FF, LUT, URAM</keys>
+<column name="fadd_32ns_32ns_32_6_no_dsp_1_U17">fadd_32ns_32ns_32_6_no_dsp_1, 0, 0, 278, 392, 0</column>
+</table>
+</item>
+<item name = "DSP"><table name="" hasTotal="0">
+<keys size="3">Instance, Module, Expression</keys>
+</table>
+</item>
+<item name = "Memory"><table name="" hasTotal="1">
+<keys size="10">Memory, Module, BRAM_18K, FF, LUT, URAM, Words, Bits, Banks, W*Bits*Banks</keys>
+</table>
+</item>
+<item name = "FIFO"><table name="" hasTotal="1">
+<keys size="8">Name, BRAM_18K, FF, LUT, URAM, Depth, Bits, Size:D*B</keys>
+</table>
+</item>
+<item name = "Expression"><table name="" hasTotal="1">
+<keys size="7">Variable Name, Operation, DSP, FF, LUT, Bitwidth P0, Bitwidth P1</keys>
+<column name="add_ln537_fu_124_p2">+, 0, 0, 38, 31, 1</column>
+<column name="ap_block_pp0_stage1_11001">and, 0, 0, 2, 1, 1</column>
+<column name="icmp_ln537_fu_118_p2">icmp, 0, 0, 39, 32, 32</column>
+<column name="ap_block_state2_pp0_stage1_iter0">or, 0, 0, 2, 1, 1</column>
+<column name="ap_enable_pp0">xor, 0, 0, 2, 1, 2</column>
+</table>
+</item>
+<item name = "Multiplexer"><table name="" hasTotal="1">
+<keys size="5">Name, LUT, Input Size, Bits, Total Bits</keys>
+<column name="Wij_stream_blk_n">9, 2, 1, 2</column>
+<column name="Xi_stream_blk_n">9, 2, 1, 2</column>
+<column name="ap_NS_fsm">25, 6, 1, 6</column>
+<column name="ap_done_int">9, 2, 1, 2</column>
+<column name="ap_enable_reg_pp0_iter0">9, 2, 1, 2</column>
+<column name="ap_enable_reg_pp0_iter1">9, 2, 1, 2</column>
+<column name="ap_enable_reg_pp0_iter3">9, 2, 1, 2</column>
+<column name="ap_loop_exit_ready_pp0_iter1_reg">9, 2, 1, 2</column>
+<column name="ap_loop_exit_ready_pp0_iter2_reg">9, 2, 1, 2</column>
+<column name="ap_sig_allocacmp_j_4_load">9, 2, 31, 62</column>
+<column name="ap_sig_allocacmp_temp_1_load">9, 2, 32, 64</column>
+<column name="grp_fu_97_p0">13, 3, 32, 96</column>
+<column name="grp_fu_97_p1">13, 3, 32, 96</column>
+<column name="j_4_fu_52">9, 2, 31, 62</column>
+<column name="temp_1_fu_48">9, 2, 32, 64</column>
+</table>
+</item>
+<item name = "Register"><table name="" hasTotal="1">
+<keys size="5">Name, FF, LUT, Bits, Const Bits</keys>
+<column name="Wij_stream_read_reg_185">32, 0, 32, 0</column>
+<column name="Xi_stream_read_reg_180">32, 0, 32, 0</column>
+<column name="ap_CS_fsm">5, 0, 5, 0</column>
+<column name="ap_done_reg">1, 0, 1, 0</column>
+<column name="ap_enable_reg_pp0_iter0_reg">1, 0, 1, 0</column>
+<column name="ap_enable_reg_pp0_iter1">1, 0, 1, 0</column>
+<column name="ap_enable_reg_pp0_iter2">1, 0, 1, 0</column>
+<column name="ap_enable_reg_pp0_iter3">1, 0, 1, 0</column>
+<column name="ap_loop_exit_ready_pp0_iter1_reg">1, 0, 1, 0</column>
+<column name="ap_loop_exit_ready_pp0_iter2_reg">1, 0, 1, 0</column>
+<column name="icmp_ln537_reg_176">1, 0, 1, 0</column>
+<column name="icmp_ln537_reg_176_pp0_iter1_reg">1, 0, 1, 0</column>
+<column name="j_4_fu_52">31, 0, 31, 0</column>
+<column name="mul7_i_reg_195">32, 0, 32, 0</column>
+<column name="mul8_i_reg_205">32, 0, 32, 0</column>
+<column name="temp_1_fu_48">32, 0, 32, 0</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Interface" level="0">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="6">RTL Ports, Dir, Bits, Protocol, Source Object, C Type</keys>
+<column name="ap_clk">in, 1, ap_ctrl_hs, depolarize_hls_Pipeline_computeRow, return value</column>
+<column name="ap_rst">in, 1, ap_ctrl_hs, depolarize_hls_Pipeline_computeRow, return value</column>
+<column name="ap_start">in, 1, ap_ctrl_hs, depolarize_hls_Pipeline_computeRow, return value</column>
+<column name="ap_done">out, 1, ap_ctrl_hs, depolarize_hls_Pipeline_computeRow, return value</column>
+<column name="ap_idle">out, 1, ap_ctrl_hs, depolarize_hls_Pipeline_computeRow, return value</column>
+<column name="ap_ready">out, 1, ap_ctrl_hs, depolarize_hls_Pipeline_computeRow, return value</column>
+<column name="grp_fu_316_p_din0">out, 32, ap_ctrl_hs, depolarize_hls_Pipeline_computeRow, return value</column>
+<column name="grp_fu_316_p_din1">out, 32, ap_ctrl_hs, depolarize_hls_Pipeline_computeRow, return value</column>
+<column name="grp_fu_316_p_dout0">in, 32, ap_ctrl_hs, depolarize_hls_Pipeline_computeRow, return value</column>
+<column name="grp_fu_316_p_ce">out, 1, ap_ctrl_hs, depolarize_hls_Pipeline_computeRow, return value</column>
+<column name="temp">in, 32, ap_none, temp, scalar</column>
+<column name="Ni">in, 32, ap_none, Ni, scalar</column>
+<column name="Xi_stream_dout">in, 32, ap_fifo, Xi_stream, pointer</column>
+<column name="Xi_stream_empty_n">in, 1, ap_fifo, Xi_stream, pointer</column>
+<column name="Xi_stream_read">out, 1, ap_fifo, Xi_stream, pointer</column>
+<column name="Wij_stream_dout">in, 32, ap_fifo, Wij_stream, pointer</column>
+<column name="Wij_stream_empty_n">in, 1, ap_fifo, Wij_stream, pointer</column>
+<column name="Wij_stream_read">out, 1, ap_fifo, Wij_stream, pointer</column>
+<column name="alpha">in, 32, ap_none, alpha, scalar</column>
+<column name="temp_1_out">out, 32, ap_vld, temp_1_out, pointer</column>
+<column name="temp_1_out_ap_vld">out, 1, ap_vld, temp_1_out, pointer</column>
+</table>
+</item>
+</section>
+</profile>

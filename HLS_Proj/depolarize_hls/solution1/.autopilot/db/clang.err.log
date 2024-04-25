@@ -1,0 +1,4 @@
+../src_hls/Prj.cpp:576:34: warning: unexpected pragma argument 'compute_depolarize', expects function/operation [-Winvalid-hls-pragmas]
+#pragma HLS ALLOCATION instances=compute_depolarize limit=2
+                                 ^
+1 warning generated.

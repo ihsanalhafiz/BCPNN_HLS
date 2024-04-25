@@ -1,4 +1,4 @@
-SRC_DIR		= ./src
+SRC_DIR		?= ./src
 APP_DIR     = ./apps
 
 DEPS 		= $(SRC_DIR)/Pop.h $(SRC_DIR)/Prj.h $(SRC_DIR)/Globals.h $(SRC_DIR)/Pats.h $(SRC_DIR)/Parseparam.h $(SRC_DIR)/Logger.h

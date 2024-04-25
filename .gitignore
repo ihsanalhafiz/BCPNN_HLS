@@ -41,3 +41,9 @@ VitisHLS_Proj/.settings/VitisHLS_Proj.Debug.launch
 VitisHLS_Proj/.settings/language.settings.xml
 VitisHLS_Proj/.apc/autopilot.apfmapping
 VitisHLS_Proj/hls.app
+src_hls/Globals.o
+src_hls/Logger.o
+src_hls/Parseparam.o
+src_hls/Pats.o
+src_hls/Pop.o
+src_hls/Prj.o
